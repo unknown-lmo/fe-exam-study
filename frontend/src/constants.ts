@@ -1,7 +1,7 @@
 import type { CategoryId, Difficulty } from './types';
 
 // API設定
-export const API_BASE = 'http://localhost:3001/api';
+export const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3001/api';
 
 // LocalStorageキー
 export const STORAGE_KEYS = {
