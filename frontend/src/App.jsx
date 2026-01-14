@@ -5,6 +5,7 @@ import History from './components/History';
 import Glossary from './components/Glossary';
 import { fetchCategories, fetchProgress } from './api';
 import { usePresenterMode } from './hooks/usePresenterMode';
+import { useTheme } from './hooks/useTheme';
 import './App.css';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [quickStats, setQuickStats] = useState(null);
   const { presenterMode, togglePresenterMode, isVegetaMode } = usePresenterMode();
+  const { isDark, toggleTheme } = useTheme();
 
   useEffect(() => {
     loadInitialData();
@@ -102,14 +104,23 @@ function App() {
         </div>
       )}
 
-      <div className="presenter-toggle-section">
+      <div className="toggle-buttons-section">
         <button
-          className={`presenter-toggle-button ${isVegetaMode ? 'vegeta-active' : ''}`}
+          className="toggle-button theme-toggle"
+          onClick={toggleTheme}
+        >
+          <span className="toggle-icon">{isDark ? '🌙' : '☀️'}</span>
+          <span className="toggle-label">
+            {isDark ? 'ダーク' : 'ライト'}
+          </span>
+        </button>
+        <button
+          className="toggle-button presenter-toggle"
           onClick={togglePresenterMode}
         >
           <span className="toggle-icon">{isVegetaMode ? '👑' : '📚'}</span>
           <span className="toggle-label">
-            {isVegetaMode ? 'ベジータモード' : 'ノーマルモード'}
+            {isVegetaMode ? 'ベジータ' : 'ノーマル'}
           </span>
         </button>
       </div>
