@@ -341,7 +341,16 @@ function Quiz({
                   <div key={term.id} className="related-term-item">
                     <div
                       className="related-term-header"
+                      role="button"
+                      tabIndex={0}
                       onClick={() => toggleTerm(term.id)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          toggleTerm(term.id);
+                        }
+                      }}
+                      aria-expanded={expandedTerms[term.id]}
                     >
                       <span className="term-name">{term.term}</span>
                       <span className="term-meaning">{term.meaning}</span>

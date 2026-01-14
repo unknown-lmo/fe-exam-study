@@ -143,6 +143,7 @@ function QuestionList({ onSelectQuestion, onBack }: QuestionListProps) {
             placeholder="キーワードで検索..."
             value={filter.search}
             onChange={e => setFilter(prev => ({ ...prev, search: e.target.value }))}
+            aria-label="問題をキーワードで検索"
           />
           <button type="submit">検索</button>
         </form>
@@ -158,7 +159,15 @@ function QuestionList({ onSelectQuestion, onBack }: QuestionListProps) {
             <div
               key={q.id}
               className={`question-list-item status-${q.status}`}
+              role="button"
+              tabIndex={0}
               onClick={() => onSelectQuestion(q.id)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onSelectQuestion(q.id);
+                }
+              }}
             >
               <span className={`status-icon ${q.status}`}>
                 {STATUS_ICONS[q.status]}

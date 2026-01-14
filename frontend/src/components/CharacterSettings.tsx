@@ -280,7 +280,7 @@ function CharacterSettings({
       <div className="character-settings">
         <div className="settings-header">
           <h2>キャラクター設定</h2>
-          <button className="close-button" onClick={onClose}>×</button>
+          <button className="close-button" onClick={onClose} aria-label="閉じる">×</button>
         </div>
 
         <div className="settings-content">

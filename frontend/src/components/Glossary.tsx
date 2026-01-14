@@ -87,6 +87,7 @@ function Glossary({
             placeholder="用語を検索..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
+            aria-label="用語を検索"
           />
         </div>
       </div>
@@ -102,7 +103,16 @@ function Glossary({
             >
               <div
                 className="glossary-header"
+                role="button"
+                tabIndex={0}
                 onClick={() => setExpandedTerm(expandedTerm === term.id ? null : term.id)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setExpandedTerm(expandedTerm === term.id ? null : term.id);
+                  }
+                }}
+                aria-expanded={expandedTerm === term.id}
               >
                 <div className="term-main">
                   <span className="term-name">{term.term}</span>
