@@ -34,6 +34,7 @@ function CharacterSettings({
   const [errors, setErrors] = useState({});
   const [editingDialogIndex, setEditingDialogIndex] = useState(null);
   const [editingDialogText, setEditingDialogText] = useState('');
+  const [editingDialogCategory, setEditingDialogCategory] = useState(null);
 
   // 選択されたキャラクターが変わったら編集データを更新
   useEffect(() => {
@@ -105,9 +106,10 @@ function CharacterSettings({
   };
 
   // セリフを編集開始
-  const handleEditDialogStart = (index, text) => {
+  const handleEditDialogStart = (index, text, category = null) => {
     setEditingDialogIndex(index);
     setEditingDialogText(text);
+    setEditingDialogCategory(category);
   };
 
   // セリフを編集確定
@@ -132,6 +134,7 @@ function CharacterSettings({
 
     setEditingDialogIndex(null);
     setEditingDialogText('');
+    setEditingDialogCategory(null);
     setErrors(prev => ({ ...prev, dialog: null }));
   };
 
@@ -155,6 +158,7 @@ function CharacterSettings({
     setSelectedCharacterId(e.target.value);
     setActiveDialogTab('questionIntro');
     setEditingDialogIndex(null);
+    setEditingDialogCategory(null);
   };
 
   // 新規キャラクター作成
@@ -336,6 +340,7 @@ function CharacterSettings({
                   onClick={() => {
                     setActiveDialogTab(type.id);
                     setEditingDialogIndex(null);
+                    setEditingDialogCategory(null);
                   }}
                 >
                   {type.name}
@@ -346,6 +351,7 @@ function CharacterSettings({
                 onClick={() => {
                   setActiveDialogTab('quizComplete');
                   setEditingDialogIndex(null);
+                  setEditingDialogCategory(null);
                 }}
               >
                 結果発表
@@ -364,7 +370,7 @@ function CharacterSettings({
                           (dialog, index) => (
                             <div key={index} className="dialog-item">
                               {editingDialogIndex === index &&
-                              activeDialogTab === 'quizComplete' ? (
+                              editingDialogCategory === cat.id ? (
                                 <div className="dialog-edit-form">
                                   <input
                                     type="text"
@@ -384,6 +390,7 @@ function CharacterSettings({
                                     onClick={() => {
                                       setEditingDialogIndex(null);
                                       setEditingDialogText('');
+                                      setEditingDialogCategory(null);
                                     }}
                                   >
                                     キャンセル
@@ -394,7 +401,7 @@ function CharacterSettings({
                                   <span className="dialog-text">{dialog}</span>
                                   <div className="dialog-actions">
                                     <button
-                                      onClick={() => handleEditDialogStart(index, dialog)}
+                                      onClick={() => handleEditDialogStart(index, dialog, cat.id)}
                                     >
                                       編集
                                     </button>
