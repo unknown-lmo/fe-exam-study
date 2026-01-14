@@ -3,7 +3,20 @@ import { fetchRandomQuestions, fetchWeakQuestions, submitAnswer } from '../api';
 import PresenterDialog from './PresenterDialog';
 import { getRandomDialog, transformExplanation } from '../config/presenters';
 
-function Quiz({ mode, category, onComplete, presenterMode = 'normal' }) {
+const defaultOptions = { count: 5, shuffle: false, timer: null };
+
+// 配列をシャッフルするユーティリティ関数
+function shuffleArray(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+function Quiz({ mode, category, options = defaultOptions, onComplete, presenterMode = 'normal' }) {
+  const { count, shuffle } = options;
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -17,7 +30,7 @@ function Quiz({ mode, category, onComplete, presenterMode = 'normal' }) {
 
   useEffect(() => {
     loadQuestions();
-  }, [mode, category]);
+  }, [mode, category, count, shuffle]);
 
   // 問題が変わったら出題セリフを表示
   useEffect(() => {
@@ -34,13 +47,28 @@ function Quiz({ mode, category, onComplete, presenterMode = 'normal' }) {
       if (mode === 'weak') {
         data = await fetchWeakQuestions();
       } else {
-        data = await fetchRandomQuestions(category, 5);
+        // count=0は全問出題
+        const questionCount = count === 0 ? 1000 : count;
+        data = await fetchRandomQuestions(category, questionCount);
       }
 
       if (data.length === 0) {
         setQuestions([]);
       } else {
-        setQuestions(data);
+        // 選択肢シャッフルが有効な場合
+        const processedData = shuffle ? data.map(q => {
+          const indices = [0, 1, 2, 3];
+          const shuffledIndices = shuffleArray(indices);
+          const newCorrectIndex = shuffledIndices.indexOf(q.correctAnswer);
+          return {
+            ...q,
+            choices: shuffledIndices.map(i => q.choices[i]),
+            originalCorrectAnswer: q.correctAnswer,
+            correctAnswer: newCorrectIndex,
+            shuffleMap: shuffledIndices  // シャッフル後→元のインデックスマッピング
+          };
+        }) : data;
+        setQuestions(processedData);
       }
     } catch (error) {
       console.error('問題の取得に失敗:', error);
@@ -52,7 +80,11 @@ function Quiz({ mode, category, onComplete, presenterMode = 'normal' }) {
     if (selectedAnswer === null) return;
 
     const question = questions[currentIndex];
-    const response = await submitAnswer(question.id, selectedAnswer);
+    // シャッフル時は元のインデックスに変換
+    const originalAnswer = question.shuffleMap
+      ? question.shuffleMap[selectedAnswer]
+      : selectedAnswer;
+    const response = await submitAnswer(question.id, originalAnswer);
     setResult(response);
     // 回答時にセリフを固定で保存
     setResultDialog(getRandomDialog(presenterMode, response.isCorrect ? 'correct' : 'incorrect'));

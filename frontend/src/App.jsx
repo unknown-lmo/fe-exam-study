@@ -6,6 +6,7 @@ import Glossary from './components/Glossary';
 import { fetchCategories, fetchProgress } from './api';
 import { usePresenterMode } from './hooks/usePresenterMode';
 import { useTheme } from './hooks/useTheme';
+import { useQuizOptions } from './hooks/useQuizOptions';
 import './App.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   const [quickStats, setQuickStats] = useState(null);
   const { presenterMode, togglePresenterMode, isVegetaMode } = usePresenterMode();
   const { isDark, toggleTheme } = useTheme();
+  const { options: quizOptions, updateOption } = useQuizOptions();
 
   useEffect(() => {
     loadInitialData();
@@ -49,6 +51,7 @@ function App() {
         <Quiz
           mode={view === 'quiz-weak' ? 'weak' : 'normal'}
           category={selectedCategory}
+          options={quizOptions}
           onComplete={handleQuizComplete}
           presenterMode={presenterMode}
         />
@@ -126,6 +129,35 @@ function App() {
       </div>
 
       <main className="menu">
+        <section className="menu-section">
+          <h3>クイズ設定</h3>
+          <div className="quiz-options">
+            <div className="option-group">
+              <span className="option-label">問題数</span>
+              <div className="option-buttons">
+                {[5, 10, 20].map(count => (
+                  <button
+                    key={count}
+                    className={`option-button ${quizOptions.count === count ? 'active' : ''}`}
+                    onClick={() => updateOption('count', count)}
+                  >
+                    {count}問
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="option-group">
+              <span className="option-label">選択肢</span>
+              <button
+                className={`option-toggle ${quizOptions.shuffle ? 'active' : ''}`}
+                onClick={() => updateOption('shuffle', !quizOptions.shuffle)}
+              >
+                {quizOptions.shuffle ? 'シャッフル ON' : 'シャッフル OFF'}
+              </button>
+            </div>
+          </div>
+        </section>
+
         <section className="menu-section">
           <h3>分野を選んで学習</h3>
           <div className="category-buttons">
