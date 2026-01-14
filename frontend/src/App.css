@@ -2447,3 +2447,184 @@ body {
     justify-content: center;
   }
 }
+
+/* =============================================
+   画像クロッパー スタイル
+   ============================================= */
+
+.image-cropper-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.image-cropper {
+  background: var(--bg-primary, #ffffff);
+  border-radius: 12px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.cropper-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color, #e2e8f0);
+}
+
+.cropper-header h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  text-align: center;
+}
+
+.cropper-content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.cropper-preview-container {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  background: #f0f0f0;
+  cursor: grab;
+  touch-action: none;
+}
+
+.cropper-preview-container:active {
+  cursor: grabbing;
+}
+
+.cropper-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cropper-guide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.cropper-hint {
+  font-size: 0.875rem;
+  color: var(--text-secondary, #64748b);
+}
+
+.cropper-zoom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.zoom-label {
+  font-size: 0.875rem;
+  color: var(--text-secondary, #64748b);
+  min-width: 45px;
+}
+
+.zoom-slider {
+  flex: 1;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--border-color, #e2e8f0);
+  border-radius: 3px;
+  outline: none;
+}
+
+.zoom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-color, #3b82f6);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.zoom-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-color, #3b82f6);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.zoom-value {
+  font-size: 0.875rem;
+  color: var(--text-primary, #1e293b);
+  min-width: 45px;
+  text-align: right;
+}
+
+.cropper-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-color, #e2e8f0);
+}
+
+.cropper-cancel {
+  padding: 10px 24px;
+  border: 1px solid var(--border-color, #e2e8f0);
+  background: var(--bg-primary, #ffffff);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.cropper-cancel:hover {
+  background: var(--bg-secondary, #f8fafc);
+}
+
+.cropper-confirm {
+  padding: 10px 24px;
+  border: none;
+  background: var(--accent-color, #3b82f6);
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.cropper-confirm:hover {
+  opacity: 0.9;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 400px) {
+  .cropper-preview-container {
+    width: 200px;
+    height: 200px;
+  }
+}
