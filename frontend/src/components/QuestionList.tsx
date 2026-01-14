@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { fetchQuestionsList, fetchCategories } from '../api';
 import { DIFFICULTY_LABELS } from '../constants';
+import { useDebounce } from '../hooks/useDebounce';
 import type { Category, CategoryId, Difficulty, QuestionListItem, QuestionStatus } from '../types';
 
 interface QuestionFilter {
@@ -29,6 +30,9 @@ function QuestionList({ onSelectQuestion, onBack }: QuestionListProps) {
     difficulty: null,
     search: ''
   });
+
+  // 検索テキストをデバウンス（300ms）
+  const debouncedSearch = useDebounce(filter.search, 300);
 
   useEffect(() => {
     loadCategories();
@@ -74,21 +78,23 @@ function QuestionList({ onSelectQuestion, onBack }: QuestionListProps) {
     }));
   }
 
-  // 検索フィルタを適用した問題リスト
-  const filteredQuestions = filter.search
-    ? questions.filter(q =>
-        q.question.toLowerCase().includes(filter.search.toLowerCase()) ||
-        q.subcategory.toLowerCase().includes(filter.search.toLowerCase())
-      )
-    : questions;
+  // 検索フィルタを適用した問題リスト（メモ化）
+  const filteredQuestions = useMemo(() => {
+    if (!debouncedSearch) return questions;
+    const searchLower = debouncedSearch.toLowerCase();
+    return questions.filter(q =>
+      q.question.toLowerCase().includes(searchLower) ||
+      q.subcategory.toLowerCase().includes(searchLower)
+    );
+  }, [questions, debouncedSearch]);
 
-  // 統計情報
-  const stats = {
+  // 統計情報（メモ化）
+  const stats = useMemo(() => ({
     total: filteredQuestions.length,
     correct: filteredQuestions.filter(q => q.status === 'correct').length,
     incorrect: filteredQuestions.filter(q => q.status === 'incorrect').length,
     unanswered: filteredQuestions.filter(q => q.status === 'unanswered').length
-  };
+  }), [filteredQuestions]);
 
   if (loading) {
     return <div className="question-list-loading">読み込み中...</div>;

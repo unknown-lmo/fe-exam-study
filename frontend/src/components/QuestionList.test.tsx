@@ -252,8 +252,11 @@ describe('QuestionList', () => {
       const searchInput = screen.getByPlaceholderText('キーワードで検索...');
       fireEvent.change(searchInput, { target: { value: 'CPU' } });
 
+      // デバウンス後の結果を待つ
+      await waitFor(() => {
+        expect(screen.queryByText('データベースの正規化について説明してください。')).not.toBeInTheDocument();
+      });
       expect(screen.getByText('CPUの役割は何ですか？')).toBeInTheDocument();
-      expect(screen.queryByText('データベースの正規化について説明してください。')).not.toBeInTheDocument();
     });
 
     it('should search by subcategory', async () => {
@@ -266,7 +269,10 @@ describe('QuestionList', () => {
       const searchInput = screen.getByPlaceholderText('キーワードで検索...');
       fireEvent.change(searchInput, { target: { value: 'セキュリティ' } });
 
-      expect(screen.queryByText('CPUの役割は何ですか？')).not.toBeInTheDocument();
+      // デバウンス後の結果を待つ
+      await waitFor(() => {
+        expect(screen.queryByText('CPUの役割は何ですか？')).not.toBeInTheDocument();
+      });
       expect(screen.getByText('ネットワークセキュリティの基本原則は？')).toBeInTheDocument();
     });
 
@@ -280,7 +286,10 @@ describe('QuestionList', () => {
       const searchInput = screen.getByPlaceholderText('キーワードで検索...');
       fireEvent.change(searchInput, { target: { value: 'NONEXISTENT' } });
 
-      expect(screen.getByText('該当する問題がありません')).toBeInTheDocument();
+      // デバウンス後の結果を待つ
+      await waitFor(() => {
+        expect(screen.getByText('該当する問題がありません')).toBeInTheDocument();
+      });
     });
   });
 

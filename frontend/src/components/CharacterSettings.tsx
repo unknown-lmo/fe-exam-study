@@ -70,7 +70,7 @@ function CharacterSettings({
   useEffect(() => {
     const character = characters.find(c => c.id === selectedCharacterId);
     if (character) {
-      setEditingCharacter(JSON.parse(JSON.stringify(character)));
+      setEditingCharacter(structuredClone(character));
     }
   }, [selectedCharacterId, characters]);
 

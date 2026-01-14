@@ -174,8 +174,11 @@ describe('Glossary', () => {
       const searchInput = screen.getByPlaceholderText('用語を検索...');
       fireEvent.change(searchInput, { target: { value: 'CPU' } });
 
+      // デバウンス後の結果を待つ
+      await waitFor(() => {
+        expect(screen.queryByText('RAM')).not.toBeInTheDocument();
+      });
       expect(screen.getByText('CPU')).toBeInTheDocument();
-      expect(screen.queryByText('RAM')).not.toBeInTheDocument();
       expect(screen.queryByText('ERP')).not.toBeInTheDocument();
     });
 
@@ -189,7 +192,10 @@ describe('Glossary', () => {
       const searchInput = screen.getByPlaceholderText('用語を検索...');
       fireEvent.change(searchInput, { target: { value: '主記憶' } });
 
-      expect(screen.queryByText('CPU')).not.toBeInTheDocument();
+      // デバウンス後の結果を待つ
+      await waitFor(() => {
+        expect(screen.queryByText('CPU')).not.toBeInTheDocument();
+      });
       expect(screen.getByText('RAM')).toBeInTheDocument();
     });
 
@@ -203,7 +209,10 @@ describe('Glossary', () => {
       const searchInput = screen.getByPlaceholderText('用語を検索...');
       fireEvent.change(searchInput, { target: { value: 'NONEXISTENT' } });
 
-      expect(screen.getByText('該当する用語がありません')).toBeInTheDocument();
+      // デバウンス後の結果を待つ
+      await waitFor(() => {
+        expect(screen.getByText('該当する用語がありません')).toBeInTheDocument();
+      });
     });
 
     it('should use initialSearch prop', async () => {

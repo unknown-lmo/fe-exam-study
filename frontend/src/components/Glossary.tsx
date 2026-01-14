@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { fetchGlossary } from '../api';
 import { CATEGORY_NAMES } from '../constants';
+import { useDebounce } from '../hooks/useDebounce';
 import type { GlossaryTerm, CategoryId, Character, PresenterMode } from '../types';
 
 interface GlossaryProps {
@@ -29,6 +30,9 @@ function Glossary({
   const [searchText, setSearchText] = useState(initialSearch);
   const [expandedTerm, setExpandedTerm] = useState<string | null>(null);
 
+  // 検索テキストをデバウンス（300ms）
+  const debouncedSearchText = useDebounce(searchText, 300);
+
   useEffect(() => {
     loadGlossary();
   }, [selectedCategory]);
@@ -44,15 +48,18 @@ function Glossary({
     setLoading(false);
   }
 
-  const filteredTerms = terms.filter(term => {
-    if (!searchText) return true;
-    const search = searchText.toLowerCase();
-    return (
-      term.term.toLowerCase().includes(search) ||
-      term.meaning.includes(searchText) ||
-      term.description.includes(searchText)
-    );
-  });
+  // フィルタリング結果をメモ化
+  const filteredTerms = useMemo(() => {
+    return terms.filter(term => {
+      if (!debouncedSearchText) return true;
+      const search = debouncedSearchText.toLowerCase();
+      return (
+        term.term.toLowerCase().includes(search) ||
+        term.meaning.includes(debouncedSearchText) ||
+        term.description.includes(debouncedSearchText)
+      );
+    });
+  }, [terms, debouncedSearchText]);
 
   if (loading) {
     return <div className="glossary-loading">読み込み中...</div>;
