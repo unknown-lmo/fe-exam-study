@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchQuestionsList, fetchCategories } from '../api';
+import { DIFFICULTY_LABELS } from '../constants';
 import type { Category, CategoryId, Difficulty, QuestionListItem, QuestionStatus } from '../types';
 
 interface QuestionFilter {
@@ -12,12 +13,6 @@ interface QuestionListProps {
   onSelectQuestion: (questionId: string) => void;
   onBack: () => void;
 }
-
-const DIFFICULTY_LABELS: Record<Difficulty, string> = {
-  easy: '易',
-  medium: '中',
-  hard: '難'
-};
 
 const STATUS_ICONS: Record<QuestionStatus, string> = {
   correct: '○',

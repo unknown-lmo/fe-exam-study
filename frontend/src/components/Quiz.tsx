@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchRandomQuestions, fetchWeakQuestions, fetchQuestionById, submitAnswer } from '../api';
 import PresenterDialog from './PresenterDialog';
-import { DEFAULT_QUIZ_OPTIONS } from '../constants';
+import { DEFAULT_QUIZ_OPTIONS, DIFFICULTY_LABELS } from '../constants';
 import type {
   Question,
   ShuffledQuestion,
@@ -18,12 +18,6 @@ import type {
 } from '../types';
 
 const defaultOptions: QuizOptions = { ...DEFAULT_QUIZ_OPTIONS };
-
-const DIFFICULTY_LABELS: Record<Difficulty, string> = {
-  easy: '易',
-  medium: '中',
-  hard: '難'
-};
 
 // 配列をシャッフルするユーティリティ関数
 function shuffleArray<T>(array: T[]): T[] {

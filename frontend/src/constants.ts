@@ -1,3 +1,5 @@
+import type { CategoryId, Difficulty } from './types';
+
 // API設定
 export const API_BASE = 'http://localhost:3001/api';
 
@@ -44,4 +46,18 @@ export const CHARACTER_NAME_LIMITS = {
 export const DIALOG_LIMITS = {
   MIN_LENGTH: 1,
   MAX_LENGTH: 100
+} as const;
+
+// カテゴリ名マッピング
+export const CATEGORY_NAMES: Record<CategoryId, string> = {
+  technology: 'テクノロジ系',
+  management: 'マネジメント系',
+  strategy: 'ストラテジ系'
+} as const;
+
+// 難易度ラベル
+export const DIFFICULTY_LABELS: Record<Difficulty, string> = {
+  easy: '易',
+  medium: '中',
+  hard: '難'
 } as const;

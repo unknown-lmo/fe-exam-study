@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchGlossary } from '../api';
+import { CATEGORY_NAMES } from '../constants';
 import type { GlossaryTerm, CategoryId, Character, PresenterMode } from '../types';
 
 interface GlossaryProps {
@@ -10,12 +11,6 @@ interface GlossaryProps {
   activeCharacter?: Character;
   transformExplanation?: (text: string) => string;
 }
-
-const categoryNames: Record<CategoryId, string> = {
-  technology: 'テクノロジ系',
-  management: 'マネジメント系',
-  strategy: 'ストラテジ系'
-};
 
 function Glossary({
   onBack,
@@ -75,7 +70,7 @@ function Glossary({
           >
             すべて
           </button>
-          {(Object.entries(categoryNames) as [CategoryId, string][]).map(([key, name]) => (
+          {(Object.entries(CATEGORY_NAMES) as [CategoryId, string][]).map(([key, name]) => (
             <button
               key={key}
               className={selectedCategory === key ? 'active' : ''}
@@ -156,7 +151,7 @@ function Glossary({
                   )}
 
                   <div className="term-category-badge">
-                    {categoryNames[term.category]} / {term.subcategory}
+                    {CATEGORY_NAMES[term.category]} / {term.subcategory}
                   </div>
                 </div>
               )}

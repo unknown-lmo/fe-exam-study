@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchProgress, resetProgress } from '../api';
+import { CATEGORY_NAMES } from '../constants';
 import type { CategoryId, CategoryStats, Progress as ProgressData } from '../types';
 
 interface ProgressProps {
@@ -40,12 +41,6 @@ function Progress({ onBack }: ProgressProps) {
     return <div className="progress-error">進捗データの取得に失敗しました</div>;
   }
 
-  const categoryNames: Record<CategoryId, string> = {
-    technology: 'テクノロジ系',
-    management: 'マネジメント系',
-    strategy: 'ストラテジ系'
-  };
-
   return (
     <div className="progress">
       <h2>学習進捗</h2>
@@ -74,7 +69,7 @@ function Progress({ onBack }: ProgressProps) {
             : 0;
           return (
             <div key={key} className="category-stat-card">
-              <h4>{categoryNames[key]}</h4>
+              <h4>{CATEGORY_NAMES[key]}</h4>
               <div className="progress-bar-container">
                 <div
                   className="progress-bar"
