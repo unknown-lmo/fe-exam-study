@@ -16,7 +16,7 @@ function shuffleArray(array) {
 }
 
 function Quiz({ mode, category, options = defaultOptions, onComplete, presenterMode = 'normal' }) {
-  const { count, shuffle } = options;
+  const { count, shuffle, timer } = options;
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -27,6 +27,7 @@ function Quiz({ mode, category, options = defaultOptions, onComplete, presenterM
   const [expandedTerms, setExpandedTerms] = useState({});
   const [introDialog, setIntroDialog] = useState('');
   const [resultDialog, setResultDialog] = useState('');
+  const [timeLeft, setTimeLeft] = useState(timer);
 
   useEffect(() => {
     loadQuestions();
@@ -39,6 +40,29 @@ function Quiz({ mode, category, options = defaultOptions, onComplete, presenterM
       setIntroDialog(intro);
     }
   }, [currentIndex, questions.length, presenterMode, result]);
+
+  // タイマーリセット（問題が変わったとき）
+  useEffect(() => {
+    if (timer) {
+      setTimeLeft(timer);
+    }
+  }, [currentIndex, timer]);
+
+  // タイマーカウントダウン
+  useEffect(() => {
+    if (!timer || result || loading || finished) return;
+
+    if (timeLeft <= 0) {
+      handleTimeout();
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setTimeLeft(prev => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timer, timeLeft, result, loading, finished]);
 
   async function loadQuestions() {
     setLoading(true);
@@ -94,6 +118,19 @@ function Quiz({ mode, category, options = defaultOptions, onComplete, presenterM
     }));
   }
 
+  async function handleTimeout() {
+    setTimeLeft(-1);  // 二重呼び出し防止
+    const question = questions[currentIndex];
+    // タイムアウト時は-1を送信（未回答）
+    const response = await submitAnswer(question.id, -1);
+    setResult(response);
+    setResultDialog(getRandomDialog(presenterMode, 'timeout'));
+    setScore(prev => ({
+      correct: prev.correct,
+      total: prev.total + 1
+    }));
+  }
+
   function handleNext() {
     if (currentIndex < questions.length - 1) {
       setCurrentIndex(prev => prev + 1);
@@ -101,6 +138,7 @@ function Quiz({ mode, category, options = defaultOptions, onComplete, presenterM
       setResult(null);
       setResultDialog('');
       setExpandedTerms({});
+      if (timer) setTimeLeft(timer);  // タイマーをリセット
     } else {
       setFinished(true);
     }
@@ -120,6 +158,7 @@ function Quiz({ mode, category, options = defaultOptions, onComplete, presenterM
     setResultDialog('');
     setScore({ correct: 0, total: 0 });
     setFinished(false);
+    if (timer) setTimeLeft(timer);  // タイマーをリセット
     loadQuestions();
   }
 
@@ -172,6 +211,20 @@ function Quiz({ mode, category, options = defaultOptions, onComplete, presenterM
         <span className="quiz-category">{question.categoryName}</span>
         <span className="quiz-subcategory">{question.subcategory}</span>
       </div>
+
+      {timer && !result && (
+        <div className="quiz-timer">
+          <div className="timer-bar-container">
+            <div
+              className={`timer-bar ${timeLeft <= 10 ? 'warning' : ''} ${timeLeft <= 5 ? 'danger' : ''}`}
+              style={{ width: `${(timeLeft / timer) * 100}%` }}
+            />
+          </div>
+          <span className={`timer-text ${timeLeft <= 10 ? 'warning' : ''} ${timeLeft <= 5 ? 'danger' : ''}`}>
+            {timeLeft}秒
+          </span>
+        </div>
+      )}
 
       {!result && introDialog && (
         <PresenterDialog

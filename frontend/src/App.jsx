@@ -155,6 +155,20 @@ function App() {
                 {quizOptions.shuffle ? 'シャッフル ON' : 'シャッフル OFF'}
               </button>
             </div>
+            <div className="option-group">
+              <span className="option-label">制限時間</span>
+              <div className="option-buttons">
+                {[null, 30, 60, 90].map(time => (
+                  <button
+                    key={time ?? 'none'}
+                    className={`option-button ${quizOptions.timer === time ? 'active' : ''}`}
+                    onClick={() => updateOption('timer', time)}
+                  >
+                    {time === null ? 'なし' : `${time}秒`}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 

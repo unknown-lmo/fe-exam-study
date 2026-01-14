@@ -1398,3 +1398,79 @@ body {
     font-size: 0.85rem;
   }
 }
+
+/* ====================== */
+/* Quiz Timer Styles      */
+/* ====================== */
+
+.quiz-timer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  background: var(--card-bg-secondary);
+  border-radius: 10px;
+}
+
+.timer-bar-container {
+  flex: 1;
+  height: 12px;
+  background: var(--card-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.timer-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  border-radius: 6px;
+  transition: width 1s linear;
+}
+
+.timer-bar.warning {
+  background: linear-gradient(90deg, #ffc107 0%, #ff9800 100%);
+}
+
+.timer-bar.danger {
+  background: linear-gradient(90deg, #dc3545 0%, #c62828 100%);
+  animation: pulse 0.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.timer-text {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--text-primary);
+  min-width: 50px;
+  text-align: right;
+}
+
+.timer-text.warning {
+  color: #ff9800;
+}
+
+.timer-text.danger {
+  color: #dc3545;
+  animation: pulse 0.5s ease-in-out infinite;
+}
+
+@media (max-width: 600px) {
+  .quiz-timer {
+    padding: 8px 12px;
+    gap: 10px;
+  }
+
+  .timer-bar-container {
+    height: 10px;
+  }
+
+  .timer-text {
+    font-size: 1rem;
+    min-width: 45px;
+  }
+}
