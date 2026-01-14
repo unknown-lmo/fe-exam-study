@@ -57,15 +57,28 @@ export interface AnswerResult {
   relatedTerms?: GlossaryTerm[];
 }
 
-/** 学習進捗 */
-export interface Progress {
+/** カテゴリ統計（APIレスポンス） */
+export interface CategoryStats {
   totalAttempts: number;
-  correctAttempts: number;
-  overallCorrectRate: number;
-  weakQuestionsCount: number;
-  categoryProgress: CategoryProgress[];
+  correctCount: number;
+  lastStudiedAt: string | null;
 }
 
+/** 学習進捗（APIレスポンス） */
+export interface Progress {
+  user: {
+    id: string;
+    createdAt: string;
+    lastAccessedAt: string;
+  };
+  categoryStats: Record<CategoryId, CategoryStats>;
+  totalAttempts: number;
+  totalCorrect: number;
+  overallCorrectRate: number | string;
+  weakQuestionsCount: number;
+}
+
+/** カテゴリ別進捗（UI表示用） */
 export interface CategoryProgress {
   category: CategoryId;
   categoryName: string;
@@ -74,13 +87,22 @@ export interface CategoryProgress {
   rate: number;
 }
 
-/** 履歴エントリ */
+/** 履歴内の問題情報 */
+export interface HistoryQuestionInfo {
+  id: string;
+  category: CategoryId;
+  categoryName: string;
+  subcategory: string;
+  questionText: string;
+}
+
+/** 履歴エントリ（APIレスポンス） */
 export interface HistoryEntry {
   questionId: string;
-  question: string;
+  selectedAnswer: number;
   isCorrect: boolean;
-  timestamp: string;
-  categoryName: string;
+  answeredAt: string;
+  question: HistoryQuestionInfo | null;
 }
 
 // ========================================
@@ -152,6 +174,22 @@ export interface CharacterSettingsState {
 // ========================================
 // クイズ関連
 // ========================================
+
+/** 問題ステータス */
+export type QuestionStatus = 'correct' | 'incorrect' | 'unanswered';
+
+/** 問題一覧アイテム（APIレスポンス） */
+export interface QuestionListItem {
+  id: string;
+  category: CategoryId;
+  categoryName: string;
+  subcategory: string;
+  question: string;
+  difficulty: Difficulty;
+  status: QuestionStatus;
+  attempts: number;
+  correctCount: number;
+}
 
 /** クイズモード */
 export type QuizMode = 'normal' | 'weak' | 'single';

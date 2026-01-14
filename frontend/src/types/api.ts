@@ -1,6 +1,7 @@
 import type {
   Category,
   Question,
+  QuestionListItem,
   GlossaryTerm,
   AnswerResult,
   Progress,
@@ -15,6 +16,7 @@ import type {
 
 export type CategoriesResponse = Category[];
 export type QuestionsResponse = Question[];
+export type QuestionListResponse = QuestionListItem[];
 export type QuestionResponse = Question | null;
 export type GlossaryResponse = GlossaryTerm[];
 export type GlossaryTermResponse = GlossaryTerm | null;

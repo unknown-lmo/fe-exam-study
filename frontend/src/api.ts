@@ -1,6 +1,7 @@
 import type {
   CategoriesResponse,
   QuestionsResponse,
+  QuestionListResponse,
   QuestionResponse,
   GlossaryResponse,
   GlossaryTermResponse,
@@ -97,14 +98,14 @@ export async function fetchQuestionsList(
   category: CategoryId | null = null,
   difficulty: Difficulty | null = null,
   search: string | null = null
-): Promise<QuestionsResponse> {
+): Promise<QuestionListResponse> {
   const params = new URLSearchParams();
   if (category) params.append('category', category);
   if (difficulty) params.append('difficulty', difficulty);
   if (search) params.append('search', search);
   const query = params.toString();
   const res = await fetch(`${API_BASE}/questions/list${query ? '?' + query : ''}`);
-  return handleResponse<QuestionsResponse>(res);
+  return handleResponse<QuestionListResponse>(res);
 }
 
 export async function fetchQuestionById(id: string): Promise<QuestionResponse> {

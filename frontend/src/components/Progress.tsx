@@ -1,20 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchProgress, resetProgress } from '../api';
-import type { CategoryId } from '../types';
-
-interface CategoryStats {
-  totalAttempts: number;
-  correctCount: number;
-  lastStudiedAt?: string;
-}
-
-interface ProgressData {
-  overallCorrectRate: number;
-  totalCorrect: number;
-  totalAttempts: number;
-  weakQuestionsCount: number;
-  categoryStats: Record<CategoryId, CategoryStats>;
-}
+import type { CategoryId, CategoryStats, Progress as ProgressData } from '../types';
 
 interface ProgressProps {
   onBack: () => void;
@@ -31,7 +17,7 @@ function Progress({ onBack }: ProgressProps) {
   async function loadProgress() {
     setLoading(true);
     try {
-      const data = await fetchProgress() as unknown as ProgressData;
+      const data = await fetchProgress();
       setProgress(data);
     } catch (error) {
       console.error('進捗の取得に失敗:', error);

@@ -1,16 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchQuestionsList, fetchCategories } from '../api';
-import type { Category, CategoryId, Difficulty } from '../types';
-
-type QuestionStatus = 'correct' | 'incorrect' | 'unanswered';
-
-interface QuestionListItem {
-  id: string;
-  question: string;
-  subcategory: string;
-  difficulty: Difficulty;
-  status: QuestionStatus;
-}
+import type { Category, CategoryId, Difficulty, QuestionListItem, QuestionStatus } from '../types';
 
 interface QuestionFilter {
   category: CategoryId | null;
@@ -69,7 +59,7 @@ function QuestionList({ onSelectQuestion, onBack }: QuestionListProps) {
         filter.category,
         filter.difficulty,
         filter.search || null
-      ) as unknown as QuestionListItem[];
+      );
       setQuestions(data);
     } catch (error) {
       console.error('問題一覧の取得に失敗:', error);
