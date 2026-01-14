@@ -4,8 +4,9 @@ import Progress from './components/Progress';
 import History from './components/History';
 import Glossary from './components/Glossary';
 import QuestionList from './components/QuestionList';
+import CharacterSettings from './components/CharacterSettings';
 import { fetchCategories, fetchProgress } from './api';
-import { usePresenterMode } from './hooks/usePresenterMode';
+import { useCharacterSettings } from './hooks/useCharacterSettings';
 import { useTheme } from './hooks/useTheme';
 import { useQuizOptions } from './hooks/useQuizOptions';
 import './App.css';
@@ -16,9 +17,27 @@ function App() {
   const [selectedQuestionId, setSelectedQuestionId] = useState(null);
   const [categories, setCategories] = useState([]);
   const [quickStats, setQuickStats] = useState(null);
-  const { presenterMode, togglePresenterMode, isVegetaMode } = usePresenterMode();
+  const [showCharacterSettings, setShowCharacterSettings] = useState(false);
+  const {
+    characters,
+    activeCharacter,
+    activeCharacterId,
+    setActiveCharacter,
+    addCharacter,
+    updateCharacter,
+    deleteCharacter,
+    resetToDefault,
+    getRandomDialog,
+    transformExplanation,
+    validateName,
+    validateDialog
+  } = useCharacterSettings();
   const { isDark, toggleTheme } = useTheme();
   const { options: quizOptions, updateOption } = useQuizOptions();
+
+  // 後方互換性のため、presenterModeを生成
+  const presenterMode = activeCharacterId === 'vegeta' ? 'vegeta' : 'normal';
+  const isVegetaMode = activeCharacterId === 'vegeta';
 
   useEffect(() => {
     loadInitialData();
@@ -56,6 +75,9 @@ function App() {
           options={quizOptions}
           onComplete={handleQuizComplete}
           presenterMode={presenterMode}
+          activeCharacter={activeCharacter}
+          getRandomDialog={getRandomDialog}
+          transformExplanation={transformExplanation}
         />
       </div>
     );
@@ -80,7 +102,12 @@ function App() {
   if (view === 'glossary') {
     return (
       <div className="app app-glossary">
-        <Glossary onBack={() => setView('menu')} presenterMode={presenterMode} />
+        <Glossary
+          onBack={() => setView('menu')}
+          presenterMode={presenterMode}
+          activeCharacter={activeCharacter}
+          transformExplanation={transformExplanation}
+        />
       </div>
     );
   }
@@ -115,6 +142,9 @@ function App() {
             setView('question-list');
           }}
           presenterMode={presenterMode}
+          activeCharacter={activeCharacter}
+          getRandomDialog={getRandomDialog}
+          transformExplanation={transformExplanation}
         />
       </div>
     );
@@ -156,12 +186,30 @@ function App() {
         </button>
         <button
           className="toggle-button presenter-toggle"
-          onClick={togglePresenterMode}
+          onClick={() => {
+            // 次のキャラクターに切り替え
+            const currentIndex = characters.findIndex(c => c.id === activeCharacterId);
+            const nextIndex = (currentIndex + 1) % characters.length;
+            setActiveCharacter(characters[nextIndex].id);
+          }}
         >
-          <span className="toggle-icon">{isVegetaMode ? '👑' : '📚'}</span>
-          <span className="toggle-label">
-            {isVegetaMode ? 'ベジータ' : 'ノーマル'}
+          <span className="toggle-icon">
+            {activeCharacter.avatar ? (
+              <img src={activeCharacter.avatar} alt="" className="toggle-avatar" />
+            ) : (
+              isVegetaMode ? '👑' : '📚'
+            )}
           </span>
+          <span className="toggle-label">
+            {activeCharacter.name}
+          </span>
+        </button>
+        <button
+          className="toggle-button settings-toggle"
+          onClick={() => setShowCharacterSettings(true)}
+        >
+          <span className="toggle-icon">⚙️</span>
+          <span className="toggle-label">設定</span>
         </button>
       </div>
 
@@ -272,6 +320,20 @@ function App() {
       <footer className="app-footer">
         <p>頑張って勉強しよう!</p>
       </footer>
+
+      {showCharacterSettings && (
+        <CharacterSettings
+          characters={characters}
+          activeCharacter={activeCharacter}
+          onClose={() => setShowCharacterSettings(false)}
+          onSave={(character) => updateCharacter(character.id, character)}
+          onAddCharacter={addCharacter}
+          onDeleteCharacter={deleteCharacter}
+          onResetToDefault={resetToDefault}
+          validateName={validateName}
+          validateDialog={validateDialog}
+        />
+      )}
     </div>
   );
 }

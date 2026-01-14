@@ -1,8 +1,14 @@
 import { useState, useEffect } from 'react';
 import { fetchGlossary } from '../api';
-import { transformExplanation } from '../config/presenters';
 
-function Glossary({ onBack, initialSearch = '', backLabel = '戻る', presenterMode = 'normal' }) {
+function Glossary({
+  onBack,
+  initialSearch = '',
+  backLabel = '戻る',
+  presenterMode = 'normal',
+  activeCharacter,
+  transformExplanation = (text) => text
+}) {
   const [terms, setTerms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -104,7 +110,7 @@ function Glossary({ onBack, initialSearch = '', backLabel = '戻る', presenterM
                 <div className="glossary-detail">
                   <div className="detail-section">
                     <h4>説明</h4>
-                    <p>{transformExplanation(presenterMode, term.description)}</p>
+                    <p>{transformExplanation(term.description)}</p>
                   </div>
 
                   {term.examples && term.examples.length > 0 && (
@@ -112,7 +118,7 @@ function Glossary({ onBack, initialSearch = '', backLabel = '戻る', presenterM
                       <h4>具体例</h4>
                       <ul>
                         {term.examples.map((ex, i) => (
-                          <li key={i}>{transformExplanation(presenterMode, ex)}</li>
+                          <li key={i}>{transformExplanation(ex)}</li>
                         ))}
                       </ul>
                     </div>
@@ -121,7 +127,7 @@ function Glossary({ onBack, initialSearch = '', backLabel = '戻る', presenterM
                   {term.tips && (
                     <div className="detail-section tips">
                       <h4>覚え方のコツ</h4>
-                      <p>{transformExplanation(presenterMode, term.tips)}</p>
+                      <p>{transformExplanation(term.tips)}</p>
                     </div>
                   )}
 

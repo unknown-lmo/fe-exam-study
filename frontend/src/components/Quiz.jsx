@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { fetchRandomQuestions, fetchWeakQuestions, fetchQuestionById, submitAnswer } from '../api';
 import PresenterDialog from './PresenterDialog';
-import { getRandomDialog, transformExplanation } from '../config/presenters';
 
 const defaultOptions = { count: 5, shuffle: false, timer: null };
 
@@ -21,7 +20,18 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-function Quiz({ mode, category, questionId = null, options = defaultOptions, onComplete, onBackToList, presenterMode = 'normal' }) {
+function Quiz({
+  mode,
+  category,
+  questionId = null,
+  options = defaultOptions,
+  onComplete,
+  onBackToList,
+  presenterMode = 'normal',
+  activeCharacter,
+  getRandomDialog,
+  transformExplanation
+}) {
   const { count, shuffle, timer } = options;
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -42,7 +52,7 @@ function Quiz({ mode, category, questionId = null, options = defaultOptions, onC
   // 問題が変わったら出題セリフを表示
   useEffect(() => {
     if (questions.length > 0 && !result) {
-      const intro = getRandomDialog(presenterMode, 'questionIntro');
+      const intro = getRandomDialog('questionIntro');
       setIntroDialog(intro);
     }
   }, [currentIndex, questions.length, presenterMode, result]);
@@ -121,7 +131,7 @@ function Quiz({ mode, category, questionId = null, options = defaultOptions, onC
     const response = await submitAnswer(question.id, originalAnswer);
     setResult(response);
     // 回答時にセリフを固定で保存
-    setResultDialog(getRandomDialog(presenterMode, response.isCorrect ? 'correct' : 'incorrect'));
+    setResultDialog(getRandomDialog(response.isCorrect ? 'correct' : 'incorrect'));
     setScore(prev => ({
       correct: prev.correct + (response.isCorrect ? 1 : 0),
       total: prev.total + 1
@@ -134,7 +144,7 @@ function Quiz({ mode, category, questionId = null, options = defaultOptions, onC
     // タイムアウト時は-1を送信（未回答）
     const response = await submitAnswer(question.id, -1);
     setResult(response);
-    setResultDialog(getRandomDialog(presenterMode, 'timeout'));
+    setResultDialog(getRandomDialog('timeout'));
     setScore(prev => ({
       correct: prev.correct,
       total: prev.total + 1
@@ -187,13 +197,14 @@ function Quiz({ mode, category, questionId = null, options = defaultOptions, onC
 
   if (finished) {
     const percentage = Math.round((score.correct / score.total) * 100);
-    const finalMessage = getRandomDialog(presenterMode, 'quizComplete', percentage);
+    const finalMessage = getRandomDialog('quizComplete', percentage);
     return (
       <div className={`quiz-result ${presenterMode === 'vegeta' ? 'vegeta-mode' : ''}`}>
         <PresenterDialog
           message={finalMessage}
           presenter={presenterMode}
           type="complete"
+          activeCharacter={activeCharacter}
         />
         <h2>結果発表</h2>
         <div className="score-display">
@@ -250,6 +261,7 @@ function Quiz({ mode, category, questionId = null, options = defaultOptions, onC
           message={introDialog}
           presenter={presenterMode}
           type="intro"
+          activeCharacter={activeCharacter}
         />
       )}
 
@@ -285,9 +297,10 @@ function Quiz({ mode, category, questionId = null, options = defaultOptions, onC
             message={resultDialog}
             presenter={presenterMode}
             type={result.isCorrect ? 'correct' : 'incorrect'}
+            activeCharacter={activeCharacter}
           />
           <h3>{result.isCorrect ? '正解!' : '不正解'}</h3>
-          <p className="explanation">{transformExplanation(presenterMode, result.explanation)}</p>
+          <p className="explanation">{transformExplanation(result.explanation)}</p>
 
           {result.relatedTerms && result.relatedTerms.length > 0 && (
             <div className="related-terms-section">
