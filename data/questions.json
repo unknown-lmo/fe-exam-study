@@ -1,0 +1,511 @@
+{
+  "questions": [
+    {
+      "id": "tech_001",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "基礎理論",
+      "question": "2進数 1011 を10進数に変換すると何か。",
+      "choices": ["9", "10", "11", "12"],
+      "correctAnswer": 2,
+      "explanation": "1011(2) = 1×2³ + 0×2² + 1×2¹ + 1×2⁰ = 8 + 0 + 2 + 1 = 11",
+      "relatedTerms": []
+    },
+    {
+      "id": "tech_002",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "基礎理論",
+      "question": "16進数 FF を10進数に変換すると何か。",
+      "choices": ["254", "255", "256", "257"],
+      "correctAnswer": 1,
+      "explanation": "FF(16) = 15×16¹ + 15×16⁰ = 240 + 15 = 255",
+      "relatedTerms": []
+    },
+    {
+      "id": "tech_003",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "アルゴリズム",
+      "question": "スタックのデータ構造において、最後に格納したデータを最初に取り出す方式を何というか。",
+      "choices": ["FIFO", "LIFO", "FILO", "LILO"],
+      "correctAnswer": 1,
+      "explanation": "LIFO（Last In First Out）は、最後に入れたものを最初に出す方式。スタックの特徴である。",
+      "relatedTerms": ["lifo", "fifo", "filo", "stack", "queue"]
+    },
+    {
+      "id": "tech_004",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "コンピュータシステム",
+      "question": "CPUの処理速度を表す単位として適切なものはどれか。",
+      "choices": ["bps", "Hz", "dpi", "lpi"],
+      "correctAnswer": 1,
+      "explanation": "Hz（ヘルツ）はCPUのクロック周波数を表す単位。bpsは通信速度、dpi/lpiは解像度の単位。",
+      "relatedTerms": ["hz", "bps", "dpi"]
+    },
+    {
+      "id": "tech_005",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "ネットワーク",
+      "question": "IPアドレス 192.168.1.1 はどのクラスに属するか。",
+      "choices": ["クラスA", "クラスB", "クラスC", "クラスD"],
+      "correctAnswer": 2,
+      "explanation": "クラスCは192.0.0.0～223.255.255.255の範囲。192.168.x.xはプライベートIPアドレスでクラスCに属する。",
+      "relatedTerms": ["ip_class"]
+    },
+    {
+      "id": "tech_006",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "セキュリティ",
+      "question": "公開鍵暗号方式において、送信者が受信者に暗号化したメッセージを送る場合、使用する鍵はどれか。",
+      "choices": ["送信者の公開鍵", "送信者の秘密鍵", "受信者の公開鍵", "受信者の秘密鍵"],
+      "correctAnswer": 2,
+      "explanation": "公開鍵暗号方式では、受信者の公開鍵で暗号化し、受信者の秘密鍵で復号する。",
+      "relatedTerms": ["public_key"]
+    },
+    {
+      "id": "tech_007",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "データベース",
+      "question": "関係データベースにおいて、表の行を一意に識別するための項目を何というか。",
+      "choices": ["外部キー", "主キー", "候補キー", "複合キー"],
+      "correctAnswer": 1,
+      "explanation": "主キー（プライマリキー）は、表の各行を一意に識別するための項目。NULL値は許可されない。",
+      "relatedTerms": ["primary_key"]
+    },
+    {
+      "id": "mgmt_001",
+      "category": "management",
+      "categoryName": "マネジメント系",
+      "subcategory": "プロジェクトマネジメント",
+      "question": "プロジェクトの作業を階層的に分解して表現したものを何というか。",
+      "choices": ["ガントチャート", "WBS", "PERT", "クリティカルパス"],
+      "correctAnswer": 1,
+      "explanation": "WBS（Work Breakdown Structure）は、プロジェクトの作業を階層的に分解した構成図。",
+      "relatedTerms": ["wbs"]
+    },
+    {
+      "id": "mgmt_002",
+      "category": "management",
+      "categoryName": "マネジメント系",
+      "subcategory": "プロジェクトマネジメント",
+      "question": "プロジェクトのスケジュール管理で、作業の順序関係と所要時間を表現するのに適した図はどれか。",
+      "choices": ["パレート図", "アローダイアグラム", "管理図", "散布図"],
+      "correctAnswer": 1,
+      "explanation": "アローダイアグラム（PERT図）は、作業の順序関係と所要時間を矢印で表現する図。",
+      "relatedTerms": ["wbs"]
+    },
+    {
+      "id": "mgmt_003",
+      "category": "management",
+      "categoryName": "マネジメント系",
+      "subcategory": "サービスマネジメント",
+      "question": "ITILにおいて、サービスの可用性、信頼性、保守性を管理するプロセスはどれか。",
+      "choices": ["インシデント管理", "問題管理", "可用性管理", "変更管理"],
+      "correctAnswer": 2,
+      "explanation": "可用性管理は、ITサービスの可用性を計画、監視、改善するプロセス。",
+      "relatedTerms": []
+    },
+    {
+      "id": "mgmt_004",
+      "category": "management",
+      "categoryName": "マネジメント系",
+      "subcategory": "システム監査",
+      "question": "システム監査において、監査人が独立した立場から客観的に評価・検証することを何というか。",
+      "choices": ["内部統制", "独立性", "客観性", "正当な注意"],
+      "correctAnswer": 1,
+      "explanation": "独立性は、システム監査人が監査対象から独立した立場で監査を行うこと。",
+      "relatedTerms": []
+    },
+    {
+      "id": "strat_001",
+      "category": "strategy",
+      "categoryName": "ストラテジ系",
+      "subcategory": "経営戦略",
+      "question": "企業の強み・弱み・機会・脅威を分析する手法を何というか。",
+      "choices": ["PPM分析", "SWOT分析", "バリューチェーン分析", "ファイブフォース分析"],
+      "correctAnswer": 1,
+      "explanation": "SWOT分析は、Strengths（強み）、Weaknesses（弱み）、Opportunities（機会）、Threats（脅威）の頭文字。",
+      "relatedTerms": ["swot", "ppm"]
+    },
+    {
+      "id": "strat_002",
+      "category": "strategy",
+      "categoryName": "ストラテジ系",
+      "subcategory": "経営戦略",
+      "question": "市場成長率と市場占有率の2軸で事業を4つに分類する分析手法はどれか。",
+      "choices": ["SWOT分析", "PPM分析", "3C分析", "4P分析"],
+      "correctAnswer": 1,
+      "explanation": "PPM（プロダクト・ポートフォリオ・マネジメント）は、花形、金のなる木、問題児、負け犬の4つに分類。",
+      "relatedTerms": ["ppm", "swot"]
+    },
+    {
+      "id": "strat_003",
+      "category": "strategy",
+      "categoryName": "ストラテジ系",
+      "subcategory": "法務",
+      "question": "著作権の保護期間として正しいものはどれか。",
+      "choices": ["著作者の死後50年", "著作者の死後70年", "公表後50年", "公表後70年"],
+      "correctAnswer": 1,
+      "explanation": "日本の著作権法では、著作権の保護期間は原則として著作者の死後70年（2018年法改正後）。",
+      "relatedTerms": []
+    },
+    {
+      "id": "strat_004",
+      "category": "strategy",
+      "categoryName": "ストラテジ系",
+      "subcategory": "企業会計",
+      "question": "損益分岐点売上高を求める計算式として正しいものはどれか。",
+      "choices": [
+        "固定費 ÷ 変動費率",
+        "固定費 ÷ (1 - 変動費率)",
+        "変動費 ÷ 固定費率",
+        "変動費 ÷ (1 - 固定費率)"
+      ],
+      "correctAnswer": 1,
+      "explanation": "損益分岐点売上高 = 固定費 ÷ (1 - 変動費率) = 固定費 ÷ 限界利益率",
+      "relatedTerms": []
+    },
+    {
+      "id": "r07_001",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "基礎理論",
+      "question": "大規模言語モデルを用いた自然言語処理において，事前学習済みのモデルに対して行う，ファインチューニングに関する記述として，最も適切なものはどれか。",
+      "choices": [
+        "強化学習を行い，最適な結果が得られるようにする。",
+        "事前学習と同じデータを繰り返し用いて学習を行い，モデルの精度を高めるようにする。",
+        "大量のテキストデータを用いて学習を行い，モデルの精度を高めるようにする。",
+        "特定のデータを用いて追加で学習を行い，目的とするタスクに適用できるようにする。"
+      ],
+      "correctAnswer": 3,
+      "explanation": "ファインチューニングとは、事前学習済みモデルに対して、特定のタスクや目的に合わせた追加学習を行うことです。これにより、汎用的なモデルを特定用途に最適化できます。アは強化学習の説明、イは過学習につながる手法、ウは事前学習の説明です。",
+      "relatedTerms": ["fine_tuning"]
+    },
+    {
+      "id": "r07_002",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "基礎理論",
+      "question": "浮動小数点形式で表現された数値の演算結果における丸め誤差の説明はどれか。",
+      "choices": [
+        "演算結果がコンピュータの扱える最大値を超えることによって生じる誤差である。",
+        "数表現のけた数に限度があるので，最下位けたより小さい部分について四捨五入や切上げ，切捨てを行うことによって生じる誤差である。",
+        "乗除算において，指数部が小さい方の数値の仮数部の下位部分が失われることによって生じる誤差である。",
+        "絶対値がほぼ等しい数値の加減算において，上位の有効数字が失われることによって生じる誤差である。"
+      ],
+      "correctAnswer": 1,
+      "explanation": "丸め誤差は、数値を有限桁で表現する際に、表現できない部分を四捨五入等で処理することで生じる誤差です。アはオーバーフロー、ウは情報落ち、エは桁落ちの説明です。",
+      "relatedTerms": ["rounding_error", "cancellation_error", "loss_of_significance"]
+    },
+    {
+      "id": "r07_003",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "アルゴリズム",
+      "question": "図の木構造は2分探索木である。a～gの値の大小関係として，適切なものはどれか。ここで，a～gの値は重複しないものとする。（aが根、bとcがaの子、dとeがbの子、fとgがcの子）",
+      "choices": [
+        "a ＜ b ＜ d ＜ e ＜ c ＜ f ＜ g",
+        "d ＜ b ＜ e ＜ a ＜ f ＜ c ＜ g",
+        "d ＜ e ＜ f ＜ g ＜ b ＜ c ＜ a",
+        "g ＜ f ＜ c ＜ e ＜ d ＜ b ＜ a"
+      ],
+      "correctAnswer": 1,
+      "explanation": "2分探索木では、左の子孫は親より小さく、右の子孫は親より大きいという性質があります。中間順走査（左→根→右）で巡回すると、d→b→e→a→f→c→gの順になり、これが昇順になります。",
+      "relatedTerms": ["binary_search_tree"]
+    },
+    {
+      "id": "r07_004",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "コンピュータシステム",
+      "question": "MTBFは4,000時間，MTTRは1,000時間の装置がある。今後の6年間は，予防保守によってMTBFを前年に比べて毎年100時間ずつ改善し，遠隔保守によってMTTRを前年に比べて毎年100時間ずつ改善していく計画である。6年経過後の稼働率は幾らか。",
+      "choices": [
+        "0.88",
+        "0.90",
+        "0.92",
+        "0.94"
+      ],
+      "correctAnswer": 2,
+      "explanation": "6年後のMTBF = 4,000 + 100×6 = 4,600時間、MTTR = 1,000 - 100×6 = 400時間。稼働率 = MTBF/(MTBF+MTTR) = 4,600/(4,600+400) = 4,600/5,000 = 0.92",
+      "relatedTerms": ["mtbf", "mttr", "availability"]
+    },
+    {
+      "id": "r07_005",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "ソフトウェア",
+      "question": "ローコード開発ツールを用いたソフトウェア開発の説明はどれか。",
+      "choices": [
+        "アプリケーションソフトウェアの開発基盤の上で，用意された部品やテンプレートをGUIを用いた操作で組み合わせたり，必要に応じて一部の処理のソースコードを記述したりすることによって，アプリケーションソフトウェアを作成する。",
+        "アプリケーションソフトウェアの開発基盤の上で，用意された部品やテンプレートをGUIを用いた操作で組み合わせるだけで，ソースコードを記述せずに，アプリケーションソフトウェアを作成する。",
+        "アプリケーションソフトウェアの定型的な枠組みを参照して，独自の処理のソースコードを記述することによって，アプリケーションソフトウェアを作成する。",
+        "利用者がシステムを利用して行う作業を自動化ツールに代行させるために，利用者によるシステムの操作手順をツールに登録する。"
+      ],
+      "correctAnswer": 0,
+      "explanation": "ローコード開発は、GUI操作を主体としつつ、必要に応じてコードを記述する開発手法です。イはノーコード開発、ウはフレームワーク利用開発、エはRPA（ロボティック・プロセス・オートメーション）の説明です。",
+      "relatedTerms": ["low_code", "no_code"]
+    },
+    {
+      "id": "r07_006",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "データベース",
+      "question": "\"商品\"表に対するSQL文「SELECT * FROM 商品 WHERE 仕入先ID IN ('M002', 'M004')」と同じ結果が得られるSELECT文はどれか。",
+      "choices": [
+        "SELECT * FROM 商品 WHERE 仕入先ID = 'M002' AND 仕入先ID = 'M004'",
+        "SELECT * FROM 商品 WHERE 仕入先ID = 'M002' INTERSECT SELECT * FROM 商品 WHERE 仕入先ID = 'M004'",
+        "SELECT * FROM 商品 WHERE 仕入先ID = 'M002' OR 仕入先ID = 'M004'",
+        "SELECT * FROM 商品 WHERE 仕入先ID BETWEEN 'M002' AND 'M004'"
+      ],
+      "correctAnswer": 2,
+      "explanation": "IN句は指定した値のいずれかに一致するレコードを取得します。これはOR条件と同等です。ANDは両方を満たす必要があり該当なし、INTERSECTは共通部分で該当なし、BETWEENはM002～M004の範囲でM003も含まれてしまいます。",
+      "relatedTerms": ["primary_key"]
+    },
+    {
+      "id": "r07_007",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "ネットワーク",
+      "question": "1Gバイトの動画データを40Mビット／秒の回線を使用してダウンロードしたところ，5分掛かった。このときの回線利用率はおよそ何％か。ここで，ダウンロード時には動画データに20％の制御情報が付加されるものとする。",
+      "choices": [
+        "10",
+        "53",
+        "67",
+        "80"
+      ],
+      "correctAnswer": 3,
+      "explanation": "転送データ量 = 1GB × 1.2 = 1.2GB = 1.2×8Gビット = 9.6Gビット。実際の転送速度 = 9.6Gビット ÷ 300秒 = 32Mビット/秒。回線利用率 = 32/40 = 0.8 = 80%",
+      "relatedTerms": ["bps"]
+    },
+    {
+      "id": "r07_008",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "セキュリティ",
+      "question": "HTTPとHTTPSを比較した場合において，HTTPSだけがもつ特徴を示したものはどれか。",
+      "choices": [
+        "cookieに保存されている情報を用いたセッション管理が可能である。",
+        "IDとパスワードによって利用者の認証を行うことが可能である。",
+        "Webブラウザでキャッシュさせることによって通信量を減らすことが可能である。",
+        "通信相手先サーバをサーバ証明書によって確認することが可能である。"
+      ],
+      "correctAnswer": 3,
+      "explanation": "HTTPSはHTTPにSSL/TLSによる暗号化を追加したプロトコルです。サーバ証明書による認証はHTTPS特有の機能です。ア、イ、ウはHTTPでも可能な機能です。",
+      "relatedTerms": ["public_key"]
+    },
+    {
+      "id": "r07_009",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "セキュリティ",
+      "question": "暗号の危殆（きたい）化に該当するものはどれか。",
+      "choices": [
+        "あるCAでデジタル証明書の署名に使っている公開鍵のデジタル証明書の有効期限が切れた。",
+        "ある暗号アルゴリズムの秘密鍵が不正アクセスによって漏えいした。",
+        "あるハッシュ関数においてハッシュ値が同じになるデータの組みを現実的な時間内で発見する方法が見つかった。",
+        "あるランサムウェアの一種で暗号化されたファイルの復号鍵が公開された。"
+      ],
+      "correctAnswer": 2,
+      "explanation": "暗号の危殆化とは、暗号アルゴリズム自体の安全性が脅かされることです。ハッシュ関数の衝突（同じハッシュ値を持つ異なるデータ）が現実的に見つけられるようになると、その暗号は危殆化したと言えます。アは有効期限切れ、イは鍵漏えい、エは特定のマルウェアの話です。",
+      "relatedTerms": ["cryptographic_compromise"]
+    },
+    {
+      "id": "r07_010",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "セキュリティ",
+      "question": "WAFの説明はどれか。",
+      "choices": [
+        "Webサイトに対するアクセス内容を監視し，攻撃とみなされるパターンを検知したときに当該アクセスを遮断する。",
+        "Wi-Fiアライアンスが認定した無線LANの暗号化方式の規格であり，AES暗号に対応している。",
+        "様々なシステムの動作ログを一元的に蓄積，管理し，セキュリティ上の脅威となる事象をいち早く検知，分析する。",
+        "ファイアウォール機能を有し，マルウェア対策機能，侵入検知機能などの複数のセキュリティ機能を連携させ，統合的に管理する。"
+      ],
+      "correctAnswer": 0,
+      "explanation": "WAF（Web Application Firewall）は、Webアプリケーションへの攻撃（SQLインジェクション、クロスサイトスクリプティング等）を検知・遮断するセキュリティ装置です。イはWPA、ウはSIEM、エはUTMの説明です。",
+      "relatedTerms": ["waf", "siem", "utm"]
+    },
+    {
+      "id": "r07_011",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "データベース",
+      "question": "E-Rモデルにおけるエンティティの特徴はどれか。",
+      "choices": [
+        "エンティティとインスタンスとは，1対1の対応関係をとる。",
+        "エンティティとなり得るものは，物的に実現するものである。",
+        "エンティティは，特性を表すための属性（アトリビュート）をもつ。",
+        "異なった種類のエンティティ間の関係は，主として状態遷移として表現される。"
+      ],
+      "correctAnswer": 2,
+      "explanation": "E-Rモデルのエンティティ（実体）は、属性（アトリビュート）を持ちます。アは1対多（エンティティ1つに複数インスタンス）、イは概念的なものも含む、エはリレーションシップで表現されます。",
+      "relatedTerms": ["er_model", "entity", "attribute"]
+    },
+    {
+      "id": "r07_012",
+      "category": "technology",
+      "categoryName": "テクノロジ系",
+      "subcategory": "ソフトウェア",
+      "question": "オブジェクト指向プログラミングの特徴のうち，異なるクラスのオブジェクトを同一のインタフェースで操作したときに，操作対象クラスに応じた異なる動作を可能にすることを何と呼ぶか。",
+      "choices": [
+        "委譲",
+        "継承",
+        "コンポジション",
+        "多相性"
+      ],
+      "correctAnswer": 3,
+      "explanation": "多相性（ポリモーフィズム）は、同じインタフェースで異なるクラスのオブジェクトを操作でき、それぞれのクラスに応じた動作をする特性です。委譲は処理を他のオブジェクトに任せること、継承は親クラスの特性を引き継ぐこと、コンポジションは他のオブジェクトを含めることです。",
+      "relatedTerms": ["polymorphism"]
+    },
+    {
+      "id": "r07_013",
+      "category": "management",
+      "categoryName": "マネジメント系",
+      "subcategory": "プロジェクトマネジメント",
+      "question": "アジャイル開発手法の一つであるスクラムにおいて，プロダクトバックログアイテムの内容や並び順を決定する役割をもつのは誰か。",
+      "choices": [
+        "開発者",
+        "顧客",
+        "スクラムマスタ",
+        "プロダクトオーナ"
+      ],
+      "correctAnswer": 3,
+      "explanation": "プロダクトオーナはプロダクトバックログの管理責任者で、アイテムの内容と優先順位を決定します。開発者は実装を担当、スクラムマスタはスクラムプロセスの促進役、顧客はステークホルダーです。",
+      "relatedTerms": ["scrum", "product_owner", "scrum_master"]
+    },
+    {
+      "id": "r07_014",
+      "category": "management",
+      "categoryName": "マネジメント系",
+      "subcategory": "プロジェクトマネジメント",
+      "question": "図は，あるプロジェクトの作業A～Iとその作業日数を表している。このプロジェクトの最短所要日数は何日か。（A:3日→B:6日, E:5日→C:8日→D:6日→I:5日, F:14日→G:11日, H:15日）",
+      "choices": [
+        "27",
+        "28",
+        "29",
+        "31"
+      ],
+      "correctAnswer": 3,
+      "explanation": "クリティカルパスを求めます。経路を計算すると、A→B→C→D→I = 3+6+8+6+5=28日、A→E→C→D→I = 3+5+8+6+5=27日、A→B→G→D→I = 3+6+11+6+5=31日、F→G→D→I = 14+11+6+5=36日などがありますが、最長は31日となります。",
+      "relatedTerms": ["critical_path", "wbs"]
+    },
+    {
+      "id": "r07_015",
+      "category": "management",
+      "categoryName": "マネジメント系",
+      "subcategory": "システム監査",
+      "question": "サーバ室の物理的な安全対策の状況について，情報セキュリティ管理基準（平成28年）に照らして，情報セキュリティ監査を行って判明した状況のうち，監査人が，指摘事項として監査報告書に記載すべきものはどれか。",
+      "choices": [
+        "サーバが設置されている施設の無人領域では，営業時間中でも，警報装置が作動するようになっている。",
+        "サーバ室に非常口，避難器具，誘導灯などを設置している。",
+        "社外からサーバ室へ直接出入りするドアを設置しているが，出入りを考慮して常時施錠していない。",
+        "場所が分からないように，サーバ室の所在を室外に表示していない。"
+      ],
+      "correctAnswer": 2,
+      "explanation": "サーバ室への出入口が常時施錠されていないのは、物理的セキュリティの重大な欠陥です。外部から直接アクセスできるドアは常時施錠が必要です。ア、イ、エは適切なセキュリティ対策です。",
+      "relatedTerms": []
+    },
+    {
+      "id": "r07_016",
+      "category": "strategy",
+      "categoryName": "ストラテジ系",
+      "subcategory": "経営戦略",
+      "question": "データマイニングの手法の一つであって，POSなどの蓄積データから\"一緒に買われる商品\"の組合せを発見する分析手法はどれか。",
+      "choices": [
+        "3C分析",
+        "ABC分析",
+        "コンジョイント分析",
+        "マーケットバスケット分析"
+      ],
+      "correctAnswer": 3,
+      "explanation": "マーケットバスケット分析は、POSデータなどから商品の購買パターンを分析し、一緒に購入されやすい商品の組み合わせを発見する手法です。3C分析は顧客・競合・自社の分析、ABC分析は重要度分類、コンジョイント分析は消費者選好分析です。",
+      "relatedTerms": ["market_basket_analysis"]
+    },
+    {
+      "id": "r07_017",
+      "category": "strategy",
+      "categoryName": "ストラテジ系",
+      "subcategory": "法務",
+      "question": "インターネット上の生成AIサービスを利用する際に，オプトアウトを設定することはどのような場合に有効か。",
+      "choices": [
+        "個々の利用者が，自身が生成AIから得た情報に対して，著作権を主張したい場合",
+        "個々の利用者が入力した情報を，生成AIの学習に利用させたくない場合",
+        "個々の利用者が入力した情報を，生成AIを通じて，他の利用者にも知ってほしい場合",
+        "生成AIから得た情報の信ぴょう性を高めたい場合"
+      ],
+      "correctAnswer": 1,
+      "explanation": "オプトアウトとは、サービスの一部機能や利用を拒否・除外することです。生成AIサービスでは、入力したデータをAIの学習に使用させないようにするためにオプトアウト設定が使われます。",
+      "relatedTerms": ["opt_out"]
+    },
+    {
+      "id": "r07_018",
+      "category": "strategy",
+      "categoryName": "ストラテジ系",
+      "subcategory": "経営戦略",
+      "question": "物販事業において，ロングテールをビジネスとして成功させるために必要な施策はどれか。",
+      "choices": [
+        "多くの有名ブランド店が出店するショッピングモールの構築",
+        "交通の利便性が高い地域に対する，生活必需品を広く浅く取りそろえた出店計画",
+        "店舗で購入した商品を近隣地域に無償で配送するサービスの実施",
+        "豊富な品ぞろえと，在庫コストや配送費用を抑えるための大規模な物流センタの構築や活用"
+      ],
+      "correctAnswer": 3,
+      "explanation": "ロングテールビジネスとは、販売数が少ないニッチ商品を大量に取り揃え、その合計で利益を出すビジネスモデルです。成功には豊富な品揃えと、在庫・配送コストを抑える物流インフラが必要です。Amazonがその代表例です。",
+      "relatedTerms": ["long_tail"]
+    },
+    {
+      "id": "r07_019",
+      "category": "strategy",
+      "categoryName": "ストラテジ系",
+      "subcategory": "企業会計",
+      "question": "表の条件で喫茶店を開業したい。月10万円の利益を出すためには，1客席当たり1日平均何人の客が必要か。（客1人当たりの売上高500円、変動費100円、固定費30万円/月、営業日数20日、客席数10席）",
+      "choices": [
+        "3.75",
+        "4",
+        "4.2",
+        "5"
+      ],
+      "correctAnswer": 3,
+      "explanation": "必要売上高 = (固定費+目標利益)÷限界利益率 = (30万+10万)÷((500-100)/500) = 40万÷0.8 = 50万円。必要客数 = 50万÷500 = 1000人/月。1日あたり = 1000÷20 = 50人。1席あたり = 50÷10 = 5人",
+      "relatedTerms": []
+    },
+    {
+      "id": "r07_020",
+      "category": "strategy",
+      "categoryName": "ストラテジ系",
+      "subcategory": "企業活動",
+      "question": "カーボンフットプリントの説明として，適切なものはどれか。",
+      "choices": [
+        "温室効果ガスの排出量から吸収量と除去量を差し引いた合計をゼロにする取組",
+        "原材料調達から廃棄・リサイクルに至るまでのライフサイクル全体を通して排出される温室効果ガスの排出量を，CO2量に換算して，その値を商品やサービスに表示すること",
+        "自動車のエンジンから排出される一酸化炭素，窒素酸化物や炭化水素類などの大気汚染物質の排出量の定め",
+        "商品がどのような場所で作られて，流通し，販売されているかを把握するための仕組み"
+      ],
+      "correctAnswer": 1,
+      "explanation": "カーボンフットプリントは、商品やサービスのライフサイクル全体で排出されるCO2量を表示する仕組みです。アはカーボンニュートラル、ウは排ガス規制、エはトレーサビリティの説明です。",
+      "relatedTerms": ["carbon_footprint"]
+    }
+  ],
+  "categories": [
+    {
+      "id": "technology",
+      "name": "テクノロジ系",
+      "subcategories": ["基礎理論", "アルゴリズム", "コンピュータシステム", "ソフトウェア", "ネットワーク", "セキュリティ", "データベース"]
+    },
+    {
+      "id": "management",
+      "name": "マネジメント系",
+      "subcategories": ["プロジェクトマネジメント", "サービスマネジメント", "システム監査"]
+    },
+    {
+      "id": "strategy",
+      "name": "ストラテジ系",
+      "subcategories": ["経営戦略", "法務", "企業会計", "企業活動"]
+    }
+  ]
+}
