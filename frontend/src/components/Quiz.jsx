@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react';
-import { fetchRandomQuestions, fetchWeakQuestions, submitAnswer } from '../api';
+import { fetchRandomQuestions, fetchWeakQuestions, fetchQuestionById, submitAnswer } from '../api';
 import PresenterDialog from './PresenterDialog';
 import { getRandomDialog, transformExplanation } from '../config/presenters';
 
 const defaultOptions = { count: 5, shuffle: false, timer: null };
+
+const DIFFICULTY_LABELS = {
+  easy: '易',
+  medium: '中',
+  hard: '難'
+};
 
 // 配列をシャッフルするユーティリティ関数
 function shuffleArray(array) {
@@ -15,7 +21,7 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-function Quiz({ mode, category, options = defaultOptions, onComplete, presenterMode = 'normal' }) {
+function Quiz({ mode, category, questionId = null, options = defaultOptions, onComplete, onBackToList, presenterMode = 'normal' }) {
   const { count, shuffle, timer } = options;
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -31,7 +37,7 @@ function Quiz({ mode, category, options = defaultOptions, onComplete, presenterM
 
   useEffect(() => {
     loadQuestions();
-  }, [mode, category, count, shuffle]);
+  }, [mode, category, questionId, count, shuffle]);
 
   // 問題が変わったら出題セリフを表示
   useEffect(() => {
@@ -68,7 +74,11 @@ function Quiz({ mode, category, options = defaultOptions, onComplete, presenterM
     setLoading(true);
     try {
       let data;
-      if (mode === 'weak') {
+      if (mode === 'single' && questionId) {
+        // 単問モード：特定の問題を取得
+        const question = await fetchQuestionById(questionId);
+        data = question ? [question] : [];
+      } else if (mode === 'weak') {
         data = await fetchWeakQuestions();
       } else {
         // count=0は全問出題
@@ -79,8 +89,8 @@ function Quiz({ mode, category, options = defaultOptions, onComplete, presenterM
       if (data.length === 0) {
         setQuestions([]);
       } else {
-        // 選択肢シャッフルが有効な場合
-        const processedData = shuffle ? data.map(q => {
+        // 選択肢シャッフルが有効な場合（単問モードでは無効）
+        const processedData = (shuffle && mode !== 'single') ? data.map(q => {
           const indices = [0, 1, 2, 3];
           const shuffledIndices = shuffleArray(indices);
           const newCorrectIndex = shuffledIndices.indexOf(q.correctAnswer);
@@ -194,7 +204,11 @@ function Quiz({ mode, category, options = defaultOptions, onComplete, presenterM
         <div className="score-percentage">{percentage}%</div>
         <div className="result-actions">
           <button onClick={handleRestart}>もう一度</button>
-          <button onClick={onComplete}>メニューに戻る</button>
+          {mode === 'single' && onBackToList ? (
+            <button onClick={onBackToList}>一覧に戻る</button>
+          ) : (
+            <button onClick={onComplete}>メニューに戻る</button>
+          )}
         </div>
       </div>
     );
@@ -210,6 +224,11 @@ function Quiz({ mode, category, options = defaultOptions, onComplete, presenterM
         </span>
         <span className="quiz-category">{question.categoryName}</span>
         <span className="quiz-subcategory">{question.subcategory}</span>
+        {question.difficulty && (
+          <span className={`quiz-difficulty ${question.difficulty}`}>
+            {DIFFICULTY_LABELS[question.difficulty]}
+          </span>
+        )}
       </div>
 
       {timer && !result && (
@@ -313,6 +332,17 @@ function Quiz({ mode, category, options = defaultOptions, onComplete, presenterM
           >
             回答する
           </button>
+        ) : mode === 'single' ? (
+          <div className="single-mode-actions">
+            <button onClick={handleRestart} className="retry-button">
+              もう一度
+            </button>
+            {onBackToList && (
+              <button onClick={onBackToList} className="back-to-list-button">
+                一覧に戻る
+              </button>
+            )}
+          </div>
         ) : (
           <button onClick={handleNext} className="next-button">
             {currentIndex < questions.length - 1 ? '次の問題' : '結果を見る'}

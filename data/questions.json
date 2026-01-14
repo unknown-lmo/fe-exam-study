@@ -14,7 +14,8 @@
       ],
       "correctAnswer": 2,
       "explanation": "1011(2) = 1×2³ + 0×2² + 1×2¹ + 1×2⁰ = 8 + 0 + 2 + 1 = 11",
-      "relatedTerms": []
+      "relatedTerms": [],
+      "difficulty": "medium"
     },
     {
       "id": "tech_002",
@@ -30,7 +31,8 @@
       ],
       "correctAnswer": 1,
       "explanation": "FF(16) = 15×16¹ + 15×16⁰ = 240 + 15 = 255",
-      "relatedTerms": []
+      "relatedTerms": [],
+      "difficulty": "medium"
     },
     {
       "id": "tech_003",
@@ -52,7 +54,8 @@
         "filo",
         "stack",
         "queue"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "tech_004",
@@ -72,7 +75,8 @@
         "hz",
         "bps",
         "dpi"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "tech_005",
@@ -90,7 +94,8 @@
       "explanation": "クラスCは192.0.0.0～223.255.255.255の範囲。192.168.x.xはプライベートIPアドレスでクラスCに属する。",
       "relatedTerms": [
         "ip_class"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "tech_006",
@@ -108,7 +113,8 @@
       "explanation": "公開鍵暗号方式では、受信者の公開鍵で暗号化し、受信者の秘密鍵で復号する。",
       "relatedTerms": [
         "public_key"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "tech_007",
@@ -126,7 +132,8 @@
       "explanation": "主キー（プライマリキー）は、表の各行を一意に識別するための項目。NULL値は許可されない。",
       "relatedTerms": [
         "primary_key"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "mgmt_001",
@@ -144,7 +151,8 @@
       "explanation": "WBS（Work Breakdown Structure）は、プロジェクトの作業を階層的に分解した構成図。",
       "relatedTerms": [
         "wbs"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "mgmt_002",
@@ -162,7 +170,8 @@
       "explanation": "アローダイアグラム（PERT図）は、作業の順序関係と所要時間を矢印で表現する図。",
       "relatedTerms": [
         "wbs"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "mgmt_003",
@@ -178,7 +187,8 @@
       ],
       "correctAnswer": 2,
       "explanation": "可用性管理は、ITサービスの可用性を計画、監視、改善するプロセス。",
-      "relatedTerms": []
+      "relatedTerms": [],
+      "difficulty": "easy"
     },
     {
       "id": "mgmt_004",
@@ -194,7 +204,8 @@
       ],
       "correctAnswer": 1,
       "explanation": "独立性は、システム監査人が監査対象から独立した立場で監査を行うこと。",
-      "relatedTerms": []
+      "relatedTerms": [],
+      "difficulty": "medium"
     },
     {
       "id": "strat_001",
@@ -213,7 +224,8 @@
       "relatedTerms": [
         "swot",
         "ppm"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "strat_002",
@@ -232,7 +244,8 @@
       "relatedTerms": [
         "ppm",
         "swot"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "strat_003",
@@ -248,7 +261,8 @@
       ],
       "correctAnswer": 1,
       "explanation": "日本の著作権法では、著作権の保護期間は原則として著作者の死後70年（2018年法改正後）。",
-      "relatedTerms": []
+      "relatedTerms": [],
+      "difficulty": "easy"
     },
     {
       "id": "strat_004",
@@ -264,7 +278,8 @@
       ],
       "correctAnswer": 1,
       "explanation": "損益分岐点売上高 = 固定費 ÷ (1 - 変動費率) = 固定費 ÷ 限界利益率",
-      "relatedTerms": []
+      "relatedTerms": [],
+      "difficulty": "hard"
     },
     {
       "id": "r07_001",
@@ -282,7 +297,8 @@
       "explanation": "ファインチューニングとは、事前学習済みモデルに対して、特定のタスクや目的に合わせた追加学習を行うことです。これにより、汎用的なモデルを特定用途に最適化できます。アは強化学習の説明、イは過学習につながる手法、ウは事前学習の説明です。",
       "relatedTerms": [
         "fine_tuning"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "r07_002",
@@ -302,7 +318,8 @@
         "rounding_error",
         "cancellation_error",
         "loss_of_significance"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r07_003",
@@ -320,7 +337,8 @@
       "explanation": "2分探索木では、左の子孫は親より小さく、右の子孫は親より大きいという性質があります。中間順走査（左→根→右）で巡回すると、d→b→e→a→f→c→gの順になり、これが昇順になります。",
       "relatedTerms": [
         "binary_search_tree"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r07_004",
@@ -340,7 +358,8 @@
         "mtbf",
         "mttr",
         "availability"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "r07_005",
@@ -359,7 +378,8 @@
       "relatedTerms": [
         "low_code",
         "no_code"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r07_006",
@@ -377,7 +397,8 @@
       "explanation": "IN句は指定した値のいずれかに一致するレコードを取得します。これはOR条件と同等です。ANDは両方を満たす必要があり該当なし、INTERSECTは共通部分で該当なし、BETWEENはM002～M004の範囲でM003も含まれてしまいます。",
       "relatedTerms": [
         "primary_key"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r07_007",
@@ -395,7 +416,8 @@
       "explanation": "転送データ量 = 1GB × 1.2 = 1.2GB = 1.2×8Gビット = 9.6Gビット。実際の転送速度 = 9.6Gビット ÷ 300秒 = 32Mビット/秒。回線利用率 = 32/40 = 0.8 = 80%",
       "relatedTerms": [
         "bps"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "r07_008",
@@ -413,7 +435,8 @@
       "explanation": "HTTPSはHTTPにSSL/TLSによる暗号化を追加したプロトコルです。サーバ証明書による認証はHTTPS特有の機能です。ア、イ、ウはHTTPでも可能な機能です。",
       "relatedTerms": [
         "public_key"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r07_009",
@@ -431,7 +454,8 @@
       "explanation": "暗号の危殆化とは、暗号アルゴリズム自体の安全性が脅かされることです。ハッシュ関数の衝突（同じハッシュ値を持つ異なるデータ）が現実的に見つけられるようになると、その暗号は危殆化したと言えます。アは有効期限切れ、イは鍵漏えい、エは特定のマルウェアの話です。",
       "relatedTerms": [
         "cryptographic_compromise"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r07_010",
@@ -451,7 +475,8 @@
         "waf",
         "siem",
         "utm"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r07_011",
@@ -471,7 +496,8 @@
         "er_model",
         "entity",
         "attribute"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r07_012",
@@ -489,7 +515,8 @@
       "explanation": "多相性（ポリモーフィズム）は、同じインタフェースで異なるクラスのオブジェクトを操作でき、それぞれのクラスに応じた動作をする特性です。委譲は処理を他のオブジェクトに任せること、継承は親クラスの特性を引き継ぐこと、コンポジションは他のオブジェクトを含めることです。",
       "relatedTerms": [
         "polymorphism"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r07_013",
@@ -509,7 +536,8 @@
         "scrum",
         "product_owner",
         "scrum_master"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "r07_014",
@@ -528,7 +556,8 @@
       "relatedTerms": [
         "critical_path",
         "wbs"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "r07_015",
@@ -544,7 +573,8 @@
       ],
       "correctAnswer": 2,
       "explanation": "サーバ室への出入口が常時施錠されていないのは、物理的セキュリティの重大な欠陥です。外部から直接アクセスできるドアは常時施錠が必要です。ア、イ、エは適切なセキュリティ対策です。",
-      "relatedTerms": []
+      "relatedTerms": [],
+      "difficulty": "easy"
     },
     {
       "id": "r07_016",
@@ -562,7 +592,8 @@
       "explanation": "マーケットバスケット分析は、POSデータなどから商品の購買パターンを分析し、一緒に購入されやすい商品の組み合わせを発見する手法です。3C分析は顧客・競合・自社の分析、ABC分析は重要度分類、コンジョイント分析は消費者選好分析です。",
       "relatedTerms": [
         "market_basket_analysis"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "r07_017",
@@ -580,7 +611,8 @@
       "explanation": "オプトアウトとは、サービスの一部機能や利用を拒否・除外することです。生成AIサービスでは、入力したデータをAIの学習に使用させないようにするためにオプトアウト設定が使われます。",
       "relatedTerms": [
         "opt_out"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "r07_018",
@@ -598,7 +630,8 @@
       "explanation": "ロングテールビジネスとは、販売数が少ないニッチ商品を大量に取り揃え、その合計で利益を出すビジネスモデルです。成功には豊富な品揃えと、在庫・配送コストを抑える物流インフラが必要です。Amazonがその代表例です。",
       "relatedTerms": [
         "long_tail"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r07_019",
@@ -614,7 +647,8 @@
       ],
       "correctAnswer": 3,
       "explanation": "必要売上高 = (固定費+目標利益)÷限界利益率 = (30万+10万)÷((500-100)/500) = 40万÷0.8 = 50万円。必要客数 = 50万÷500 = 1000人/月。1日あたり = 1000÷20 = 50人。1席あたり = 50÷10 = 5人",
-      "relatedTerms": []
+      "relatedTerms": [],
+      "difficulty": "medium"
     },
     {
       "id": "r07_020",
@@ -632,7 +666,8 @@
       "explanation": "カーボンフットプリントは、商品やサービスのライフサイクル全体で排出されるCO2量を表示する仕組みです。アはカーボンニュートラル、ウは排ガス規制、エはトレーサビリティの説明です。",
       "relatedTerms": [
         "carbon_footprint"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r06_001",
@@ -648,7 +683,8 @@
       ],
       "correctAnswer": 2,
       "explanation": "真理値表から逆算します。X=0のとき、X AND (X□Y)=0は常に成立。X OR (X□Y)=1となるには、X□Y=1が必要。X=1,Y=0のとき、X AND (X□Y)=0なのでX□Y=0。X=1,Y=1のとき、X AND (X□Y)=1なのでX□Y=1。よって、X□Yは「X=0のとき1、X=1,Y=0のとき0、X=1,Y=1のとき1」となり、ウが正解。",
-      "relatedTerms": []
+      "relatedTerms": [],
+      "difficulty": "medium"
     },
     {
       "id": "r06_002",
@@ -666,7 +702,8 @@
       "explanation": "ASCIIコードでa=97です。d=100、x=120なので、1の位はどちらも0で衝突します。a=97(1の位7)、i=105(1の位5)で異なる。b=98(1の位8)、r=114(1の位4)で異なる。c=99(1の位9)、l=108(1の位8)で異なる。",
       "relatedTerms": [
         "hash"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "r06_003",
@@ -684,7 +721,8 @@
       "explanation": "ヒット率をhとすると、CPU Xの平均アクセス時間 = 40h + 400(1-h) = 400-360h、CPU Yの平均アクセス時間 = 20h + 580(1-h) = 580-560h。両者が等しいので、400-360h = 580-560h、200h = 180、h = 0.90",
       "relatedTerms": [
         "cache_hit_rate"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "r06_004",
@@ -704,7 +742,8 @@
         "mtbf",
         "mttr",
         "availability"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "r06_005",
@@ -722,7 +761,8 @@
       "explanation": "ロジックマッシュアップは、複数のWebサービスのAPIを連結して処理を行い、新たなサービスを提供するものです。ウは宿泊施設リストを取得→空室状況を取得という連結処理を行っています。アはプレゼンテーションマッシュアップ、イはデータマッシュアップ、エはAjaxの説明です。",
       "relatedTerms": [
         "mashup"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r06_006",
@@ -740,7 +780,8 @@
       "explanation": "アンチエイリアシングは、斜め線や曲線の縁のギザギザ（ジャギー）を目立たなくする技術です。シェーディングは陰影付け、テクスチャマッピングは表面模様の貼り付け、バンプマッピングは凹凸表現の技術です。",
       "relatedTerms": [
         "anti_aliasing"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r06_007",
@@ -759,7 +800,8 @@
       "relatedTerms": [
         "acid",
         "atomicity"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r06_008",
@@ -780,7 +822,8 @@
         "bridge",
         "router",
         "gateway"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r06_009",
@@ -798,7 +841,8 @@
       "explanation": "ペネトレーションテスト（侵入テスト）は、実際にシステムへの侵入を試みて脆弱性を検証するテストです。アはソースコードレビュー、イはファイル改ざん検知、エはネットワーク監視の説明です。",
       "relatedTerms": [
         "penetration_test"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r06_010",
@@ -817,7 +861,8 @@
       "relatedTerms": [
         "sql_injection",
         "placeholder"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r06_011",
@@ -836,7 +881,8 @@
       "relatedTerms": [
         "stub",
         "driver"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r06_012",
@@ -855,7 +901,8 @@
       "relatedTerms": [
         "scrum",
         "daily_scrum"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r06_013",
@@ -874,7 +921,8 @@
       "relatedTerms": [
         "critical_path",
         "arrow_diagram"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "r06_014",
@@ -890,7 +938,8 @@
       ],
       "correctAnswer": 2,
       "explanation": "円滑なサービス移行には、開発初期から運用部門が要件抽出に参加することが重要です。これにより運用性を考慮した設計が可能になります。アは遅すぎ、イは連携不足、エは開発部門主導すぎます。",
-      "relatedTerms": []
+      "relatedTerms": [],
+      "difficulty": "easy"
     },
     {
       "id": "r06_015",
@@ -909,7 +958,8 @@
       "relatedTerms": [
         "structured_data",
         "unstructured_data"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r06_016",
@@ -927,7 +977,8 @@
       "explanation": "コアコンピタンスとは、他社が真似できない、競争優位の源泉となる独自の技術や能力のことです。アは経営理念、イは経営目標、ウはSWOT分析の外部環境（機会・脅威）の説明です。",
       "relatedTerms": [
         "core_competence"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r06_017",
@@ -946,7 +997,8 @@
       "relatedTerms": [
         "blue_ocean",
         "red_ocean"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r06_018",
@@ -964,7 +1016,8 @@
       "explanation": "HRテック（HR Tech）は、Human Resources（人事）とTechnology（技術）を組み合わせた造語で、AIやビッグデータを活用した人事業務の効率化・高度化を指します。アはHEMS、イはディスラプション、ウはフィンテックの説明です。",
       "relatedTerms": [
         "hr_tech"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r06_019",
@@ -982,7 +1035,8 @@
       "explanation": "散布図が右下がり（xが増えるとyが減る）の場合、負の相関があります。相関係数は-1から1の値をとり、右下がりの関係は負の相関係数（0未満）を示します。",
       "relatedTerms": [
         "correlation"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "r06_020",
@@ -1000,7 +1054,8 @@
       "explanation": "産業財産権（工業所有権）は、特許権、実用新案権、意匠権、商標権の4つです。著作権は知的財産権に含まれますが、産業財産権には含まれません。産業財産権は特許庁に出願・登録が必要です。",
       "relatedTerms": [
         "industrial_property"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r05_001",
@@ -1016,7 +1071,8 @@
       ],
       "correctAnswer": 2,
       "explanation": "16進数のCは10進数で12です。0.C(16) = 12 × 16^(-1) = 12/16 = 0.75",
-      "relatedTerms": []
+      "relatedTerms": [],
+      "difficulty": "easy"
     },
     {
       "id": "r05_002",
@@ -1034,7 +1090,8 @@
       "explanation": "社員Gを社員Aと社員Kの間に挿入するため、a（社員Aの次ポインタ：300→400に変更）とf（社員Kの前ポインタ：100→400に変更）が変わります。bは社員Aの前ポインタで0のまま、eは社員Kの次ポインタで200のままです。",
       "relatedTerms": [
         "doubly_linked_list"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "r05_003",
@@ -1052,7 +1109,8 @@
       "explanation": "メモリインタリーブは、主記憶を複数のバンクに分割し、連続するアドレスを異なるバンクに配置することで、並列アクセスを可能にし高速化する技術です。アはDMA、イはライトバック方式、ウはキャッシュメモリの説明です。",
       "relatedTerms": [
         "memory_interleave"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r05_004",
@@ -1070,7 +1128,8 @@
       "explanation": "エッジコンピューティングは、IoTデバイスなどのデータ発生源に近い場所（エッジ）で処理を行うことで、遅延を減らしリアルタイム性を高める技術です。アはリッチクライアント、イはサーバレス、ウはグリッドコンピューティングの説明です。",
       "relatedTerms": [
         "edge_computing"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "r05_005",
@@ -1088,7 +1147,8 @@
       "explanation": "クリッピングは、表示領域（ビューポート）の外側にある部分を除去し、内側の見える部分だけを取り出す処理です。アはレンダリング、ウはアンチエイリアシング、エはシェーディングの説明です。",
       "relatedTerms": [
         "clipping"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r05_006",
@@ -1107,7 +1167,8 @@
       "relatedTerms": [
         "functional_dependency",
         "transitive_dependency"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "r05_007",
@@ -1126,7 +1187,8 @@
       "relatedTerms": [
         "acid",
         "atomicity"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r05_008",
@@ -1145,7 +1207,8 @@
       "relatedTerms": [
         "ping",
         "icmp"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r05_009",
@@ -1163,7 +1226,8 @@
       "explanation": "ドライブバイダウンロード攻撃は、悪意のあるWebサイトを閲覧しただけで（ドライブバイ＝通りすがりに）、ブラウザの脆弱性を悪用してマルウェアをダウンロード・感染させる攻撃です。イはランサムウェア、エはトロイの木馬の説明です。",
       "relatedTerms": [
         "drive_by_download"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r05_010",
@@ -1182,7 +1246,8 @@
       "relatedTerms": [
         "waf",
         "ssl_accelerator"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "r05_011",
@@ -1200,7 +1265,8 @@
       "explanation": "実行順序から、1回目は③→⑤（m<nでn←n-m）、2回目は③→④（m>nでm←m-n）、3回目は②→⑥（m=n）。a=2, b=3とすると、1回目: m=2, n=3→n=1、2回目: m=2, n=1→m=1、3回目: m=1=n=1で終了。よって3a=2b。",
       "relatedTerms": [
         "euclidean_algorithm"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "r05_012",
@@ -1219,7 +1285,8 @@
       "relatedTerms": [
         "scrum",
         "daily_scrum"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r05_013",
@@ -1238,7 +1305,8 @@
       "relatedTerms": [
         "critical_path",
         "crash_cost"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "r05_014",
@@ -1257,7 +1325,8 @@
       "relatedTerms": [
         "telework",
         "security_audit"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r05_015",
@@ -1277,7 +1346,8 @@
         "hybrid_cloud",
         "private_cloud",
         "public_cloud"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r05_016",
@@ -1295,7 +1365,8 @@
       "explanation": "ダイバーシティマネジメントは、性別、年齢、国籍、障害の有無など多様な人材の違いを尊重し、その多様性を組織の力として活かす経営手法です。アはワークライフバランス、ウは目標管理制度（MBO）の説明です。",
       "relatedTerms": [
         "diversity_management"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r05_017",
@@ -1313,7 +1384,8 @@
       "explanation": "ERP（Enterprise Resource Planning：企業資源計画）は、企業全体の経営資源（ヒト・モノ・カネ・情報）を統合的に管理し、経営効率を向上させるシステム・概念です。アはSFA、イはリテールサポート、エはECの説明です。",
       "relatedTerms": [
         "erp"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r05_018",
@@ -1332,7 +1404,8 @@
       "relatedTerms": [
         "innovator_theory",
         "early_adopter"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r05_019",
@@ -1353,7 +1426,8 @@
         "ceo",
         "cfo",
         "cto"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "r05_020",
@@ -1372,7 +1446,8 @@
       "relatedTerms": [
         "volume_license",
         "site_license"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_001",
@@ -1390,7 +1465,8 @@
       "explanation": "2の補数は「全ビット反転して1を足す」ことで求められる。XOR 11111111でビット反転し、00000001を足す。",
       "relatedTerms": [
         "twos_complement"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "sample_002",
@@ -1408,7 +1484,8 @@
       "explanation": "10進数を2進数に変換するには、2で割った余りを下位桁から格納し、商を次の計算に使う。a: NISHIN(k) ← j mod 2（余りを格納）、b: j ← j div 2（商を次の計算用に代入）。",
       "relatedTerms": [
         "binary_conversion"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "sample_003",
@@ -1426,7 +1503,8 @@
       "explanation": "P=真のとき、(not P) or Q = 偽 or Q = Q が真なのでQ=真。Q=真のとき、(not Q) or R = 偽 or R = R が真なのでR=真。",
       "relatedTerms": [
         "propositional_logic"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "sample_004",
@@ -1444,7 +1522,8 @@
       "explanation": "状態遷移図に従って入力0011001110を順に処理すると、出力は0001000110となる。",
       "relatedTerms": [
         "automaton"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "sample_005",
@@ -1462,7 +1541,8 @@
       "explanation": "2分探索木は、各節点において左部分木の全ての値＜節点の値＜右部分木の全ての値という条件を満たす。選択肢イの木のみがこの条件を満たす。",
       "relatedTerms": [
         "binary_search_tree"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_006",
@@ -1480,7 +1560,8 @@
       "explanation": "配列Aから配列Bへの変換パターンを分析すると、B(j，7－i) ← A(i，j)で時計回りに90度回転する操作となる。",
       "relatedTerms": [
         "array_operation"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "sample_007",
@@ -1498,7 +1579,8 @@
       "explanation": "54321の各桁を足すと5+4+3+2+1=15。15 mod 13 = 2。よって配列の位置2に格納される。",
       "relatedTerms": [
         "hash"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "sample_008",
@@ -1516,7 +1598,8 @@
       "explanation": "f(5)=5+f(4)=5+4+f(3)=5+4+3+f(2)=5+4+3+2+f(1)=5+4+3+2+1=15。これは1からnまでの和を計算する再帰関数。",
       "relatedTerms": [
         "recursive_function"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "sample_009",
@@ -1534,7 +1617,8 @@
       "explanation": "領域割付け（メモリ確保）に失敗した場合のエラー処理を記述することは、適切なコーディング規約である。他の選択肢は不適切な規約。",
       "relatedTerms": [
         "coding_standard"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_010",
@@ -1552,7 +1636,8 @@
       "explanation": "外部割込みはCPU外部からの要因で発生する。タイマー割込みは外部割込みの代表例。他の選択肢は内部割込み（プログラム例外）。",
       "relatedTerms": [
         "interrupt"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_011",
@@ -1570,7 +1655,8 @@
       "explanation": "128=2^7なのでn=7。冗長ビット数=n+2=7+2=9ビット。",
       "relatedTerms": [
         "ecc"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "sample_012",
@@ -1588,7 +1674,8 @@
       "explanation": "実効アクセス時間を計算：A=15ns、B=30ns、C=0.6×20+0.4×70=40ns、D=0.9×10+0.1×80=17ns。短い順：A(15)<D(17)<B(30)<C(40)。",
       "relatedTerms": [
         "cache_memory"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "sample_013",
@@ -1606,7 +1693,8 @@
       "explanation": "20台で各70%使用。k台停止時、残り(20-k)台で均等配分すると使用率=20×70/(20-k)%。90%超で縮退なので、1400/(20-k)>90、1400>90(20-k)、k>4.4。よって5台停止で縮退。",
       "relatedTerms": [
         "virtualization"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "sample_014",
@@ -1624,7 +1712,8 @@
       "explanation": "サーバは直列でa。クライアント3台並列は1-(1-b)³。プリンタ2台並列は1-(1-c)²。全体=a×(1-(1-b)³)×(1-(1-c)²)。",
       "relatedTerms": [
         "availability"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "sample_015",
@@ -1642,7 +1731,8 @@
       "explanation": "S>Rなので、T秒間で(S-R)×Tのデータがバッファに溜まる。オーバフローしないためにはL≧(S－R)×T。",
       "relatedTerms": [
         "buffer"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_016",
@@ -1660,7 +1750,8 @@
       "explanation": "インタプリタは原始プログラム（ソースコード）を1行ずつ解釈しながら実行する。ウはコンパイラ、エはローダの説明。",
       "relatedTerms": [
         "interpreter"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_017",
@@ -1678,7 +1769,8 @@
       "explanation": "順に割当：90→A、30→B(AとC同じでBが最大になるよう)→B、40→C、40→B、70→A、30→C。結果：A=160,B=70,C=70→A,B,C...ではなく再計算が必要。実際は C,B,A の順。",
       "relatedTerms": [
         "file_allocation"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "sample_018",
@@ -1696,7 +1788,8 @@
       "explanation": "絶対パス名はルートディレクトリ（/）から対象ファイルまでの完全なパス。相対パス（イ）やホームディレクトリからのパスとは異なる。",
       "relatedTerms": [
         "file_path"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_019",
@@ -1714,7 +1807,8 @@
       "explanation": "DRAMはメモリセル構造が単純（1トランジスタ+1コンデンサ）で高集積化・低コスト。リフレッシュが必要で揮発性。アはフラッシュメモリ、イ・ウはSRAMやROMの特徴。",
       "relatedTerms": [
         "dram"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_020",
@@ -1732,7 +1826,8 @@
       "explanation": "注文日と入力日の関係（営業日かどうか）を確認するのは論理チェック。データ間の論理的な整合性を検査する。",
       "relatedTerms": [
         "input_check"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_021",
@@ -1750,7 +1845,8 @@
       "explanation": "ビューは基底表から導出される仮想的な表で、名前を付けて定義する。複数のビューを重ねて定義することも可能。",
       "relatedTerms": [
         "view"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_022",
@@ -1769,7 +1865,8 @@
       "relatedTerms": [
         "uml",
         "er_model"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_023",
@@ -1787,7 +1884,8 @@
       "explanation": "データレイクは構造化・非構造化を問わず、あらゆるデータをそのままの形式で格納する。スキーマオンリード方式で、格納時にスキーマ定義は不要。",
       "relatedTerms": [
         "data_lake"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_024",
@@ -1805,7 +1903,8 @@
       "explanation": "射影（projection）は表から特定の列（属性）を取り出す演算。選択（selection）は行を取り出す演算。",
       "relatedTerms": [
         "projection"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "sample_025",
@@ -1823,7 +1922,8 @@
       "explanation": "BLE（Bluetooth Low Energy）は低消費電力の近距離無線通信技術で、IoTデバイスやウェアラブル機器で広く使用される。",
       "relatedTerms": [
         "ble"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_026",
@@ -1841,7 +1941,8 @@
       "explanation": "12Mバイト=12×8=96Mビット。実効伝送速度=1.5×0.5=0.75Mビット/秒。伝送時間=96/0.75=128秒。",
       "relatedTerms": [
         "transmission_time"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "sample_027",
@@ -1859,7 +1960,8 @@
       "explanation": "MIME（Multipurpose Internet Mail Extensions）は電子メールでテキスト以外のデータ（画像、音声等）を添付するための規格。",
       "relatedTerms": [
         "mime"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_028",
@@ -1877,7 +1979,8 @@
       "explanation": "UDP（User Datagram Protocol）はコネクションレス型で、再送制御を行わないため低遅延。動画ストリーミングや音声通話などリアルタイム性重視の用途に使用。",
       "relatedTerms": [
         "udp"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_029",
@@ -1895,7 +1998,8 @@
       "explanation": "戻りパケットでは送信元と宛先が入れ替わる。Webサーバからの応答は送信元ポート80（HTTP）、宛先ポート50001（PCが割り当てた番号）。",
       "relatedTerms": [
         "port_number"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "sample_030",
@@ -1913,7 +2017,8 @@
       "explanation": "ソーシャルエンジニアリングは人間の心理的な隙を突いて情報を入手する手法。緊急事態を装う、なりすますなどの方法がある。",
       "relatedTerms": [
         "social_engineering"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "sample_031",
@@ -1932,7 +2037,8 @@
       "relatedTerms": [
         "botnet",
         "cc_server"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_032",
@@ -1950,7 +2056,8 @@
       "explanation": "メッセージ認証符号（MAC: Message Authentication Code）は、メッセージの改ざん検知と送信者の認証に使用される。",
       "relatedTerms": [
         "mac"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_033",
@@ -1968,7 +2075,8 @@
       "explanation": "UPS（無停電電源装置）は停電や瞬断時にバッテリーから電力を供給し、システムの正常シャットダウンまでの時間を確保する。可用性の向上に寄与。",
       "relatedTerms": [
         "ups"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_034",
@@ -1986,7 +2094,8 @@
       "explanation": "ファジング（Fuzzing）は、ソフトウェアに大量の異常データや予期しないデータを自動入力し、脆弱性やバグを発見するテスト手法。",
       "relatedTerms": [
         "fuzzing"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_035",
@@ -2004,7 +2113,8 @@
       "explanation": "動的解析は、マルウェアを実際に実行して挙動を観察する手法。サンドボックス（隔離環境）で実行し、ファイル操作やネットワーク通信を監視する。",
       "relatedTerms": [
         "malware_analysis"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_036",
@@ -2022,7 +2132,8 @@
       "explanation": "SQLインジェクション対策は、特殊文字のエスケープ処理やプリペアドステートメントの使用。イはXSS対策、ウはディレクトリトラバーサル対策。",
       "relatedTerms": [
         "sql_injection"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_037",
@@ -2040,7 +2151,8 @@
       "explanation": "SMTP-AUTH（SMTP Authentication）はメール送信時に送信者を認証する仕組み。APOPとPOP3Sはメール受信時の認証、S/MIMEはメールの暗号化・署名。",
       "relatedTerms": [
         "smtp_auth"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_038",
@@ -2059,7 +2171,8 @@
       "relatedTerms": [
         "encapsulation",
         "polymorphism"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_039",
@@ -2077,7 +2190,8 @@
       "explanation": "モジュール結合度は弱いほど良い。データ結合（必要なデータだけを引数で渡す）が最も弱い。グローバル変数使用やフラグによる制御は結合度が強い。",
       "relatedTerms": [
         "module_coupling"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_040",
@@ -2095,7 +2209,8 @@
       "explanation": "ブラックボックステストは内部構造を考慮せず、入出力の仕様に基づいてテストする手法。ホワイトボックステストは内部構造を考慮してテストする。",
       "relatedTerms": [
         "black_box_test"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_041",
@@ -2114,7 +2229,8 @@
       "relatedTerms": [
         "scrum",
         "sprint"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_042",
@@ -2132,7 +2248,8 @@
       "explanation": "プロジェクトが進むにつれて不確実性が減り、リスクは減少する。変更コストは後になるほど増加し、ステークホルダの影響力は初期が最大。",
       "relatedTerms": [
         "project_lifecycle"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_043",
@@ -2150,7 +2267,8 @@
       "explanation": "ファンクションポイント法は、外部入力・外部出力・外部照会・内部論理ファイル・外部インタフェースファイルの数と複雑さから規模を見積もる。",
       "relatedTerms": [
         "function_point"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_044",
@@ -2169,7 +2287,8 @@
       "relatedTerms": [
         "arrow_diagram",
         "critical_path"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "sample_045",
@@ -2187,7 +2306,8 @@
       "explanation": "ベンチマーキングは、他社や業界のベストプラクティスと自社を比較し、改善点を見つける手法。アはBSC、エはSWOT分析。",
       "relatedTerms": [
         "benchmarking"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_046",
@@ -2205,7 +2325,8 @@
       "explanation": "ロールフォワードは、バックアップからリストアした後、ログを使って更新処理を再実行し、障害直前の状態に回復する方法。",
       "relatedTerms": [
         "rollforward"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_047",
@@ -2223,7 +2344,8 @@
       "explanation": "外観上の独立性を確保するには、監査対象部門から独立した部署（内部監査部門）に所属させることが重要。他の選択肢は専門的能力に関するもの。",
       "relatedTerms": [
         "system_audit"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "sample_048",
@@ -2241,7 +2363,8 @@
       "explanation": "可用性は「必要なときに使える」こと。SLAで定めた中断時間（ダウンタイム）の管理は可用性に関する項目。アは機密性、ウは完全性、エは機密性。",
       "relatedTerms": [
         "availability"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_049",
@@ -2259,7 +2382,8 @@
       "explanation": "VDI（Virtual Desktop Infrastructure）は、デスクトップ環境をサーバ上で仮想化し、様々な端末からアクセス可能にする技術。イはVPN、エはWeb会議システム。",
       "relatedTerms": [
         "vdi"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_050",
@@ -2277,7 +2401,8 @@
       "explanation": "ROI=(利益-投資額)/投資額×100。a=(135-100)/100=35%、b=(240-200)/200=20%、c=(360-300)/300=20%、d=(525-400)/400=31.25%。最高はa=35%。",
       "relatedTerms": [
         "roi"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "sample_051",
@@ -2295,7 +2420,8 @@
       "explanation": "グリーン購入は、環境負荷の少ない製品・サービスを優先的に購入すること。グリーン購入法で国等の機関に義務付けられている。",
       "relatedTerms": [
         "green_purchase"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "sample_052",
@@ -2313,7 +2439,8 @@
       "explanation": "コアコンピタンスは、他社が模倣困難な自社固有の強み・中核的能力。イはコンプライアンス、ウは事業ドメイン、エはEA。",
       "relatedTerms": [
         "core_competence"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_053",
@@ -2331,7 +2458,8 @@
       "explanation": "リーンスタートアップは、MVP（実用最小限の製品）を素早く作り、Build-Measure-Learnサイクルで検証・改善を繰り返す手法。",
       "relatedTerms": [
         "lean_startup"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_054",
@@ -2349,7 +2477,8 @@
       "explanation": "HEMS（Home Energy Management System）は家庭内のエネルギー管理システム。家電やセンサをネットワーク接続し、電力消費を可視化・最適化する。",
       "relatedTerms": [
         "hems"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_055",
@@ -2367,7 +2496,8 @@
       "explanation": "ロングテールは、販売数量の少ないニッチ商品群の売上合計が、ヒット商品に匹敵する現象。ECサイトで顕著に見られる。",
       "relatedTerms": [
         "long_tail"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_056",
@@ -2385,7 +2515,8 @@
       "explanation": "CGM（Consumer Generated Media）は消費者生成メディアで、ブログ、SNS、口コミサイトなど消費者が情報を発信するメディアを指す。",
       "relatedTerms": [
         "cgm"
-      ]
+      ],
+      "difficulty": "easy"
     },
     {
       "id": "sample_057",
@@ -2403,7 +2534,8 @@
       "explanation": "線形計画法で解く。制約条件：2X+Y≦100、X+2Y≦80。頂点を計算すると(X,Y)=(40,20)で最大。利益=100×40+150×20=4000+3000=7000円。",
       "relatedTerms": [
         "linear_programming"
-      ]
+      ],
+      "difficulty": "hard"
     },
     {
       "id": "sample_058",
@@ -2421,7 +2553,8 @@
       "explanation": "年間償却額=30×0.250=7.5万円。3年後の帳簿価額=30-7.5×3=30-22.5=7.5万円。売却損=帳簿価額-売却価格=7.5-1=6.5万円。",
       "relatedTerms": [
         "depreciation"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "sample_059",
@@ -2439,7 +2572,8 @@
       "explanation": "変動費率=60/100=0.6。目標売上高をSとすると、S-0.6S-30=18、0.4S=48、S=120百万円。",
       "relatedTerms": [
         "break_even_point"
-      ]
+      ],
+      "difficulty": "medium"
     },
     {
       "id": "sample_060",
@@ -2457,7 +2591,8 @@
       "explanation": "労働者派遣では、労働者は派遣元と雇用契約を結び、派遣先からは指揮命令を受ける。派遣先との間には指揮命令関係がある。",
       "relatedTerms": [
         "worker_dispatch"
-      ]
+      ],
+      "difficulty": "easy"
     }
   ],
   "categories": [

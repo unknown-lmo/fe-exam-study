@@ -62,3 +62,18 @@ export async function fetchGlossaryTerm(id) {
   const res = await fetch(`${API_BASE}/glossary/${id}`);
   return res.json();
 }
+
+export async function fetchQuestionsList(category = null, difficulty = null, search = null) {
+  const params = new URLSearchParams();
+  if (category) params.append('category', category);
+  if (difficulty) params.append('difficulty', difficulty);
+  if (search) params.append('search', search);
+  const query = params.toString();
+  const res = await fetch(`${API_BASE}/questions/list${query ? '?' + query : ''}`);
+  return res.json();
+}
+
+export async function fetchQuestionById(id) {
+  const res = await fetch(`${API_BASE}/questions/${id}`);
+  return res.json();
+}

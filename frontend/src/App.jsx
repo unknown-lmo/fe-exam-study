@@ -3,6 +3,7 @@ import Quiz from './components/Quiz';
 import Progress from './components/Progress';
 import History from './components/History';
 import Glossary from './components/Glossary';
+import QuestionList from './components/QuestionList';
 import { fetchCategories, fetchProgress } from './api';
 import { usePresenterMode } from './hooks/usePresenterMode';
 import { useTheme } from './hooks/useTheme';
@@ -12,6 +13,7 @@ import './App.css';
 function App() {
   const [view, setView] = useState('menu');
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedQuestionId, setSelectedQuestionId] = useState(null);
   const [categories, setCategories] = useState([]);
   const [quickStats, setQuickStats] = useState(null);
   const { presenterMode, togglePresenterMode, isVegetaMode } = usePresenterMode();
@@ -79,6 +81,41 @@ function App() {
     return (
       <div className="app app-glossary">
         <Glossary onBack={() => setView('menu')} presenterMode={presenterMode} />
+      </div>
+    );
+  }
+
+  if (view === 'question-list') {
+    return (
+      <div className="app">
+        <QuestionList
+          onSelectQuestion={(id) => {
+            setSelectedQuestionId(id);
+            setView('quiz-single');
+          }}
+          onBack={() => setView('menu')}
+        />
+      </div>
+    );
+  }
+
+  if (view === 'quiz-single') {
+    return (
+      <div className="app">
+        <Quiz
+          mode="single"
+          questionId={selectedQuestionId}
+          options={{ ...quizOptions, shuffle: false }}
+          onComplete={() => {
+            setSelectedQuestionId(null);
+            setView('menu');
+          }}
+          onBackToList={() => {
+            setSelectedQuestionId(null);
+            setView('question-list');
+          }}
+          presenterMode={presenterMode}
+        />
       </div>
     );
   }
@@ -221,6 +258,12 @@ function App() {
               onClick={() => setView('glossary')}
             >
               用語集を見る
+            </button>
+            <button
+              className="action-button question-list"
+              onClick={() => setView('question-list')}
+            >
+              問題一覧を見る
             </button>
           </div>
         </section>

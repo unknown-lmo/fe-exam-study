@@ -49,10 +49,10 @@ app.get('/api/categories', (req, res) => {
   }
 });
 
-// 問題一覧取得（カテゴリでフィルタ可能）
+// 問題一覧取得（カテゴリ・難易度でフィルタ可能）
 app.get('/api/questions', (req, res) => {
   try {
-    const { category, subcategory } = req.query;
+    const { category, subcategory, difficulty } = req.query;
     const data = loadQuestions();
     let questions = data.questions;
 
@@ -62,12 +62,65 @@ app.get('/api/questions', (req, res) => {
     if (subcategory) {
       questions = questions.filter(q => q.subcategory === subcategory);
     }
+    if (difficulty) {
+      questions = questions.filter(q => q.difficulty === difficulty);
+    }
 
     // 正解を含まない形で返す
     const questionsWithoutAnswer = questions.map(({ correctAnswer, explanation, ...rest }) => rest);
     res.json(questionsWithoutAnswer);
   } catch (error) {
     res.status(500).json({ error: '問題の取得に失敗しました' });
+  }
+});
+
+// 問題一覧取得（回答履歴付き）
+app.get('/api/questions/list', (req, res) => {
+  try {
+    const { category, difficulty, search } = req.query;
+    const data = loadQuestions();
+    const progress = loadProgress();
+    let questions = data.questions;
+
+    // フィルタリング
+    if (category) {
+      questions = questions.filter(q => q.category === category);
+    }
+    if (difficulty) {
+      questions = questions.filter(q => q.difficulty === difficulty);
+    }
+    if (search) {
+      const searchLower = search.toLowerCase();
+      questions = questions.filter(q =>
+        q.question.toLowerCase().includes(searchLower) ||
+        q.subcategory.toLowerCase().includes(searchLower)
+      );
+    }
+
+    // 回答履歴を含めて返す
+    const questionsWithStatus = questions.map(q => {
+      const stats = progress.questionStats[q.id];
+      let status = 'unanswered'; // 未回答
+      if (stats && stats.attempts > 0) {
+        const correctRate = stats.correctCount / stats.attempts;
+        status = correctRate >= 0.5 ? 'correct' : 'incorrect';
+      }
+      return {
+        id: q.id,
+        category: q.category,
+        categoryName: q.categoryName,
+        subcategory: q.subcategory,
+        question: q.question,
+        difficulty: q.difficulty,
+        status,
+        attempts: stats ? stats.attempts : 0,
+        correctCount: stats ? stats.correctCount : 0
+      };
+    });
+
+    res.json(questionsWithStatus);
+  } catch (error) {
+    res.status(500).json({ error: '問題一覧の取得に失敗しました' });
   }
 });
 
