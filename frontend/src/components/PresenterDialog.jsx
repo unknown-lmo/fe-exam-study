@@ -2,14 +2,34 @@ function PresenterDialog({ message, presenter, type, activeCharacter }) {
   if (!message) return null;
 
   const isVegeta = presenter === 'vegeta';
-  const hasCustomAvatar = activeCharacter?.avatar;
+
+  // typeに応じたアバターを選択
+  // type: 'intro' | 'correct' | 'incorrect' | 'complete'
+  const getAvatarForType = () => {
+    if (!activeCharacter?.avatars) return null;
+
+    // typeをavatarキーにマッピング
+    const avatarMap = {
+      intro: 'default',
+      correct: 'correct',
+      incorrect: 'incorrect',
+      complete: 'default'  // 結果発表時はデフォルト
+    };
+
+    const avatarKey = avatarMap[type] || 'default';
+
+    // 該当タイプの画像があればそれを使用、なければdefaultにフォールバック
+    return activeCharacter.avatars[avatarKey] || activeCharacter.avatars.default || null;
+  };
+
+  const avatarUrl = getAvatarForType();
 
   return (
     <div className={`presenter-dialog ${presenter} ${type}`}>
-      {hasCustomAvatar ? (
+      {avatarUrl ? (
         <img
-          src={activeCharacter.avatar}
-          alt={activeCharacter.name}
+          src={avatarUrl}
+          alt={activeCharacter?.name || ''}
           className="presenter-avatar custom-avatar"
         />
       ) : isVegeta ? (

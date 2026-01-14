@@ -2628,3 +2628,80 @@ body {
     height: 200px;
   }
 }
+
+/* =============================================
+   3アバター グリッドレイアウト
+   ============================================= */
+
+.basic-settings-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.avatar-hint {
+  font-size: 0.875rem;
+  color: var(--text-secondary, #64748b);
+  margin: 0 0 16px 0;
+}
+
+.avatars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.avatar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.avatar-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary, #1e293b);
+}
+
+/* 3アバター時の画像アップローダーをコンパクトに */
+.avatars-grid .image-uploader {
+  width: 100%;
+}
+
+.avatars-grid .image-preview-container {
+  width: 100px;
+  height: 100px;
+}
+
+.avatars-grid .image-hint {
+  display: none;
+}
+
+.avatars-grid .image-actions {
+  flex-direction: column;
+}
+
+.avatars-grid .upload-button,
+.avatars-grid .remove-button {
+  width: 100%;
+  font-size: 0.7rem;
+  padding: 4px 8px;
+}
+
+/* レスポンシブ */
+@media (max-width: 600px) {
+  .basic-settings-row {
+    grid-template-columns: 1fr;
+  }
+
+  .avatars-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .avatars-grid .image-preview-container {
+    width: 120px;
+    height: 120px;
+  }
+}

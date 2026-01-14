@@ -72,12 +72,19 @@ const PRESET_DIALOGS = {
   }
 };
 
+// デフォルトのavatars構造
+const createDefaultAvatars = () => ({
+  default: null,
+  correct: null,
+  incorrect: null
+});
+
 // プリセットキャラクターの初期データ
 const createPresetCharacters = () => [
   {
     id: 'normal',
     name: 'ノーマル',
-    avatar: null,
+    avatars: createDefaultAvatars(),
     speechPattern: 'polite',
     dialogs: { ...PRESET_DIALOGS.normal },
     isPreset: true,
@@ -87,7 +94,7 @@ const createPresetCharacters = () => [
   {
     id: 'vegeta',
     name: 'ベジータ',
-    avatar: null,
+    avatars: createDefaultAvatars(),
     speechPattern: 'oresama',
     dialogs: { ...PRESET_DIALOGS.vegeta },
     isPreset: true,
@@ -111,6 +118,23 @@ const VALIDATION = {
   maxCharacters: 10
 };
 
+// 古いavatar形式から新しいavatars形式に移行
+const migrateCharacter = (character) => {
+  // 既にavatars形式の場合はそのまま
+  if (character.avatars) {
+    return character;
+  }
+  // 古いavatar形式からの移行
+  return {
+    ...character,
+    avatars: {
+      default: character.avatar || null,
+      correct: null,
+      incorrect: null
+    }
+  };
+};
+
 export function useCharacterSettings() {
   const [state, setState] = useState(() => {
     try {
@@ -128,6 +152,10 @@ export function useCharacterSettings() {
         if (!hasVegeta) {
           parsed.characters.splice(1, 0, presets[1]);
         }
+
+        // avatars形式に移行
+        parsed.characters = parsed.characters.map(migrateCharacter);
+
         return parsed;
       }
     } catch (e) {
@@ -182,7 +210,7 @@ export function useCharacterSettings() {
     const newCharacter = {
       id: `custom_${Date.now()}`,
       name: character.name || '新しいキャラクター',
-      avatar: character.avatar || null,
+      avatars: character.avatars || createDefaultAvatars(),
       speechPattern: character.speechPattern || 'polite',
       dialogs: character.dialogs || { ...PRESET_DIALOGS.normal },
       isPreset: false,
@@ -251,7 +279,7 @@ export function useCharacterSettings() {
         return {
           ...c,
           name: characterId === 'vegeta' ? 'ベジータ' : 'ノーマル',
-          avatar: null,
+          avatars: createDefaultAvatars(),
           speechPattern: defaultSpeechPattern,
           dialogs: { ...defaultDialogs },
           updatedAt: new Date().toISOString()

@@ -62,14 +62,26 @@ function CharacterSettings({
     }));
   };
 
-  // 画像を変更
-  const handleImageChange = (base64) => {
-    setEditingCharacter(prev => ({ ...prev, avatar: base64 }));
+  // 画像を変更（タイプ別）
+  const handleImageChange = (avatarType, base64) => {
+    setEditingCharacter(prev => ({
+      ...prev,
+      avatars: {
+        ...prev.avatars,
+        [avatarType]: base64
+      }
+    }));
   };
 
-  // 画像を削除
-  const handleImageRemove = () => {
-    setEditingCharacter(prev => ({ ...prev, avatar: null }));
+  // 画像を削除（タイプ別）
+  const handleImageRemove = (avatarType) => {
+    setEditingCharacter(prev => ({
+      ...prev,
+      avatars: {
+        ...prev.avatars,
+        [avatarType]: null
+      }
+    }));
   };
 
   // セリフを追加
@@ -149,7 +161,11 @@ function CharacterSettings({
   const handleCreateNew = () => {
     const newId = onAddCharacter({
       name: '新しいキャラクター',
-      avatar: null,
+      avatars: {
+        default: null,
+        correct: null,
+        incorrect: null
+      },
       speechPattern: 'polite',
       dialogs: {
         questionIntro: ['問題です。'],
@@ -248,40 +264,62 @@ function CharacterSettings({
           {/* 基本設定 */}
           <div className="settings-section">
             <h3>基本設定</h3>
-            <div className="basic-settings">
-              <div className="avatar-section">
-                <ImageUploader
-                  currentImage={editingCharacter.avatar}
-                  onImageChange={handleImageChange}
-                  onImageRemove={handleImageRemove}
+            <div className="basic-settings-row">
+              <div className="form-group">
+                <label>キャラクター名</label>
+                <input
+                  type="text"
+                  value={editingCharacter.name}
+                  onChange={handleNameChange}
+                  maxLength={20}
                 />
+                {errors.name && <span className="error">{errors.name}</span>}
               </div>
 
-              <div className="info-section">
-                <div className="form-group">
-                  <label>キャラクター名</label>
-                  <input
-                    type="text"
-                    value={editingCharacter.name}
-                    onChange={handleNameChange}
-                    maxLength={20}
-                  />
-                  {errors.name && <span className="error">{errors.name}</span>}
-                </div>
+              <div className="form-group">
+                <label>口調</label>
+                <select
+                  value={editingCharacter.speechPattern}
+                  onChange={handleSpeechPatternChange}
+                >
+                  {speechPatterns.map(sp => (
+                    <option key={sp.id} value={sp.id}>
+                      {sp.name} - {sp.description}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
 
-                <div className="form-group">
-                  <label>口調</label>
-                  <select
-                    value={editingCharacter.speechPattern}
-                    onChange={handleSpeechPatternChange}
-                  >
-                    {speechPatterns.map(sp => (
-                      <option key={sp.id} value={sp.id}>
-                        {sp.name} - {sp.description}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+          {/* アバター画像 */}
+          <div className="settings-section">
+            <h3>アバター画像</h3>
+            <p className="avatar-hint">状況に応じて表示される画像を設定できます（任意）</p>
+            <div className="avatars-grid">
+              <div className="avatar-item">
+                <span className="avatar-label">通常・出題時</span>
+                <ImageUploader
+                  currentImage={editingCharacter.avatars?.default}
+                  onImageChange={(base64) => handleImageChange('default', base64)}
+                  onImageRemove={() => handleImageRemove('default')}
+                />
+              </div>
+              <div className="avatar-item">
+                <span className="avatar-label">正解時</span>
+                <ImageUploader
+                  currentImage={editingCharacter.avatars?.correct}
+                  onImageChange={(base64) => handleImageChange('correct', base64)}
+                  onImageRemove={() => handleImageRemove('correct')}
+                />
+              </div>
+              <div className="avatar-item">
+                <span className="avatar-label">不正解時</span>
+                <ImageUploader
+                  currentImage={editingCharacter.avatars?.incorrect}
+                  onImageChange={(base64) => handleImageChange('incorrect', base64)}
+                  onImageRemove={() => handleImageRemove('incorrect')}
+                />
               </div>
             </div>
           </div>
@@ -457,9 +495,9 @@ function CharacterSettings({
             <h3>プレビュー</h3>
             <div className="preview-container">
               <div className="preview-dialog">
-                {editingCharacter.avatar ? (
+                {editingCharacter.avatars?.default ? (
                   <img
-                    src={editingCharacter.avatar}
+                    src={editingCharacter.avatars.default}
                     alt={editingCharacter.name}
                     className="preview-avatar"
                   />

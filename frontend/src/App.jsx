@@ -194,8 +194,8 @@ function App() {
           }}
         >
           <span className="toggle-icon">
-            {activeCharacter.avatar ? (
-              <img src={activeCharacter.avatar} alt="" className="toggle-avatar" />
+            {activeCharacter.avatars?.default ? (
+              <img src={activeCharacter.avatars.default} alt="" className="toggle-avatar" />
             ) : (
               isVegetaMode ? '👑' : '📚'
             )}
