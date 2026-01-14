@@ -270,25 +270,34 @@ function Quiz({
       </div>
 
       <div className="quiz-choices">
-        {question.choices.map((choice, index) => (
-          <button
-            key={index}
-            className={`choice-button ${selectedAnswer === index ? 'selected' : ''} ${
-              result !== null
-                ? index === result.correctAnswer
-                  ? 'correct'
-                  : selectedAnswer === index
-                  ? 'incorrect'
+        {question.choices.map((choice, index) => {
+          // シャッフル時は正解の表示位置を計算
+          const correctDisplayIndex = result !== null
+            ? (question.shuffleMap
+                ? question.shuffleMap.indexOf(result.correctAnswer)
+                : result.correctAnswer)
+            : null;
+
+          return (
+            <button
+              key={index}
+              className={`choice-button ${selectedAnswer === index ? 'selected' : ''} ${
+                result !== null
+                  ? index === correctDisplayIndex
+                    ? 'correct'
+                    : selectedAnswer === index
+                    ? 'incorrect'
+                    : ''
                   : ''
-                : ''
-            }`}
-            onClick={() => !result && setSelectedAnswer(index)}
-            disabled={result !== null}
-          >
-            <span className="choice-label">{['ア', 'イ', 'ウ', 'エ'][index]}</span>
-            <span className="choice-text">{choice}</span>
-          </button>
-        ))}
+              }`}
+              onClick={() => !result && setSelectedAnswer(index)}
+              disabled={result !== null}
+            >
+              <span className="choice-label">{['ア', 'イ', 'ウ', 'エ'][index]}</span>
+              <span className="choice-text">{choice}</span>
+            </button>
+          );
+        })}
       </div>
 
       {result && (
