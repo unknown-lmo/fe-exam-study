@@ -333,82 +333,50 @@ npm test -- --run src/components/Quiz.test.tsx
 
 ## コード品質課題
 
-### 優先度：高
+### 完了済みタスク
 
-#### 1. APIエラーハンドリングの欠如
-**場所**: `src/api.ts` 全関数
+| タスク | コミット | 日付 |
+|-------|---------|------|
+| APIエラーハンドリング追加 | e18371c | 2025/01/14 |
+| Error Boundary追加 | e18371c | 2025/01/14 |
+| 定数集約（constants.ts） | e18371c | 2025/01/14 |
+| 危険な型キャスト修正 | 3e67026 | 2025/01/15 |
+| 定数の重複解消 | 7a4be75 | 2025/01/15 |
+| API URL環境変数化 | 6177643 | 2025/01/15 |
+| アクセシビリティ対応 | d691c7c | 2025/01/15 |
+| パフォーマンス改善 | fb5a882 | 2025/01/15 |
 
-現状、HTTPレスポンスのステータスチェックがない。
+### やり残しタスク
 
-```typescript
-// 現状
-const res = await fetch(`${API_BASE}/categories`);
-return res.json();  // 500エラーでも黙って処理
-
-// 改善案
-if (!res.ok) throw new Error(`API error: ${res.status}`);
-```
-
-#### 2. 危険な型キャスト
-**場所**: `Progress.tsx:34`, `History.tsx:32`, `QuestionList.tsx:72`
-
-```typescript
-// 現状：TypeScriptの型チェックを回避
-const data = await fetchProgress() as unknown as ProgressData;
-```
-
-Zodでスキーマ検証するか、APIの戻り値型を正しく定義すべき。
-
-#### 3. React Error Boundaryがない
-**場所**: `App.tsx`
-
-レンダリングエラーでアプリ全体がクラッシュする。
-
-### 優先度：中
-
-#### 4. アクセシビリティ（a11y）問題
-- クリック可能な`div`にキーボード対応なし（Glossary, Quiz）
-- `aria-label`の欠如（アイコンボタン等）
-- 入力フィールドに`<label>`なし
-
-#### 5. Quiz.tsxのstate肥大化
-**場所**: `src/components/Quiz.tsx:63-73`
+#### 1. Quiz.tsxのstate肥大化（工数：大）
+**場所**: `src/components/Quiz.tsx`
 
 11個以上の`useState`がある。`useReducer`への移行を検討。
 
-#### 6. 定数の重複
-以下の定数が複数ファイルに分散：
-- `categoryNames`: Glossary.tsx, Progress.tsx
-- `DIFFICULTY_LABELS`: Quiz.tsx, QuestionList.tsx
-
-`src/constants.ts`に集約すべき。
-
-### 優先度：低
-
-#### 7. パフォーマンス改善
-- `JSON.parse(JSON.stringify())`による深いコピー → `structuredClone()`
-- 検索フィルターにデバウンスなし
-- `useMemo`/`useCallback`の欠如
-
-#### 8. CSSの肥大化
-`App.css`が2,700行超。CSS Modulesへの分割を検討。
-
-#### 9. ハードコードされたAPI URL
 ```typescript
-const API_BASE = 'http://localhost:3001/api';  // 環境変数化すべき
+// 現状
+const [questions, setQuestions] = useState([]);
+const [currentIndex, setCurrentIndex] = useState(0);
+const [selectedAnswer, setSelectedAnswer] = useState(null);
+const [result, setResult] = useState(null);
+const [score, setScore] = useState({ correct: 0, total: 0 });
+// ... さらに6個以上
+
+// 改善案: useReducerで状態管理を整理
+const [state, dispatch] = useReducer(quizReducer, initialState);
 ```
 
-### 改善優先順位
+#### 2. CSSの肥大化（工数：大）
+**場所**: `src/App.css`
 
-| 優先度 | タスク | 工数 |
-|-------|-------|-----|
-| 1 | APIにエラーチェック追加 | 小 |
-| 2 | Error Boundary追加 | 小 |
-| 3 | 型キャストの修正（Zod導入） | 中 |
-| 4 | a11y対応 | 中 |
-| 5 | Quiz.tsxリファクタ（useReducer） | 大 |
-| 6 | 定数の集約 | 小 |
-| 7 | CSS Modules化 | 大 |
+`App.css`が2,700行超。CSS Modulesへの分割を検討。
+
+### 改善優先順位（残タスク）
+
+| 優先度 | タスク | 工数 | 状態 |
+|-------|-------|-----|------|
+| 1 | Quiz.tsxリファクタ（useReducer） | 大 | 未着手 |
+| 2 | CSS Modules化 | 大 | 未着手 |
 
 ## ディレクトリ構造
 
