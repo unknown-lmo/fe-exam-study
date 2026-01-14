@@ -63,9 +63,11 @@ Phase 4で実装予定のキャラクターモード機能についての要件�
 - 例: 「マイキャラ」「先生」「師匠」など
 
 ### 5. プリセットキャラクターの提供
-- 現在のベジータモードをプリセットとして残す
+- 「ノーマル」「ベジータ」の2つをプリセットとして提供
+- プリセットは削除不可（編集は可能）
 - ユーザーはプリセットをベースにカスタマイズ可能
 - 「プリセットから作成」「ゼロから作成」を選択
+- プリセットは「デフォルトに戻す」機能あり
 
 ### 6. キャラクター設定の保存・切り替え
 - 複数のカスタムキャラクターを保存可能
@@ -120,5 +122,224 @@ Phase 4で実装予定のキャラクターモード機能についての要件�
 
 ---
 
+## 実装計画
+
+### Step 1: データ構造の設計
+キャラクター設定のデータ構造を定義
+
+```javascript
+// localStorage に保存するデータ構造
+{
+  characters: [
+    {
+      id: "normal",            // プリセット1: ノーマル
+      name: "ノーマル",
+      avatar: null,            // デフォルトアイコン使用
+      speechPattern: "polite", // 丁寧語（変換なし）
+      dialogs: { /* 既存のnormalセリフ */ },
+      isPreset: true,
+      createdAt: "...",
+      updatedAt: "..."
+    },
+    {
+      id: "vegeta",            // プリセット2: ベジータ
+      name: "ベジータ",
+      avatar: null,            // デフォルトアイコン使用
+      speechPattern: "oresama", // 俺様系
+      dialogs: { /* 既存のvegetaセリフ */ },
+      isPreset: true,
+      createdAt: "...",
+      updatedAt: "..."
+    },
+    {
+      id: "custom_xxxxx",      // ユーザー作成キャラ（例）
+      name: "マイキャラ",
+      avatar: "data:image/...", // Base64画像
+      speechPattern: "gyaru",
+      dialogs: {
+        questionIntro: ["セリフ1", "セリフ2"],
+        correct: ["セリフ1", "セリフ2"],
+        incorrect: ["セリフ1", "セリフ2"],
+        timeout: ["セリフ1", "セリフ2"],
+        quizStart: ["セリフ1"],
+        quizComplete: {
+          excellent: ["セリフ"],
+          good: ["セリフ"],
+          needsWork: ["セリフ"]
+        }
+      },
+      isPreset: false,         // ユーザー作成
+      createdAt: "2026-01-14T...",
+      updatedAt: "2026-01-14T..."
+    }
+  ],
+  activeCharacterId: "vegeta"  // 現在選択中のキャラクター
+}
+```
+
+### Step 2: 口調変換プリセットの実装
+`frontend/src/config/speechPatterns.js` を新規作成
+
+```javascript
+export const SPEECH_PATTERNS = {
+  polite: { id: "polite", name: "丁寧語", transform: (text) => text },
+  oresama: { id: "oresama", name: "俺様系", transform: (text) => ... },
+  ojousama: { id: "ojousama", name: "お嬢様系", transform: (text) => ... },
+  hakase: { id: "hakase", name: "博士系", transform: (text) => ... },
+  gyaru: { id: "gyaru", name: "ギャル系", transform: (text) => ... },
+  genki1: { id: "genki1", name: "元気な子1", transform: (text) => ... },
+  genki2: { id: "genki2", name: "元気な子2", transform: (text) => ... },
+  ojisan: { id: "ojisan", name: "おじさん構文", transform: (text) => ... }
+};
+```
+
+### Step 3: カスタムフックの作成
+`frontend/src/hooks/useCharacterSettings.js` を新規作成
+
+- キャラクター一覧の取得
+- キャラクターの追加・編集・削除
+- アクティブキャラクターの切り替え
+- localStorage への保存・読み込み
+- プリセットキャラクターの初期化
+
+### Step 4: 設定画面コンポーネントの作成
+`frontend/src/components/CharacterSettings.jsx` を新規作成
+
+**画面構成:**
+```
+┌─────────────────────────────────────────┐
+│ キャラクター設定              [×閉じる] │
+├─────────────────────────────────────────┤
+│ キャラクター選択: [▼ ベジータ] [+新規]  │
+├─────────────────────────────────────────┤
+│ ┌─────┐  名前: [ベジータ        ]       │
+│ │     │                                 │
+│ │画像 │  口調: [▼ 俺様系       ]        │
+│ │     │                                 │
+│ └─────┘  [画像をアップロード]           │
+├─────────────────────────────────────────┤
+│ セリフ編集                              │
+│ ┌─────────────────────────────────────┐ │
+│ │ 出題時 | 正解時 | 不正解 | ... │タブ │ │
+│ ├─────────────────────────────────────┤ │
+│ │ ・セリフ1              [編集][削除] │ │
+│ │ ・セリフ2              [編集][削除] │ │
+│ │ [+ セリフを追加]                    │ │
+│ └─────────────────────────────────────┘ │
+├─────────────────────────────────────────┤
+│ プレビュー                              │
+│ ┌─────────────────────────────────────┐ │
+│ │ [画像] フン、この程度の問題が...    │ │
+│ └─────────────────────────────────────┘ │
+├─────────────────────────────────────────┤
+│        [キャンセル]  [保存]             │
+└─────────────────────────────────────────┘
+```
+
+### Step 5: 画像アップロード機能
+`frontend/src/components/ImageUploader.jsx` を新規作成
+
+- ファイル選択（jpg, png, gif対応）
+- 200x200px へのリサイズ
+- 100KB以下への圧縮
+- Base64変換
+- プレビュー表示
+- 画像削除機能
+
+### Step 6: 設定ボタンの追加
+`frontend/src/App.jsx` を修正
+
+- トグルボタンセクションに設定ボタン(⚙️)を追加
+- 設定画面の表示/非表示制御
+
+### Step 7: 既存コンポーネントの修正
+
+**PresenterDialog.jsx:**
+- カスタム画像対応
+- カスタムセリフ対応
+
+**presenters.js:**
+- useCharacterSettings との統合
+- 口調変換をspeechPatternsから取得
+
+### Step 8: CSSスタイルの追加
+`frontend/src/App.css` に設定画面用スタイルを追加
+
+---
+
+### 実装順序（優先度順）
+
+| 順番 | タスク | 対応Step | 依存関係 |
+|------|--------|----------|----------|
+| 1 | データ構造の設計 | Step 1 | なし |
+| 2 | 口調変換プリセット作成 | Step 2 | なし |
+| 3 | 画像アップロードコンポーネント | Step 5 | なし |
+| 4 | useCharacterSettings Hook作成 | Step 3 | 1, 2 |
+| 5 | 設定画面コンポーネント | Step 4 | 3, 4 |
+| 6 | 設定ボタン追加・App.jsx修正 | Step 6 | 5 |
+| 7 | PresenterDialog修正 | Step 7 | 4 |
+| 8 | CSSスタイル追加 | Step 8 | 5 |
+| 9 | テスト・動作確認 | - | 全て |
+
+---
+
+### 見積もり（参考）
+
+| タスク | 規模 |
+|--------|------|
+| Step 1-2 | 小 |
+| Step 3 | 中 |
+| Step 4 | 大 |
+| Step 5 | 中 |
+| Step 6-7 | 小 |
+| Step 8 | 中 |
+| Step 9 | 小 |
+
+---
+
+## 追加仕様
+
+### バリデーションルール
+
+| 項目 | 制限 |
+|------|------|
+| キャラクター名 | 1〜20文字 |
+| セリフ | 1〜200文字 |
+| セリフ数 | 各カテゴリ最低1つ必須 |
+| 画像サイズ | 200x200px、100KB以下 |
+| 画像形式 | jpg, png, gif |
+| キャラクター数上限 | 10体まで（localStorage容量考慮） |
+
+### エッジケース対応
+
+| ケース | 対応 |
+|--------|------|
+| セリフが0個 | 保存不可、エラー表示 |
+| localStorage容量オーバー | エラー表示、古いキャラ削除を促す |
+| 画像が100KB超 | 自動圧縮、それでも超える場合はエラー |
+| プリセット削除試行 | 削除ボタン非表示 or 無効化 |
+
+### 既存システムとの統合
+
+**usePresenterMode.js との関係:**
+- `usePresenterMode` は廃止 → `useCharacterSettings` に統合
+- 既存の `presenterMode` 値は移行処理で `activeCharacterId` に変換
+- 移行: `'vegeta'` → `activeCharacterId: 'vegeta'`
+- 移行: `'normal'` → `activeCharacterId: 'normal'`
+
+**presenters.js との関係:**
+- 既存の `PRESENTERS` オブジェクトはプリセットデータとして利用
+- 口調変換関数は `speechPatterns.js` に移動
+- `getRandomDialog()` と `transformExplanation()` は残すが、データソースを切り替え
+
+---
+
 ## 更新履歴
 - 2026/01/14: ドキュメント作成、要件定義完了
+- 2026/01/14: 実装計画を追加
+- 2026/01/14: 自己レビューによる修正
+  - プリセットに「ノーマル」を追加
+  - 実装順序の番号ズレを修正
+  - バリデーションルールを追加
+  - エッジケース対応を追加
+  - 既存システムとの統合方針を追加
