@@ -10,12 +10,20 @@ import type {
   ResetResponse
 } from './types/api';
 import type { CategoryId, Difficulty } from './types';
+import { API_BASE, DEFAULT_HISTORY_LIMIT } from './constants';
 
-const API_BASE = 'http://localhost:3001/api';
+// APIエラーをハンドリングするヘルパー関数
+async function handleResponse<T>(res: Response): Promise<T> {
+  if (!res.ok) {
+    const errorText = await res.text().catch(() => 'Unknown error');
+    throw new Error(`API error ${res.status}: ${errorText}`);
+  }
+  return res.json();
+}
 
 export async function fetchCategories(): Promise<CategoriesResponse> {
   const res = await fetch(`${API_BASE}/categories`);
-  return res.json();
+  return handleResponse<CategoriesResponse>(res);
 }
 
 export async function fetchQuestions(category: CategoryId | null = null): Promise<QuestionsResponse> {
@@ -23,7 +31,7 @@ export async function fetchQuestions(category: CategoryId | null = null): Promis
     ? `${API_BASE}/questions?category=${category}`
     : `${API_BASE}/questions`;
   const res = await fetch(url);
-  return res.json();
+  return handleResponse<QuestionsResponse>(res);
 }
 
 export async function fetchRandomQuestions(
@@ -33,12 +41,12 @@ export async function fetchRandomQuestions(
   const params = new URLSearchParams({ count: count.toString() });
   if (category) params.append('category', category);
   const res = await fetch(`${API_BASE}/questions/random?${params}`);
-  return res.json();
+  return handleResponse<QuestionsResponse>(res);
 }
 
 export async function fetchWeakQuestions(): Promise<QuestionsResponse> {
   const res = await fetch(`${API_BASE}/questions/weak`);
-  return res.json();
+  return handleResponse<QuestionsResponse>(res);
 }
 
 export async function submitAnswer(
@@ -50,22 +58,22 @@ export async function submitAnswer(
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ questionId, selectedAnswer })
   });
-  return res.json();
+  return handleResponse<AnswerResponse>(res);
 }
 
 export async function fetchProgress(): Promise<ProgressResponse> {
   const res = await fetch(`${API_BASE}/progress`);
-  return res.json();
+  return handleResponse<ProgressResponse>(res);
 }
 
-export async function fetchHistory(limit: number = 20): Promise<HistoryResponse> {
+export async function fetchHistory(limit: number = DEFAULT_HISTORY_LIMIT): Promise<HistoryResponse> {
   const res = await fetch(`${API_BASE}/history?limit=${limit}`);
-  return res.json();
+  return handleResponse<HistoryResponse>(res);
 }
 
 export async function resetProgress(): Promise<ResetResponse> {
   const res = await fetch(`${API_BASE}/progress/reset`, { method: 'POST' });
-  return res.json();
+  return handleResponse<ResetResponse>(res);
 }
 
 export async function fetchGlossary(
@@ -77,12 +85,12 @@ export async function fetchGlossary(
   if (search) params.append('search', search);
   const query = params.toString();
   const res = await fetch(`${API_BASE}/glossary${query ? '?' + query : ''}`);
-  return res.json();
+  return handleResponse<GlossaryResponse>(res);
 }
 
 export async function fetchGlossaryTerm(id: string): Promise<GlossaryTermResponse> {
   const res = await fetch(`${API_BASE}/glossary/${id}`);
-  return res.json();
+  return handleResponse<GlossaryTermResponse>(res);
 }
 
 export async function fetchQuestionsList(
@@ -96,10 +104,10 @@ export async function fetchQuestionsList(
   if (search) params.append('search', search);
   const query = params.toString();
   const res = await fetch(`${API_BASE}/questions/list${query ? '?' + query : ''}`);
-  return res.json();
+  return handleResponse<QuestionsResponse>(res);
 }
 
 export async function fetchQuestionById(id: string): Promise<QuestionResponse> {
   const res = await fetch(`${API_BASE}/questions/${id}`);
-  return res.json();
+  return handleResponse<QuestionResponse>(res);
 }

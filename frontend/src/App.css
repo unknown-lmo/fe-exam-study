@@ -2705,3 +2705,66 @@ body {
     height: 120px;
   }
 }
+
+/* =============================================
+   Error Boundary スタイル
+   ============================================= */
+
+.error-boundary {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  background: var(--bg-primary, #ffffff);
+}
+
+.error-boundary h2 {
+  color: #dc3545;
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+
+.error-boundary p {
+  color: var(--text-secondary, #64748b);
+  margin-bottom: 24px;
+}
+
+.error-boundary details {
+  margin-bottom: 24px;
+  text-align: left;
+  max-width: 600px;
+  width: 100%;
+}
+
+.error-boundary summary {
+  cursor: pointer;
+  color: var(--text-secondary, #64748b);
+  padding: 8px;
+}
+
+.error-boundary pre {
+  background: var(--bg-secondary, #f8fafc);
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  color: #dc3545;
+}
+
+.error-boundary .retry-button {
+  padding: 12px 32px;
+  font-size: 1rem;
+  background: var(--accent-primary, #3b82f6);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.error-boundary .retry-button:hover {
+  opacity: 0.9;
+}

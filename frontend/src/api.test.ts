@@ -23,7 +23,9 @@ describe('API', () => {
 
   function mockFetch(data: unknown) {
     (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
-      json: () => Promise.resolve(data)
+      ok: true,
+      json: () => Promise.resolve(data),
+      text: () => Promise.resolve(JSON.stringify(data))
     } as Response);
   }
 

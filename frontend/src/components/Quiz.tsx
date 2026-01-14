@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchRandomQuestions, fetchWeakQuestions, fetchQuestionById, submitAnswer } from '../api';
 import PresenterDialog from './PresenterDialog';
+import { DEFAULT_QUIZ_OPTIONS } from '../constants';
 import type {
   Question,
   ShuffledQuestion,
@@ -16,7 +17,7 @@ import type {
   Difficulty
 } from '../types';
 
-const defaultOptions: QuizOptions = { count: 5, shuffle: false, timer: null };
+const defaultOptions: QuizOptions = { ...DEFAULT_QUIZ_OPTIONS };
 
 const DIFFICULTY_LABELS: Record<Difficulty, string> = {
   easy: '易',

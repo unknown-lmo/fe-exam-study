@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { transformWithPattern } from '../config/speechPatterns';
+import { STORAGE_KEYS } from '../constants';
 import type {
   Character,
   CharacterSettingsState,
@@ -9,9 +10,6 @@ import type {
   ScoreCategory,
   SpeechPatternId
 } from '../types';
-
-// ストレージキー
-const STORAGE_KEY = 'characterSettings';
 
 // プリセットキャラクターのデフォルトセリフ
 const PRESET_DIALOGS: Record<'normal' | 'vegeta', CharacterDialogs> = {
@@ -175,7 +173,7 @@ export interface UseCharacterSettingsReturn {
 export function useCharacterSettings(): UseCharacterSettingsReturn {
   const [state, setState] = useState<CharacterSettingsState>(() => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const stored = localStorage.getItem(STORAGE_KEYS.CHARACTER_SETTINGS);
       if (stored) {
         const parsed = JSON.parse(stored) as CharacterSettingsState & { characters: LegacyCharacter[] };
         // プリセットキャラクターが存在するか確認、なければ追加
@@ -207,7 +205,7 @@ export function useCharacterSettings(): UseCharacterSettingsReturn {
   // usePresenterModeからの移行処理
   useEffect(() => {
     const oldPresenterMode = localStorage.getItem('presenterMode');
-    if (oldPresenterMode && !localStorage.getItem(STORAGE_KEY)) {
+    if (oldPresenterMode && !localStorage.getItem(STORAGE_KEYS.CHARACTER_SETTINGS)) {
       // 古い設定を新しい形式に移行
       const newActiveId = oldPresenterMode === 'vegeta' ? 'vegeta' : 'normal';
       setState(prev => ({
@@ -222,7 +220,7 @@ export function useCharacterSettings(): UseCharacterSettingsReturn {
   // localStorageに保存
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      localStorage.setItem(STORAGE_KEYS.CHARACTER_SETTINGS, JSON.stringify(state));
     } catch (e) {
       console.error('Failed to save character settings:', e);
     }

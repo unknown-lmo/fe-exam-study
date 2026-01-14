@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react';
 import type { QuizOptions } from '../types';
+import { STORAGE_KEYS, DEFAULT_QUIZ_OPTIONS } from '../constants';
 
-const defaultOptions: QuizOptions = {
-  count: 5,        // 問題数
-  shuffle: false,  // 選択肢シャッフル
-  timer: null      // 制限時間（秒）、nullは無制限
-};
+const defaultOptions: QuizOptions = { ...DEFAULT_QUIZ_OPTIONS };
 
 export interface UseQuizOptionsReturn {
   options: QuizOptions;
@@ -17,7 +14,7 @@ export interface UseQuizOptionsReturn {
 export function useQuizOptions(): UseQuizOptionsReturn {
   const [options, setOptions] = useState<QuizOptions>(() => {
     try {
-      const stored = localStorage.getItem('quizOptions');
+      const stored = localStorage.getItem(STORAGE_KEYS.QUIZ_OPTIONS);
       return stored ? { ...defaultOptions, ...JSON.parse(stored) } : defaultOptions;
     } catch {
       return defaultOptions;
@@ -26,7 +23,7 @@ export function useQuizOptions(): UseQuizOptionsReturn {
 
   // 変更時にlocalStorageに保存
   useEffect(() => {
-    localStorage.setItem('quizOptions', JSON.stringify(options));
+    localStorage.setItem(STORAGE_KEYS.QUIZ_OPTIONS, JSON.stringify(options));
   }, [options]);
 
   function updateOption<K extends keyof QuizOptions>(key: K, value: QuizOptions[K]) {
@@ -35,7 +32,7 @@ export function useQuizOptions(): UseQuizOptionsReturn {
 
   function resetOptions() {
     setOptions(defaultOptions);
-    localStorage.removeItem('quizOptions');
+    localStorage.removeItem(STORAGE_KEYS.QUIZ_OPTIONS);
   }
 
   return { options, setOptions, updateOption, resetOptions };
