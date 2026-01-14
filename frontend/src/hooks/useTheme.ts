@@ -1,16 +1,27 @@
 import { useState, useEffect } from 'react';
 
 const THEME_KEY = 'theme';
-const THEMES = {
+
+type Theme = 'light' | 'dark';
+
+const THEMES: Record<Theme, Theme> = {
   light: 'light',
   dark: 'dark'
 };
 
-export function useTheme() {
-  const [theme, setTheme] = useState(() => {
+export interface UseThemeReturn {
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+  toggleTheme: () => void;
+  isDark: boolean;
+  THEMES: typeof THEMES;
+}
+
+export function useTheme(): UseThemeReturn {
+  const [theme, setTheme] = useState<Theme>(() => {
     // localStorage から読み込み、なければシステム設定を確認
     const stored = localStorage.getItem(THEME_KEY);
-    if (stored && Object.values(THEMES).includes(stored)) {
+    if (stored && (stored === 'light' || stored === 'dark')) {
       return stored;
     }
     // システムのダークモード設定を確認
@@ -30,7 +41,7 @@ export function useTheme() {
   // システム設定の変更を監視
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e) => {
+    const handleChange = (e: MediaQueryListEvent) => {
       // localStorageに明示的な設定がない場合のみシステム設定に追従
       if (!localStorage.getItem(THEME_KEY)) {
         setTheme(e.matches ? THEMES.dark : THEMES.light);

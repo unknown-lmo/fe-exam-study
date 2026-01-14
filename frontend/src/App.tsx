@@ -9,14 +9,21 @@ import { fetchCategories, fetchProgress } from './api';
 import { useCharacterSettings } from './hooks/useCharacterSettings';
 import { useTheme } from './hooks/useTheme';
 import { useQuizOptions } from './hooks/useQuizOptions';
+import type { Category, CategoryId, ViewName, PresenterMode, QuizMode } from './types';
 import './App.css';
 
+interface QuickStats {
+  overallCorrectRate: number;
+  totalAttempts: number;
+  weakQuestionsCount: number;
+}
+
 function App() {
-  const [view, setView] = useState('menu');
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedQuestionId, setSelectedQuestionId] = useState(null);
-  const [categories, setCategories] = useState([]);
-  const [quickStats, setQuickStats] = useState(null);
+  const [view, setView] = useState<ViewName>('menu');
+  const [selectedCategory, setSelectedCategory] = useState<CategoryId | null>(null);
+  const [selectedQuestionId, setSelectedQuestionId] = useState<string | null>(null);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [quickStats, setQuickStats] = useState<QuickStats | null>(null);
   const [showCharacterSettings, setShowCharacterSettings] = useState(false);
   const {
     characters,
@@ -36,7 +43,7 @@ function App() {
   const { options: quizOptions, updateOption } = useQuizOptions();
 
   // 後方互換性のため、presenterModeを生成
-  const presenterMode = activeCharacterId === 'vegeta' ? 'vegeta' : 'normal';
+  const presenterMode: PresenterMode = activeCharacterId === 'vegeta' ? 'vegeta' : 'normal';
   const isVegetaMode = activeCharacterId === 'vegeta';
 
   useEffect(() => {
@@ -50,13 +57,13 @@ function App() {
         fetchProgress()
       ]);
       setCategories(cats);
-      setQuickStats(progress);
+      setQuickStats(progress as QuickStats);
     } catch (error) {
       console.error('初期データの取得に失敗:', error);
     }
   }
 
-  function startQuiz(category = null, mode = 'normal') {
+  function startQuiz(category: CategoryId | null = null, mode: QuizMode = 'normal') {
     setSelectedCategory(category);
     setView(mode === 'weak' ? 'quiz-weak' : 'quiz');
   }

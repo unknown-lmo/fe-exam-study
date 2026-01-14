@@ -1,11 +1,24 @@
+import type {
+  CategoriesResponse,
+  QuestionsResponse,
+  QuestionResponse,
+  GlossaryResponse,
+  GlossaryTermResponse,
+  AnswerResponse,
+  ProgressResponse,
+  HistoryResponse,
+  ResetResponse
+} from './types/api';
+import type { CategoryId, Difficulty } from './types';
+
 const API_BASE = 'http://localhost:3001/api';
 
-export async function fetchCategories() {
+export async function fetchCategories(): Promise<CategoriesResponse> {
   const res = await fetch(`${API_BASE}/categories`);
   return res.json();
 }
 
-export async function fetchQuestions(category = null) {
+export async function fetchQuestions(category: CategoryId | null = null): Promise<QuestionsResponse> {
   const url = category
     ? `${API_BASE}/questions?category=${category}`
     : `${API_BASE}/questions`;
@@ -13,19 +26,25 @@ export async function fetchQuestions(category = null) {
   return res.json();
 }
 
-export async function fetchRandomQuestions(category = null, count = 5) {
+export async function fetchRandomQuestions(
+  category: CategoryId | null = null,
+  count: number = 5
+): Promise<QuestionsResponse> {
   const params = new URLSearchParams({ count: count.toString() });
   if (category) params.append('category', category);
   const res = await fetch(`${API_BASE}/questions/random?${params}`);
   return res.json();
 }
 
-export async function fetchWeakQuestions() {
+export async function fetchWeakQuestions(): Promise<QuestionsResponse> {
   const res = await fetch(`${API_BASE}/questions/weak`);
   return res.json();
 }
 
-export async function submitAnswer(questionId, selectedAnswer) {
+export async function submitAnswer(
+  questionId: string,
+  selectedAnswer: number
+): Promise<AnswerResponse> {
   const res = await fetch(`${API_BASE}/answer`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -34,22 +53,25 @@ export async function submitAnswer(questionId, selectedAnswer) {
   return res.json();
 }
 
-export async function fetchProgress() {
+export async function fetchProgress(): Promise<ProgressResponse> {
   const res = await fetch(`${API_BASE}/progress`);
   return res.json();
 }
 
-export async function fetchHistory(limit = 20) {
+export async function fetchHistory(limit: number = 20): Promise<HistoryResponse> {
   const res = await fetch(`${API_BASE}/history?limit=${limit}`);
   return res.json();
 }
 
-export async function resetProgress() {
+export async function resetProgress(): Promise<ResetResponse> {
   const res = await fetch(`${API_BASE}/progress/reset`, { method: 'POST' });
   return res.json();
 }
 
-export async function fetchGlossary(category = null, search = null) {
+export async function fetchGlossary(
+  category: CategoryId | null = null,
+  search: string | null = null
+): Promise<GlossaryResponse> {
   const params = new URLSearchParams();
   if (category) params.append('category', category);
   if (search) params.append('search', search);
@@ -58,12 +80,16 @@ export async function fetchGlossary(category = null, search = null) {
   return res.json();
 }
 
-export async function fetchGlossaryTerm(id) {
+export async function fetchGlossaryTerm(id: string): Promise<GlossaryTermResponse> {
   const res = await fetch(`${API_BASE}/glossary/${id}`);
   return res.json();
 }
 
-export async function fetchQuestionsList(category = null, difficulty = null, search = null) {
+export async function fetchQuestionsList(
+  category: CategoryId | null = null,
+  difficulty: Difficulty | null = null,
+  search: string | null = null
+): Promise<QuestionsResponse> {
   const params = new URLSearchParams();
   if (category) params.append('category', category);
   if (difficulty) params.append('difficulty', difficulty);
@@ -73,7 +99,7 @@ export async function fetchQuestionsList(category = null, difficulty = null, sea
   return res.json();
 }
 
-export async function fetchQuestionById(id) {
+export async function fetchQuestionById(id: string): Promise<QuestionResponse> {
   const res = await fetch(`${API_BASE}/questions/${id}`);
   return res.json();
 }

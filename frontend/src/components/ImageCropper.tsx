@@ -3,22 +3,40 @@ import { useState, useRef, useEffect, useCallback } from 'react';
 const CROP_SIZE = 200; // 出力サイズ
 const PREVIEW_SIZE = 250; // プレビュー表示サイズ
 
-function ImageCropper({ imageUrl, onCrop, onCancel }) {
-  const [zoom, setZoom] = useState(1);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+interface ImageCropperProps {
+  imageUrl: string;
+  onCrop: (croppedBase64: string) => void;
+  onCancel: () => void;
+}
 
-  const containerRef = useRef(null);
-  const imageRef = useRef(null);
+interface Position {
+  x: number;
+  y: number;
+}
+
+interface ImageSize {
+  width: number;
+  height: number;
+  naturalWidth: number;
+  naturalHeight: number;
+}
+
+function ImageCropper({ imageUrl, onCrop, onCancel }: ImageCropperProps) {
+  const [zoom, setZoom] = useState(1);
+  const [position, setPosition] = useState<Position>({ x: 0, y: 0 });
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState<Position>({ x: 0, y: 0 });
+  const [imageSize, setImageSize] = useState<ImageSize>({ width: 0, height: 0, naturalWidth: 0, naturalHeight: 0 });
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
 
   // 画像読み込み時にサイズを取得
   useEffect(() => {
     const img = new Image();
     img.onload = () => {
       const aspectRatio = img.width / img.height;
-      let width, height;
+      let width: number, height: number;
 
       // 短い辺がプレビューサイズになるようにスケール
       if (aspectRatio > 1) {
@@ -40,7 +58,7 @@ function ImageCropper({ imageUrl, onCrop, onCancel }) {
   }, [imageUrl]);
 
   // ドラッグ開始
-  const handleMouseDown = (e) => {
+  const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsDragging(true);
     setDragStart({
@@ -50,7 +68,7 @@ function ImageCropper({ imageUrl, onCrop, onCancel }) {
   };
 
   // タッチ開始
-  const handleTouchStart = (e) => {
+  const handleTouchStart = (e: React.TouchEvent) => {
     const touch = e.touches[0];
     setIsDragging(true);
     setDragStart({
@@ -60,7 +78,7 @@ function ImageCropper({ imageUrl, onCrop, onCancel }) {
   };
 
   // ドラッグ中
-  const handleMouseMove = useCallback((e) => {
+  const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!isDragging) return;
 
     const scaledWidth = imageSize.width * zoom;
@@ -77,7 +95,7 @@ function ImageCropper({ imageUrl, onCrop, onCancel }) {
   }, [isDragging, dragStart, imageSize, zoom]);
 
   // タッチ移動
-  const handleTouchMove = useCallback((e) => {
+  const handleTouchMove = useCallback((e: TouchEvent) => {
     if (!isDragging) return;
     const touch = e.touches[0];
 
@@ -115,7 +133,7 @@ function ImageCropper({ imageUrl, onCrop, onCancel }) {
   }, [isDragging, handleMouseMove, handleTouchMove]);
 
   // ズーム変更時に位置を調整
-  const handleZoomChange = (e) => {
+  const handleZoomChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newZoom = parseFloat(e.target.value);
     const oldZoom = zoom;
 
@@ -150,7 +168,7 @@ function ImageCropper({ imageUrl, onCrop, onCancel }) {
     const ctx = canvas.getContext('2d');
 
     const img = imageRef.current;
-    if (!img) return;
+    if (!img || !ctx) return;
 
     // スケール計算
     const scale = imageSize.naturalWidth / (imageSize.width * zoom);

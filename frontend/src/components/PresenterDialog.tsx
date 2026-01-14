@@ -1,15 +1,24 @@
-function PresenterDialog({ message, presenter, type, activeCharacter }) {
+import type { Character, PresenterMode, PresenterDialogType, AvatarType } from '../types';
+
+interface PresenterDialogProps {
+  message: string;
+  presenter: PresenterMode;
+  type: PresenterDialogType;
+  activeCharacter?: Character;
+}
+
+function PresenterDialog({ message, presenter, type, activeCharacter }: PresenterDialogProps) {
   if (!message) return null;
 
   const isVegeta = presenter === 'vegeta';
 
   // typeに応じたアバターを選択
   // type: 'intro' | 'correct' | 'incorrect' | 'complete'
-  const getAvatarForType = () => {
+  const getAvatarForType = (): string | null => {
     if (!activeCharacter?.avatars) return null;
 
     // typeをavatarキーにマッピング
-    const avatarMap = {
+    const avatarMap: Record<PresenterDialogType, AvatarType> = {
       intro: 'default',
       correct: 'correct',
       incorrect: 'incorrect',

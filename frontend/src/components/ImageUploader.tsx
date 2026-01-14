@@ -3,14 +3,20 @@ import ImageCropper from './ImageCropper';
 
 const ACCEPTED_TYPES = ['image/jpeg', 'image/png', 'image/gif'];
 
-function ImageUploader({ currentImage, onImageChange, onImageRemove }) {
-  const [error, setError] = useState(null);
-  const [showCropper, setShowCropper] = useState(false);
-  const [rawImageUrl, setRawImageUrl] = useState(null);
-  const fileInputRef = useRef(null);
+interface ImageUploaderProps {
+  currentImage: string | null;
+  onImageChange: (base64: string) => void;
+  onImageRemove: () => void;
+}
 
-  const handleFileSelect = async (e) => {
-    const file = e.target.files[0];
+function ImageUploader({ currentImage, onImageChange, onImageRemove }: ImageUploaderProps) {
+  const [error, setError] = useState<string | null>(null);
+  const [showCropper, setShowCropper] = useState(false);
+  const [rawImageUrl, setRawImageUrl] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
     if (!file) return;
 
     setError(null);
@@ -24,7 +30,7 @@ function ImageUploader({ currentImage, onImageChange, onImageRemove }) {
     // ファイルをData URLに変換してクロッパーを表示
     const reader = new FileReader();
     reader.onload = (e) => {
-      setRawImageUrl(e.target.result);
+      setRawImageUrl(e.target?.result as string);
       setShowCropper(true);
     };
     reader.onerror = () => {
@@ -38,7 +44,7 @@ function ImageUploader({ currentImage, onImageChange, onImageRemove }) {
     }
   };
 
-  const handleCrop = (croppedBase64) => {
+  const handleCrop = (croppedBase64: string) => {
     onImageChange(croppedBase64);
     setShowCropper(false);
     setRawImageUrl(null);

@@ -1,12 +1,26 @@
 // 口調変換プリセット（8種類）
+import type { SpeechPatternId } from '../types';
 
-export const SPEECH_PATTERNS = {
+export interface SpeechPattern {
+  id: SpeechPatternId;
+  name: string;
+  description: string;
+  transform: (text: string) => string;
+}
+
+export interface SpeechPatternInfo {
+  id: SpeechPatternId;
+  name: string;
+  description: string;
+}
+
+export const SPEECH_PATTERNS: Record<SpeechPatternId, SpeechPattern> = {
   // 1. 丁寧語（変換なし）
   polite: {
     id: 'polite',
     name: '丁寧語',
     description: '標準的な丁寧語（変換なし）',
-    transform: (text) => text
+    transform: (text: string) => text
   },
 
   // 2. 俺様系（現ベジータ）
@@ -14,7 +28,7 @@ export const SPEECH_PATTERNS = {
     id: 'oresama',
     name: '俺様系',
     description: '威圧的で命令口調（だ! ぞ! しろ!）',
-    transform: (text) => {
+    transform: (text: string) => {
       return text
         .replace(/！/g, '!')
         .replace(/覚えよう[。!]?/g, '覚えろ!')
@@ -69,7 +83,7 @@ export const SPEECH_PATTERNS = {
     id: 'ojousama',
     name: 'お嬢様系',
     description: '上品で優雅な口調（ですわ、〜てよ）',
-    transform: (text) => {
+    transform: (text: string) => {
       return text
         .replace(/！/g, '!')
         .replace(/です[。]/g, 'ですわ。')
@@ -92,7 +106,7 @@ export const SPEECH_PATTERNS = {
     id: 'hakase',
     name: '博士系',
     description: '老賢者風の口調（〜じゃ、〜のう）',
-    transform: (text) => {
+    transform: (text: string) => {
       return text
         .replace(/！/g, '!')
         .replace(/です[。]/g, 'じゃ。')
@@ -116,7 +130,7 @@ export const SPEECH_PATTERNS = {
     id: 'gyaru',
     name: 'ギャル系',
     description: '若者言葉（〜じゃん、マジ〜、〜っしょ）',
-    transform: (text) => {
+    transform: (text: string) => {
       return text
         .replace(/！/g, '!')
         .replace(/です[。]/g, 'じゃん。')
@@ -143,7 +157,7 @@ export const SPEECH_PATTERNS = {
     id: 'genki1',
     name: '元気な子1',
     description: 'カジュアルで元気な口調（〜だよ！〜だね！）',
-    transform: (text) => {
+    transform: (text: string) => {
       return text
         .replace(/！/g, '!')
         .replace(/です[。]/g, 'だよ!')
@@ -167,7 +181,7 @@ export const SPEECH_PATTERNS = {
     id: 'genki2',
     name: '元気な子2',
     description: '元気な敬語口調（〜です！〜ます！）',
-    transform: (text) => {
+    transform: (text: string) => {
       return text
         .replace(/。/g, '!')
         .replace(/です!/g, 'です!')
@@ -183,7 +197,7 @@ export const SPEECH_PATTERNS = {
     id: 'ojisan',
     name: 'おじさん構文',
     description: '絵文字多用のおじさん風（〜かな❓😅）',
-    transform: (text) => {
+    transform: (text: string) => {
       const emojis = ['😊', '😄', '🤔', '😅', '✨', '💪', '👍', '🎉', '😁', '🙆'];
       const getRandomEmoji = () => emojis[Math.floor(Math.random() * emojis.length)];
 
@@ -206,10 +220,10 @@ export const SPEECH_PATTERNS = {
 };
 
 // デフォルトの口調プリセット
-export const DEFAULT_SPEECH_PATTERN = 'polite';
+export const DEFAULT_SPEECH_PATTERN: SpeechPatternId = 'polite';
 
 // 口調プリセット一覧を取得
-export function getSpeechPatternList() {
+export function getSpeechPatternList(): SpeechPatternInfo[] {
   return Object.values(SPEECH_PATTERNS).map(({ id, name, description }) => ({
     id,
     name,
@@ -218,7 +232,7 @@ export function getSpeechPatternList() {
 }
 
 // 口調変換を実行
-export function transformWithPattern(patternId, text) {
+export function transformWithPattern(patternId: SpeechPatternId, text: string): string {
   const pattern = SPEECH_PATTERNS[patternId];
   if (!pattern) return text;
   return pattern.transform(text);

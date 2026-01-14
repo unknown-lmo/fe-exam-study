@@ -1,23 +1,50 @@
 import { useState, useEffect } from 'react';
 import { fetchRandomQuestions, fetchWeakQuestions, fetchQuestionById, submitAnswer } from '../api';
 import PresenterDialog from './PresenterDialog';
+import type {
+  Question,
+  ShuffledQuestion,
+  QuizMode,
+  QuizOptions,
+  QuizScore,
+  PresenterMode,
+  Character,
+  DialogType,
+  CategoryId,
+  AnswerResult,
+  GlossaryTerm,
+  Difficulty
+} from '../types';
 
-const defaultOptions = { count: 5, shuffle: false, timer: null };
+const defaultOptions: QuizOptions = { count: 5, shuffle: false, timer: null };
 
-const DIFFICULTY_LABELS = {
+const DIFFICULTY_LABELS: Record<Difficulty, string> = {
   easy: '易',
   medium: '中',
   hard: '難'
 };
 
 // 配列をシャッフルするユーティリティ関数
-function shuffleArray(array) {
+function shuffleArray<T>(array: T[]): T[] {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
   return shuffled;
+}
+
+interface QuizProps {
+  mode: QuizMode;
+  category?: CategoryId | null;
+  questionId?: string | null;
+  options?: QuizOptions;
+  onComplete: () => void;
+  onBackToList?: () => void;
+  presenterMode?: PresenterMode;
+  activeCharacter?: Character;
+  getRandomDialog: (dialogType: DialogType, scorePercentage?: number | null) => string;
+  transformExplanation: (text: string) => string;
 }
 
 function Quiz({
@@ -31,19 +58,19 @@ function Quiz({
   activeCharacter,
   getRandomDialog,
   transformExplanation
-}) {
+}: QuizProps) {
   const { count, shuffle, timer } = options;
-  const [questions, setQuestions] = useState([]);
+  const [questions, setQuestions] = useState<ShuffledQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [result, setResult] = useState(null);
-  const [score, setScore] = useState({ correct: 0, total: 0 });
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [result, setResult] = useState<AnswerResult | null>(null);
+  const [score, setScore] = useState<QuizScore>({ correct: 0, total: 0 });
   const [loading, setLoading] = useState(true);
   const [finished, setFinished] = useState(false);
-  const [expandedTerms, setExpandedTerms] = useState({});
+  const [expandedTerms, setExpandedTerms] = useState<Record<string, boolean>>({});
   const [introDialog, setIntroDialog] = useState('');
   const [resultDialog, setResultDialog] = useState('');
-  const [timeLeft, setTimeLeft] = useState(timer);
+  const [timeLeft, setTimeLeft] = useState<number | null>(timer);
 
   useEffect(() => {
     loadQuestions();
@@ -68,13 +95,13 @@ function Quiz({
   useEffect(() => {
     if (!timer || result || loading || finished) return;
 
-    if (timeLeft <= 0) {
+    if (timeLeft !== null && timeLeft <= 0) {
       handleTimeout();
       return;
     }
 
     const interval = setInterval(() => {
-      setTimeLeft(prev => prev - 1);
+      setTimeLeft(prev => prev !== null ? prev - 1 : null);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -83,7 +110,7 @@ function Quiz({
   async function loadQuestions() {
     setLoading(true);
     try {
-      let data;
+      let data: Question[];
       if (mode === 'single' && questionId) {
         // 単問モード：特定の問題を取得
         const question = await fetchQuestionById(questionId);
@@ -93,23 +120,23 @@ function Quiz({
       } else {
         // count=0は全問出題
         const questionCount = count === 0 ? 1000 : count;
-        data = await fetchRandomQuestions(category, questionCount);
+        data = await fetchRandomQuestions(category ?? null, questionCount);
       }
 
       if (data.length === 0) {
         setQuestions([]);
       } else {
         // 選択肢シャッフルが有効な場合（単問モードでは無効）
-        const processedData = (shuffle && mode !== 'single') ? data.map(q => {
+        const processedData: ShuffledQuestion[] = (shuffle && mode !== 'single') ? data.map(q => {
           const indices = [0, 1, 2, 3];
           const shuffledIndices = shuffleArray(indices);
-          const newCorrectIndex = shuffledIndices.indexOf(q.correctAnswer);
+          const newCorrectIndex = shuffledIndices.indexOf(q.correctAnswer) as 0 | 1 | 2 | 3;
           return {
             ...q,
-            choices: shuffledIndices.map(i => q.choices[i]),
+            choices: shuffledIndices.map(i => q.choices[i]) as [string, string, string, string],
             originalCorrectAnswer: q.correctAnswer,
             correctAnswer: newCorrectIndex,
-            shuffleMap: shuffledIndices  // シャッフル後→元のインデックスマッピング
+            shuffleMap: shuffledIndices
           };
         }) : data;
         setQuestions(processedData);
@@ -164,7 +191,7 @@ function Quiz({
     }
   }
 
-  function toggleTerm(termId) {
+  function toggleTerm(termId: string) {
     setExpandedTerms(prev => ({
       ...prev,
       [termId]: !prev[termId]
@@ -242,7 +269,7 @@ function Quiz({
         )}
       </div>
 
-      {timer && !result && (
+      {timer && !result && timeLeft !== null && (
         <div className="quiz-timer">
           <div className="timer-bar-container">
             <div
@@ -315,7 +342,7 @@ function Quiz({
             <div className="related-terms-section">
               <h4>関連用語</h4>
               <div className="related-terms-list">
-                {result.relatedTerms.map(term => (
+                {result.relatedTerms.map((term: GlossaryTerm) => (
                   <div key={term.id} className="related-term-item">
                     <div
                       className="related-term-header"

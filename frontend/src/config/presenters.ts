@@ -1,5 +1,15 @@
 // プレゼンター（出題兼解説者）設定
-export const PRESENTERS = {
+import type { PresenterMode, DialogType, ScoreCategory, CharacterDialogs } from '../types';
+
+export interface Presenter {
+  id: PresenterMode;
+  name: string;
+  displayName: string;
+  dialogs: CharacterDialogs;
+  transformExplanation: (text: string) => string;
+}
+
+export const PRESENTERS: Record<PresenterMode, Presenter> = {
   normal: {
     id: 'normal',
     name: 'ノーマル',
@@ -34,7 +44,7 @@ export const PRESENTERS = {
         needsWork: ['もう少し頑張りましょう。復習が大切です!']
       }
     },
-    transformExplanation: (text) => text
+    transformExplanation: (text: string) => text
   },
   vegeta: {
     id: 'vegeta',
@@ -74,7 +84,7 @@ export const PRESENTERS = {
         needsWork: ['情けない! このままでは地球を守れんぞ! もっと修行しろ!']
       }
     },
-    transformExplanation: (text) => {
+    transformExplanation: (text: string) => {
       return text
         // まず全角「！」を半角「!」に統一
         .replace(/！/g, '!')
@@ -132,10 +142,14 @@ export const PRESENTERS = {
   }
 };
 
-export const DEFAULT_PRESENTER = 'normal';
+export const DEFAULT_PRESENTER: PresenterMode = 'normal';
 
 // ランダムにセリフを取得するヘルパー関数
-export function getRandomDialog(presenterId, dialogType, scorePercentage = null) {
+export function getRandomDialog(
+  presenterId: PresenterMode,
+  dialogType: DialogType,
+  scorePercentage: number | null = null
+): string {
   const presenter = PRESENTERS[presenterId];
   if (!presenter) return '';
 
@@ -144,12 +158,13 @@ export function getRandomDialog(presenterId, dialogType, scorePercentage = null)
 
   // quizCompleteはスコアに応じたカテゴリを持つ
   if (dialogType === 'quizComplete' && scorePercentage !== null) {
-    let category;
+    let category: ScoreCategory;
     if (scorePercentage >= 80) category = 'excellent';
     else if (scorePercentage >= 60) category = 'good';
     else category = 'needsWork';
 
-    const categoryDialogs = dialogs[category];
+    const quizCompleteDialogs = dialogs as { excellent: string[]; good: string[]; needsWork: string[] };
+    const categoryDialogs = quizCompleteDialogs[category];
     if (!categoryDialogs || categoryDialogs.length === 0) return '';
     return categoryDialogs[Math.floor(Math.random() * categoryDialogs.length)];
   }
@@ -163,7 +178,7 @@ export function getRandomDialog(presenterId, dialogType, scorePercentage = null)
 }
 
 // 解説文を変換するヘルパー関数
-export function transformExplanation(presenterId, text) {
+export function transformExplanation(presenterId: PresenterMode, text: string): string {
   const presenter = PRESENTERS[presenterId];
   if (!presenter || !presenter.transformExplanation) return text;
   return presenter.transformExplanation(text);

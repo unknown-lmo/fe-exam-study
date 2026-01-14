@@ -1,19 +1,38 @@
 import { useState, useEffect } from 'react';
 import { fetchGlossary } from '../api';
+import type { GlossaryTerm, CategoryId, Character, PresenterMode } from '../types';
+
+interface GlossaryProps {
+  onBack: () => void;
+  initialSearch?: string;
+  backLabel?: string;
+  presenterMode?: PresenterMode;
+  activeCharacter?: Character;
+  transformExplanation?: (text: string) => string;
+}
+
+const categoryNames: Record<CategoryId, string> = {
+  technology: 'テクノロジ系',
+  management: 'マネジメント系',
+  strategy: 'ストラテジ系'
+};
 
 function Glossary({
   onBack,
   initialSearch = '',
   backLabel = '戻る',
-  presenterMode = 'normal',
-  activeCharacter,
-  transformExplanation = (text) => text
-}) {
-  const [terms, setTerms] = useState([]);
+  presenterMode: _presenterMode = 'normal',
+  activeCharacter: _activeCharacter,
+  transformExplanation = (text: string) => text
+}: GlossaryProps) {
+  // These props are received for API compatibility but not used currently
+  void _presenterMode;
+  void _activeCharacter;
+  const [terms, setTerms] = useState<GlossaryTerm[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState<CategoryId | null>(null);
   const [searchText, setSearchText] = useState(initialSearch);
-  const [expandedTerm, setExpandedTerm] = useState(null);
+  const [expandedTerm, setExpandedTerm] = useState<string | null>(null);
 
   useEffect(() => {
     loadGlossary();
@@ -40,12 +59,6 @@ function Glossary({
     );
   });
 
-  const categoryNames = {
-    technology: 'テクノロジ系',
-    management: 'マネジメント系',
-    strategy: 'ストラテジ系'
-  };
-
   if (loading) {
     return <div className="glossary-loading">読み込み中...</div>;
   }
@@ -62,7 +75,7 @@ function Glossary({
           >
             すべて
           </button>
-          {Object.entries(categoryNames).map(([key, name]) => (
+          {(Object.entries(categoryNames) as [CategoryId, string][]).map(([key, name]) => (
             <button
               key={key}
               className={selectedCategory === key ? 'active' : ''}

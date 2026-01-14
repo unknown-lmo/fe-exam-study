@@ -1,8 +1,25 @@
 import { useState, useEffect } from 'react';
 import { fetchHistory } from '../api';
 
-function History({ onBack }) {
-  const [history, setHistory] = useState([]);
+interface QuestionInfo {
+  categoryName: string;
+  subcategory: string;
+  questionText: string;
+}
+
+interface HistoryItem {
+  questionId: string;
+  isCorrect: boolean;
+  answeredAt: string;
+  question?: QuestionInfo;
+}
+
+interface HistoryProps {
+  onBack: () => void;
+}
+
+function History({ onBack }: HistoryProps) {
+  const [history, setHistory] = useState<HistoryItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -12,7 +29,7 @@ function History({ onBack }) {
   async function loadHistory() {
     setLoading(true);
     try {
-      const data = await fetchHistory(50);
+      const data = await fetchHistory(50) as unknown as HistoryItem[];
       setHistory(data);
     } catch (error) {
       console.error('履歴の取得に失敗:', error);

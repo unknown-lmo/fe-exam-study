@@ -1,8 +1,21 @@
 import { useState, useEffect } from 'react';
 import ImageUploader from './ImageUploader';
 import { getSpeechPatternList } from '../config/speechPatterns';
+import type { Character, CharacterDialogs, AvatarType, ScoreCategory, SpeechPatternId } from '../types';
 
-const DIALOG_TYPES = [
+type DialogTypeId = 'questionIntro' | 'correct' | 'incorrect' | 'timeout' | 'quizStart';
+
+interface DialogTypeItem {
+  id: DialogTypeId;
+  name: string;
+}
+
+interface QuizCompleteCategoryItem {
+  id: ScoreCategory;
+  name: string;
+}
+
+const DIALOG_TYPES: DialogTypeItem[] = [
   { id: 'questionIntro', name: '出題時' },
   { id: 'correct', name: '正解時' },
   { id: 'incorrect', name: '不正解時' },
@@ -10,11 +23,28 @@ const DIALOG_TYPES = [
   { id: 'quizStart', name: '開始時' }
 ];
 
-const QUIZ_COMPLETE_CATEGORIES = [
+const QUIZ_COMPLETE_CATEGORIES: QuizCompleteCategoryItem[] = [
   { id: 'excellent', name: '80%以上' },
   { id: 'good', name: '60-79%' },
   { id: 'needsWork', name: '60%未満' }
 ];
+
+interface CharacterSettingsProps {
+  characters: Character[];
+  activeCharacter: Character;
+  onClose: () => void;
+  onSave: (character: Character) => void;
+  onAddCharacter: (character: Partial<Character>) => string;
+  onDeleteCharacter: (characterId: string) => void;
+  onResetToDefault: (characterId: string) => void;
+  validateName: (name: string) => string | null;
+  validateDialog: (dialog: string) => string | null;
+}
+
+interface Errors {
+  name?: string | null;
+  dialog?: string | null;
+}
 
 function CharacterSettings({
   characters,
@@ -26,15 +56,15 @@ function CharacterSettings({
   onResetToDefault,
   validateName,
   validateDialog
-}) {
+}: CharacterSettingsProps) {
   // 編集中のキャラクター（コピーして編集）
-  const [editingCharacter, setEditingCharacter] = useState(null);
-  const [selectedCharacterId, setSelectedCharacterId] = useState(activeCharacter?.id);
-  const [activeDialogTab, setActiveDialogTab] = useState('questionIntro');
-  const [errors, setErrors] = useState({});
-  const [editingDialogIndex, setEditingDialogIndex] = useState(null);
+  const [editingCharacter, setEditingCharacter] = useState<Character | null>(null);
+  const [selectedCharacterId, setSelectedCharacterId] = useState<string>(activeCharacter?.id || '');
+  const [activeDialogTab, setActiveDialogTab] = useState<DialogTypeId | 'quizComplete'>('questionIntro');
+  const [errors, setErrors] = useState<Errors>({});
+  const [editingDialogIndex, setEditingDialogIndex] = useState<number | null>(null);
   const [editingDialogText, setEditingDialogText] = useState('');
-  const [editingDialogCategory, setEditingDialogCategory] = useState(null);
+  const [editingDialogCategory, setEditingDialogCategory] = useState<ScoreCategory | null>(null);
 
   // 選択されたキャラクターが変わったら編集データを更新
   useEffect(() => {
@@ -47,48 +77,49 @@ function CharacterSettings({
   const speechPatterns = getSpeechPatternList();
 
   // 名前を変更
-  const handleNameChange = (e) => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.value;
-    setEditingCharacter(prev => ({ ...prev, name }));
+    setEditingCharacter(prev => prev ? { ...prev, name } : null);
 
     const error = validateName(name);
     setErrors(prev => ({ ...prev, name: error }));
   };
 
   // 口調を変更
-  const handleSpeechPatternChange = (e) => {
-    setEditingCharacter(prev => ({
+  const handleSpeechPatternChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setEditingCharacter(prev => prev ? {
       ...prev,
-      speechPattern: e.target.value
-    }));
+      speechPattern: e.target.value as SpeechPatternId
+    } : null);
   };
 
   // 画像を変更（タイプ別）
-  const handleImageChange = (avatarType, base64) => {
-    setEditingCharacter(prev => ({
+  const handleImageChange = (avatarType: AvatarType, base64: string) => {
+    setEditingCharacter(prev => prev ? {
       ...prev,
       avatars: {
         ...prev.avatars,
         [avatarType]: base64
       }
-    }));
+    } : null);
   };
 
   // 画像を削除（タイプ別）
-  const handleImageRemove = (avatarType) => {
-    setEditingCharacter(prev => ({
+  const handleImageRemove = (avatarType: AvatarType) => {
+    setEditingCharacter(prev => prev ? {
       ...prev,
       avatars: {
         ...prev.avatars,
         [avatarType]: null
       }
-    }));
+    } : null);
   };
 
   // セリフを追加
-  const handleAddDialog = (dialogType, category = null) => {
+  const handleAddDialog = (dialogType: DialogTypeId | 'quizComplete', category: ScoreCategory | null = null) => {
     setEditingCharacter(prev => {
-      const newDialogs = { ...prev.dialogs };
+      if (!prev) return null;
+      const newDialogs = { ...prev.dialogs } as CharacterDialogs;
       if (category) {
         // quizComplete用
         if (!newDialogs.quizComplete) {
@@ -98,7 +129,7 @@ function CharacterSettings({
           ...newDialogs.quizComplete[category],
           '新しいセリフ'
         ];
-      } else {
+      } else if (dialogType !== 'quizComplete') {
         newDialogs[dialogType] = [...(newDialogs[dialogType] || []), '新しいセリフ'];
       }
       return { ...prev, dialogs: newDialogs };
@@ -106,14 +137,14 @@ function CharacterSettings({
   };
 
   // セリフを編集開始
-  const handleEditDialogStart = (index, text, category = null) => {
+  const handleEditDialogStart = (index: number, text: string, category: ScoreCategory | null = null) => {
     setEditingDialogIndex(index);
     setEditingDialogText(text);
     setEditingDialogCategory(category);
   };
 
   // セリフを編集確定
-  const handleEditDialogEnd = (dialogType, category = null) => {
+  const handleEditDialogEnd = (dialogType: DialogTypeId | 'quizComplete', category: ScoreCategory | null = null) => {
     if (editingDialogIndex === null) return;
 
     const error = validateDialog(editingDialogText);
@@ -123,10 +154,11 @@ function CharacterSettings({
     }
 
     setEditingCharacter(prev => {
-      const newDialogs = { ...prev.dialogs };
+      if (!prev) return null;
+      const newDialogs = { ...prev.dialogs } as CharacterDialogs;
       if (category) {
         newDialogs.quizComplete[category][editingDialogIndex] = editingDialogText;
-      } else {
+      } else if (dialogType !== 'quizComplete') {
         newDialogs[dialogType][editingDialogIndex] = editingDialogText;
       }
       return { ...prev, dialogs: newDialogs };
@@ -139,14 +171,15 @@ function CharacterSettings({
   };
 
   // セリフを削除
-  const handleDeleteDialog = (dialogType, index, category = null) => {
+  const handleDeleteDialog = (dialogType: DialogTypeId | 'quizComplete', index: number, category: ScoreCategory | null = null) => {
     setEditingCharacter(prev => {
-      const newDialogs = { ...prev.dialogs };
+      if (!prev) return null;
+      const newDialogs = { ...prev.dialogs } as CharacterDialogs;
       if (category) {
         newDialogs.quizComplete[category] = newDialogs.quizComplete[category].filter(
           (_, i) => i !== index
         );
-      } else {
+      } else if (dialogType !== 'quizComplete') {
         newDialogs[dialogType] = newDialogs[dialogType].filter((_, i) => i !== index);
       }
       return { ...prev, dialogs: newDialogs };
@@ -154,7 +187,7 @@ function CharacterSettings({
   };
 
   // キャラクターを選択
-  const handleCharacterSelect = (e) => {
+  const handleCharacterSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCharacterId(e.target.value);
     setActiveDialogTab('questionIntro');
     setEditingDialogIndex(null);
@@ -206,6 +239,8 @@ function CharacterSettings({
 
   // 保存
   const handleSave = () => {
+    if (!editingCharacter) return;
+
     // バリデーション
     const nameError = validateName(editingCharacter.name);
     if (nameError) {
@@ -410,8 +445,7 @@ function CharacterSettings({
                                         handleDeleteDialog('quizComplete', index, cat.id)
                                       }
                                       disabled={
-                                        editingCharacter.dialogs.quizComplete?.[cat.id]
-                                          ?.length <= 1
+                                        (editingCharacter.dialogs.quizComplete?.[cat.id]?.length ?? 0) <= 1
                                       }
                                     >
                                       削除
@@ -436,7 +470,7 @@ function CharacterSettings({
                 // 通常のセリフ
                 <>
                   <div className="dialog-list">
-                    {currentDialogs.map((dialog, index) => (
+                    {currentDialogs && currentDialogs.map((dialog, index) => (
                       <div key={index} className="dialog-item">
                         {editingDialogIndex === index ? (
                           <div className="dialog-edit-form">
@@ -448,7 +482,7 @@ function CharacterSettings({
                               autoFocus
                             />
                             <button
-                              onClick={() => handleEditDialogEnd(activeDialogTab)}
+                              onClick={() => handleEditDialogEnd(activeDialogTab as DialogTypeId)}
                             >
                               保存
                             </button>
@@ -472,7 +506,7 @@ function CharacterSettings({
                               </button>
                               <button
                                 onClick={() =>
-                                  handleDeleteDialog(activeDialogTab, index)
+                                  handleDeleteDialog(activeDialogTab as DialogTypeId, index)
                                 }
                                 disabled={currentDialogs.length <= 1}
                               >
@@ -486,7 +520,7 @@ function CharacterSettings({
                   </div>
                   <button
                     className="add-dialog-button"
-                    onClick={() => handleAddDialog(activeDialogTab)}
+                    onClick={() => handleAddDialog(activeDialogTab as DialogTypeId)}
                   >
                     + セリフを追加
                   </button>

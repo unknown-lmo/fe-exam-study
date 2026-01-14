@@ -1,8 +1,27 @@
 import { useState, useEffect } from 'react';
 import { fetchProgress, resetProgress } from '../api';
+import type { CategoryId } from '../types';
 
-function Progress({ onBack }) {
-  const [progress, setProgress] = useState(null);
+interface CategoryStats {
+  totalAttempts: number;
+  correctCount: number;
+  lastStudiedAt?: string;
+}
+
+interface ProgressData {
+  overallCorrectRate: number;
+  totalCorrect: number;
+  totalAttempts: number;
+  weakQuestionsCount: number;
+  categoryStats: Record<CategoryId, CategoryStats>;
+}
+
+interface ProgressProps {
+  onBack: () => void;
+}
+
+function Progress({ onBack }: ProgressProps) {
+  const [progress, setProgress] = useState<ProgressData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -12,7 +31,7 @@ function Progress({ onBack }) {
   async function loadProgress() {
     setLoading(true);
     try {
-      const data = await fetchProgress();
+      const data = await fetchProgress() as unknown as ProgressData;
       setProgress(data);
     } catch (error) {
       console.error('進捗の取得に失敗:', error);
@@ -35,7 +54,7 @@ function Progress({ onBack }) {
     return <div className="progress-error">進捗データの取得に失敗しました</div>;
   }
 
-  const categoryNames = {
+  const categoryNames: Record<CategoryId, string> = {
     technology: 'テクノロジ系',
     management: 'マネジメント系',
     strategy: 'ストラテジ系'
@@ -63,7 +82,7 @@ function Progress({ onBack }) {
 
       <h3>分野別成績</h3>
       <div className="category-stats">
-        {Object.entries(progress.categoryStats).map(([key, stats]) => {
+        {(Object.entries(progress.categoryStats) as [CategoryId, CategoryStats][]).map(([key, stats]) => {
           const rate = stats.totalAttempts > 0
             ? Math.round((stats.correctCount / stats.totalAttempts) * 100)
             : 0;

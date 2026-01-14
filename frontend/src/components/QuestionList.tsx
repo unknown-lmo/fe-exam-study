@@ -1,23 +1,45 @@
 import { useState, useEffect } from 'react';
 import { fetchQuestionsList, fetchCategories } from '../api';
+import type { Category, CategoryId, Difficulty } from '../types';
 
-const DIFFICULTY_LABELS = {
+type QuestionStatus = 'correct' | 'incorrect' | 'unanswered';
+
+interface QuestionListItem {
+  id: string;
+  question: string;
+  subcategory: string;
+  difficulty: Difficulty;
+  status: QuestionStatus;
+}
+
+interface QuestionFilter {
+  category: CategoryId | null;
+  difficulty: Difficulty | null;
+  search: string;
+}
+
+interface QuestionListProps {
+  onSelectQuestion: (questionId: string) => void;
+  onBack: () => void;
+}
+
+const DIFFICULTY_LABELS: Record<Difficulty, string> = {
   easy: '易',
   medium: '中',
   hard: '難'
 };
 
-const STATUS_ICONS = {
+const STATUS_ICONS: Record<QuestionStatus, string> = {
   correct: '○',
   incorrect: '×',
   unanswered: '●'
 };
 
-function QuestionList({ onSelectQuestion, onBack }) {
-  const [questions, setQuestions] = useState([]);
-  const [categories, setCategories] = useState([]);
+function QuestionList({ onSelectQuestion, onBack }: QuestionListProps) {
+  const [questions, setQuestions] = useState<QuestionListItem[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState({
+  const [filter, setFilter] = useState<QuestionFilter>({
     category: null,
     difficulty: null,
     search: ''
@@ -47,7 +69,7 @@ function QuestionList({ onSelectQuestion, onBack }) {
         filter.category,
         filter.difficulty,
         filter.search || null
-      );
+      ) as unknown as QuestionListItem[];
       setQuestions(data);
     } catch (error) {
       console.error('問題一覧の取得に失敗:', error);
@@ -55,12 +77,12 @@ function QuestionList({ onSelectQuestion, onBack }) {
     setLoading(false);
   }
 
-  function handleSearch(e) {
+  function handleSearch(e: React.FormEvent) {
     e.preventDefault();
     loadQuestions();
   }
 
-  function handleFilterChange(key, value) {
+  function handleFilterChange<K extends keyof QuestionFilter>(key: K, value: QuestionFilter[K]) {
     setFilter(prev => ({
       ...prev,
       [key]: prev[key] === value ? null : value
@@ -118,7 +140,7 @@ function QuestionList({ onSelectQuestion, onBack }) {
         <div className="filter-row">
           <span className="filter-label">難易度:</span>
           <div className="filter-buttons">
-            {['easy', 'medium', 'hard'].map(diff => (
+            {(['easy', 'medium', 'hard'] as Difficulty[]).map(diff => (
               <button
                 key={diff}
                 className={`filter-button difficulty-${diff} ${filter.difficulty === diff ? 'active' : ''}`}
