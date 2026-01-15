@@ -289,6 +289,11 @@ function Quiz({
 
       <div className="quiz-question">
         <p>{question.question}</p>
+        {question.image && (
+          <div className="quiz-question-image">
+            <img src={question.image} alt="問題の図" />
+          </div>
+        )}
       </div>
 
       <div className="quiz-choices">

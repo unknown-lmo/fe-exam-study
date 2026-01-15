@@ -282,6 +282,18 @@ body {
   color: var(--text-primary);
 }
 
+.quiz-question-image {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.quiz-question-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 .quiz-choices {
   display: flex;
   flex-direction: column;

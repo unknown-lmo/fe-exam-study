@@ -34,6 +34,18 @@ const mockQuestions = [
   }
 ];
 
+const mockQuestionWithImage = {
+  id: 'q3',
+  category: 'technology',
+  categoryName: 'テクノロジ系',
+  subcategory: '基礎理論',
+  question: '次の2分探索木に関する問題です。',
+  choices: ['選択肢ア', '選択肢イ', '選択肢ウ', '選択肢エ'] as [string, string, string, string],
+  correctAnswer: 0,
+  difficulty: 'medium' as const,
+  image: '/images/questions/r07_003.png'
+};
+
 const mockAnswerCorrect = {
   isCorrect: true,
   correctAnswer: 0,
@@ -200,6 +212,46 @@ describe('Quiz', () => {
       await waitFor(() => {
         expect(screen.getByText('易')).toBeInTheDocument();
       });
+    });
+
+    it('should not display image when question has no image field', async () => {
+      render(
+        <Quiz
+          mode="random"
+          onComplete={mockOnComplete}
+          getRandomDialog={mockGetRandomDialog}
+          transformExplanation={mockTransformExplanation}
+        />
+      );
+
+      await waitFor(() => {
+        expect(screen.getByText('CPUの役割は何ですか？')).toBeInTheDocument();
+      });
+
+      // 画像要素が存在しないことを確認
+      expect(screen.queryByRole('img', { name: '問題の図' })).not.toBeInTheDocument();
+    });
+
+    it('should display image when question has image field', async () => {
+      vi.mocked(api.fetchRandomQuestions).mockResolvedValue([mockQuestionWithImage]);
+
+      render(
+        <Quiz
+          mode="random"
+          onComplete={mockOnComplete}
+          getRandomDialog={mockGetRandomDialog}
+          transformExplanation={mockTransformExplanation}
+        />
+      );
+
+      await waitFor(() => {
+        expect(screen.getByText('次の2分探索木に関する問題です。')).toBeInTheDocument();
+      });
+
+      // 画像要素が存在することを確認
+      const image = screen.getByRole('img', { name: '問題の図' });
+      expect(image).toBeInTheDocument();
+      expect(image).toHaveAttribute('src', '/images/questions/r07_003.png');
     });
   });
 

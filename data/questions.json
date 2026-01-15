@@ -338,7 +338,8 @@
       "relatedTerms": [
         "binary_search_tree"
       ],
-      "difficulty": "easy"
+      "difficulty": "easy",
+      "image": "/images/questions/r07_003.png"
     },
     {
       "id": "r07_004",
@@ -398,7 +399,8 @@
       "relatedTerms": [
         "primary_key"
       ],
-      "difficulty": "easy"
+      "difficulty": "easy",
+      "image": "/images/questions/r07_006.png"
     },
     {
       "id": "r07_007",
@@ -557,7 +559,8 @@
         "critical_path",
         "wbs"
       ],
-      "difficulty": "hard"
+      "difficulty": "hard",
+      "image": "/images/questions/r07_014.png"
     },
     {
       "id": "r07_015",
@@ -722,7 +725,8 @@
       "relatedTerms": [
         "cache_hit_rate"
       ],
-      "difficulty": "medium"
+      "difficulty": "medium",
+      "image": "/images/questions/r06_003.png"
     },
     {
       "id": "r06_004",
@@ -1036,7 +1040,8 @@
       "relatedTerms": [
         "correlation"
       ],
-      "difficulty": "medium"
+      "difficulty": "medium",
+      "image": "/images/questions/r06_019.png"
     },
     {
       "id": "r06_020",
@@ -1247,7 +1252,8 @@
         "waf",
         "ssl_accelerator"
       ],
-      "difficulty": "hard"
+      "difficulty": "hard",
+      "image": "/images/questions/r05_010.png"
     },
     {
       "id": "r05_011",
@@ -1266,7 +1272,8 @@
       "relatedTerms": [
         "euclidean_algorithm"
       ],
-      "difficulty": "medium"
+      "difficulty": "medium",
+      "image": "/images/questions/r05_011.png"
     },
     {
       "id": "r05_012",
@@ -1306,7 +1313,8 @@
         "critical_path",
         "crash_cost"
       ],
-      "difficulty": "medium"
+      "difficulty": "medium",
+      "image": "/images/questions/r05_013.png"
     },
     {
       "id": "r05_014",
@@ -1485,7 +1493,8 @@
       "relatedTerms": [
         "binary_conversion"
       ],
-      "difficulty": "hard"
+      "difficulty": "hard",
+      "image": "/images/questions/sample_002.png"
     },
     {
       "id": "sample_003",
@@ -1523,7 +1532,8 @@
       "relatedTerms": [
         "automaton"
       ],
-      "difficulty": "medium"
+      "difficulty": "medium",
+      "image": "/images/questions/sample_004.png"
     },
     {
       "id": "sample_005",
@@ -1542,7 +1552,8 @@
       "relatedTerms": [
         "binary_search_tree"
       ],
-      "difficulty": "easy"
+      "difficulty": "easy",
+      "image": "/images/questions/sample_005.png"
     },
     {
       "id": "sample_006",
@@ -1561,7 +1572,8 @@
       "relatedTerms": [
         "array_operation"
       ],
-      "difficulty": "medium"
+      "difficulty": "medium",
+      "image": "/images/questions/sample_006.png"
     },
     {
       "id": "sample_007",
@@ -1580,7 +1592,8 @@
       "relatedTerms": [
         "hash"
       ],
-      "difficulty": "medium"
+      "difficulty": "medium",
+      "image": "/images/questions/sample_007.png"
     },
     {
       "id": "sample_008",
@@ -1675,7 +1688,8 @@
       "relatedTerms": [
         "cache_memory"
       ],
-      "difficulty": "hard"
+      "difficulty": "hard",
+      "image": "/images/questions/sample_012.png"
     },
     {
       "id": "sample_013",
@@ -1713,7 +1727,8 @@
       "relatedTerms": [
         "availability"
       ],
-      "difficulty": "hard"
+      "difficulty": "hard",
+      "image": "/images/questions/sample_014.png"
     },
     {
       "id": "sample_015",
@@ -1732,7 +1747,8 @@
       "relatedTerms": [
         "buffer"
       ],
-      "difficulty": "easy"
+      "difficulty": "easy",
+      "image": "/images/questions/sample_015.png"
     },
     {
       "id": "sample_016",
@@ -1866,7 +1882,8 @@
         "uml",
         "er_model"
       ],
-      "difficulty": "easy"
+      "difficulty": "easy",
+      "image": "/images/questions/sample_022.png"
     },
     {
       "id": "sample_023",
@@ -1999,7 +2016,8 @@
       "relatedTerms": [
         "port_number"
       ],
-      "difficulty": "hard"
+      "difficulty": "hard",
+      "image": "/images/questions/sample_029.png"
     },
     {
       "id": "sample_030",
@@ -2535,7 +2553,8 @@
       "relatedTerms": [
         "linear_programming"
       ],
-      "difficulty": "hard"
+      "difficulty": "hard",
+      "image": "/images/questions/sample_057.png"
     },
     {
       "id": "sample_058",
@@ -2592,7 +2611,8 @@
       "relatedTerms": [
         "worker_dispatch"
       ],
-      "difficulty": "easy"
+      "difficulty": "easy",
+      "image": "/images/questions/sample_060.png"
     }
   ],
   "categories": [

@@ -20,6 +20,7 @@ export interface Question {
   explanation: string;
   relatedTerms: string[];
   difficulty?: Difficulty;
+  image?: string;
 }
 
 /** シャッフル済み問題（Quiz内部用） */
