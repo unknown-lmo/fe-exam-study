@@ -139,7 +139,7 @@ function App() {
         <Quiz
           mode="single"
           questionId={selectedQuestionId}
-          options={{ ...quizOptions, shuffle: false }}
+          options={quizOptions}
           onComplete={() => {
             setSelectedQuestionId(null);
             setView('menu');

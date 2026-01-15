@@ -121,8 +121,8 @@ function Quiz({
       if (data.length === 0) {
         setQuestions([]);
       } else {
-        // 選択肢シャッフルが有効な場合（単問モードでは無効）
-        const processedData: ShuffledQuestion[] = (shuffle && mode !== 'single') ? data.map(q => {
+        // 選択肢シャッフルが有効な場合
+        const processedData: ShuffledQuestion[] = shuffle ? data.map(q => {
           const indices = [0, 1, 2, 3];
           const shuffledIndices = shuffleArray(indices);
           const newCorrectIndex = shuffledIndices.indexOf(q.correctAnswer) as 0 | 1 | 2 | 3;
