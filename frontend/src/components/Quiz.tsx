@@ -13,8 +13,7 @@ import type {
   DialogType,
   CategoryId,
   AnswerResult,
-  GlossaryTerm,
-  Difficulty
+  GlossaryTerm
 } from '../types';
 
 const defaultOptions: QuizOptions = { ...DEFAULT_QUIZ_OPTIONS };
