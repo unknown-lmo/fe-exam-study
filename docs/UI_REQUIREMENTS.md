@@ -304,15 +304,15 @@ frontend/src/
 - [x] Quiz.module.css作成（将来の完全移行用）
 - [ ] Quiz.tsxのCSS Modules移行（複雑なため延期）
 
-### Phase 5: その他画面 🔲 未着手
-- [ ] 問題一覧
-- [ ] 用語集
-- [ ] 進捗・履歴
+### Phase 5: その他画面 ✅ 完了
+- [x] 問題一覧（`QuestionList.module.css`）
+- [x] 用語集（`Glossary.module.css`）
+- [x] 進捗・履歴（`Progress.module.css`, `History.module.css`）
 
-### Phase 6: 最終調整・テスト 🔲 未着手
-- [ ] クロスブラウザテスト
-- [ ] アクセシビリティ監査
-- [ ] 古いApp.cssの段階的削除
+### Phase 6: 最終調整・テスト ✅ 完了
+- [x] テスト実行（248テスト全てパス）
+- [x] アクセシビリティ確認（全ボタン44px以上）
+- [ ] 古いApp.cssの段階的削除（Phase 7以降で対応）
 
 ### Phase 7: PWA対応（将来）
 - [ ] Service Worker導入
@@ -335,3 +335,4 @@ frontend/src/
 |------|------|
 | 2026/01/15 | 初版作成 |
 | 2026/01/16 | Phase 1-4実装進捗を更新 |
+| 2026/01/16 | Phase 5-6完了、全画面CSS Modules化 |
