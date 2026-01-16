@@ -6,7 +6,11 @@ const path = require('path');
 const app = express();
 const PORT = 3001;
 
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 // データファイルのパス
@@ -402,6 +406,7 @@ app.get('/api/glossary/:id', (req, res) => {
 });
 
 // サーバー起動
-app.listen(PORT, () => {
-  console.log(`基本情報技術者試験 学習サーバーが起動しました: http://localhost:${PORT}`);
+const HOST = process.env.HOST || '0.0.0.0';
+app.listen(PORT, HOST, () => {
+  console.log(`基本情報技術者試験 学習サーバーが起動しました: http://${HOST}:${PORT}`);
 });
