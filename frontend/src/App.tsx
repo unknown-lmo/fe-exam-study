@@ -5,6 +5,7 @@ import History from './components/History';
 import Glossary from './components/Glossary';
 import QuestionList from './components/QuestionList';
 import CharacterSettings from './components/CharacterSettings';
+import Menu from './components/Menu';
 import { fetchCategories, fetchProgress } from './api';
 import { useCharacterSettings } from './hooks/useCharacterSettings';
 import { useTheme } from './hooks/useTheme';
@@ -220,109 +221,14 @@ function App() {
         </button>
       </div>
 
-      <main className="menu">
-        <section className="menu-section">
-          <h3>クイズ設定</h3>
-          <div className="quiz-options">
-            <div className="option-group">
-              <span className="option-label">問題数</span>
-              <div className="option-buttons">
-                {[5, 10, 20].map(count => (
-                  <button
-                    key={count}
-                    className={`option-button ${quizOptions.count === count ? 'active' : ''}`}
-                    onClick={() => updateOption('count', count)}
-                  >
-                    {count}問
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="option-group">
-              <span className="option-label">選択肢</span>
-              <button
-                className={`option-toggle ${quizOptions.shuffle ? 'active' : ''}`}
-                onClick={() => updateOption('shuffle', !quizOptions.shuffle)}
-              >
-                {quizOptions.shuffle ? 'シャッフル ON' : 'シャッフル OFF'}
-              </button>
-            </div>
-            <div className="option-group">
-              <span className="option-label">制限時間</span>
-              <div className="option-buttons">
-                {[null, 30, 60, 90].map(time => (
-                  <button
-                    key={time ?? 'none'}
-                    className={`option-button ${quizOptions.timer === time ? 'active' : ''}`}
-                    onClick={() => updateOption('timer', time)}
-                  >
-                    {time === null ? 'なし' : `${time}秒`}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="menu-section">
-          <h3>分野を選んで学習</h3>
-          <div className="category-buttons">
-            {categories.map(cat => (
-              <button
-                key={cat.id}
-                className="category-button"
-                onClick={() => startQuiz(cat.id)}
-              >
-                <span className="category-name">{cat.name}</span>
-                <span className="category-sub">{cat.subcategories.length}分野</span>
-              </button>
-            ))}
-            <button
-              className="category-button all"
-              onClick={() => startQuiz(null)}
-            >
-              <span className="category-name">全分野</span>
-              <span className="category-sub">ランダム出題</span>
-            </button>
-          </div>
-        </section>
-
-        <section className="menu-section">
-          <h3>復習・確認</h3>
-          <div className="action-buttons">
-            <button
-              className="action-button weak"
-              onClick={() => startQuiz(null, 'weak')}
-            >
-              苦手問題を復習
-            </button>
-            <button
-              className="action-button progress"
-              onClick={() => setView('progress')}
-            >
-              学習進捗を見る
-            </button>
-            <button
-              className="action-button history"
-              onClick={() => setView('history')}
-            >
-              学習履歴を見る
-            </button>
-            <button
-              className="action-button glossary"
-              onClick={() => setView('glossary')}
-            >
-              用語集を見る
-            </button>
-            <button
-              className="action-button question-list"
-              onClick={() => setView('question-list')}
-            >
-              問題一覧を見る
-            </button>
-          </div>
-        </section>
-      </main>
+      <Menu
+        categories={categories}
+        quickStats={quickStats}
+        quizOptions={quizOptions}
+        onUpdateOption={updateOption}
+        onStartQuiz={startQuiz}
+        onNavigate={setView}
+      />
 
       <footer className="app-footer">
         <p>頑張って勉強しよう!</p>

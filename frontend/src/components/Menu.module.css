@@ -1,0 +1,309 @@
+/* ============================================
+   Menu Component Styles
+   ============================================ */
+
+.menu {
+  background: var(--card-bg, #ffffff);
+  border-radius: var(--radius-2xl, 1.25rem);
+  padding: var(--space-6, 1.5rem);
+  box-shadow: var(--shadow-lg, 0 10px 40px rgba(0, 0, 0, 0.1));
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ----------------------------------------
+   Sections
+   ---------------------------------------- */
+
+.section {
+  margin-bottom: var(--space-8, 2rem);
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.sectionTitle {
+  color: var(--text-primary, #1e293b);
+  font-size: var(--font-size-lg, 1.125rem);
+  font-weight: var(--font-weight-semibold, 600);
+  margin-bottom: var(--space-4, 1rem);
+  padding-bottom: var(--space-2, 0.5rem);
+  border-bottom: 2px solid var(--border-default, var(--card-border, #e2e8f0));
+}
+
+/* ----------------------------------------
+   Quiz Options
+   ---------------------------------------- */
+
+.optionsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4, 1rem);
+  background: var(--card-bg-secondary, #f8fafc);
+  padding: var(--space-4, 1rem);
+  border-radius: var(--radius-lg, 0.75rem);
+}
+
+.optionGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4, 1rem);
+  flex-wrap: wrap;
+}
+
+.optionLabel {
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--text-secondary, #64748b);
+  min-width: 70px;
+}
+
+.optionButtons {
+  display: flex;
+  gap: var(--space-2, 0.5rem);
+  flex-wrap: wrap;
+}
+
+.optionButton,
+.optionToggle {
+  min-height: 44px;
+  padding: var(--space-2, 0.5rem) var(--space-4, 1rem);
+  border: 2px solid var(--border-default, var(--card-border, #e2e8f0));
+  border-radius: var(--radius-md, 0.5rem);
+  background: var(--card-bg, #ffffff);
+  color: var(--text-primary, #1e293b);
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.optionButton:hover,
+.optionToggle:hover {
+  border-color: var(--color-primary-500, var(--accent-primary, #6366f1));
+}
+
+.optionButton.active,
+.optionToggle.active {
+  background: var(--color-primary-500, var(--accent-primary, #6366f1));
+  border-color: var(--color-primary-500, var(--accent-primary, #6366f1));
+  color: var(--text-inverse, #ffffff);
+}
+
+/* ----------------------------------------
+   Category Buttons
+   ---------------------------------------- */
+
+.categoryGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3, 0.75rem);
+}
+
+.categoryButton {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 56px;
+  padding: var(--space-4, 1rem) var(--space-5, 1.25rem);
+  border: none;
+  border-radius: var(--radius-xl, 1rem);
+  background: var(--bg-gradient-primary, linear-gradient(135deg, #6366f1 0%, #4338ca 100%));
+  color: var(--text-inverse, #ffffff);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: left;
+}
+
+.categoryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-primary, 0 5px 20px rgba(99, 102, 241, 0.4));
+}
+
+.categoryButton:active {
+  transform: translateY(0);
+}
+
+.categoryAll {
+  background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+}
+
+.categoryAll:hover {
+  box-shadow: 0 5px 20px rgba(236, 72, 153, 0.4);
+}
+
+.categoryName {
+  font-size: var(--font-size-base, 1rem);
+  font-weight: var(--font-weight-bold, 700);
+}
+
+.categorySub {
+  font-size: var(--font-size-sm, 0.875rem);
+  opacity: 0.9;
+  margin-top: var(--space-1, 0.25rem);
+}
+
+/* ----------------------------------------
+   Action Buttons
+   ---------------------------------------- */
+
+.actionGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3, 0.75rem);
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3, 0.75rem);
+  min-height: 52px;
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  border: 2px solid;
+  border-radius: var(--radius-lg, 0.75rem);
+  background: var(--card-bg, #ffffff);
+  font-size: var(--font-size-base, 1rem);
+  font-weight: var(--font-weight-medium, 500);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.actionButton:hover {
+  transform: translateX(4px);
+}
+
+.actionIcon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.actionText {
+  flex: 1;
+  text-align: left;
+}
+
+.actionBadge {
+  background: currentColor;
+  color: var(--card-bg, #ffffff);
+  font-size: var(--font-size-xs, 0.75rem);
+  font-weight: var(--font-weight-bold, 700);
+  padding: var(--space-1, 0.25rem) var(--space-2, 0.5rem);
+  border-radius: var(--radius-full, 9999px);
+  min-width: 24px;
+  text-align: center;
+}
+
+/* Action Button Variants */
+.actionWeak {
+  border-color: var(--color-error, #ef4444);
+  color: var(--color-error, #ef4444);
+}
+
+.actionWeak:hover {
+  background: var(--color-error, #ef4444);
+  color: var(--text-inverse, #ffffff);
+}
+
+.actionProgress {
+  border-color: var(--color-primary-500, #6366f1);
+  color: var(--color-primary-500, #6366f1);
+}
+
+.actionProgress:hover {
+  background: var(--color-primary-500, #6366f1);
+  color: var(--text-inverse, #ffffff);
+}
+
+.actionHistory {
+  border-color: var(--color-secondary-500, #8b5cf6);
+  color: var(--color-secondary-500, #8b5cf6);
+}
+
+.actionHistory:hover {
+  background: var(--color-secondary-500, #8b5cf6);
+  color: var(--text-inverse, #ffffff);
+}
+
+.actionGlossary {
+  border-color: var(--color-info, #0ea5e9);
+  color: var(--color-info, #0ea5e9);
+}
+
+.actionGlossary:hover {
+  background: var(--color-info, #0ea5e9);
+  color: var(--text-inverse, #ffffff);
+}
+
+.actionList {
+  border-color: var(--color-neutral-500, #64748b);
+  color: var(--color-neutral-500, #64748b);
+}
+
+.actionList:hover {
+  background: var(--color-neutral-500, #64748b);
+  color: var(--text-inverse, #ffffff);
+}
+
+/* ----------------------------------------
+   Responsive - Tablet (768px+)
+   ---------------------------------------- */
+
+@media (min-width: 768px) {
+  .menu {
+    padding: var(--space-8, 2rem);
+  }
+
+  .categoryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .actionGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .optionGroup {
+    flex-wrap: nowrap;
+  }
+}
+
+/* ----------------------------------------
+   Responsive - Desktop (1024px+)
+   ---------------------------------------- */
+
+@media (min-width: 1024px) {
+  .categoryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .actionGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ----------------------------------------
+   Dark Theme
+   ---------------------------------------- */
+
+[data-theme="dark"] .menu {
+  background: var(--card-bg, #2d2d44);
+}
+
+[data-theme="dark"] .sectionTitle {
+  color: var(--text-primary, #e0e0e0);
+  border-bottom-color: var(--border-default, var(--card-border, #3d3d5c));
+}
+
+[data-theme="dark"] .optionsGrid {
+  background: var(--card-bg-secondary, #252538);
+}
+
+[data-theme="dark"] .optionButton,
+[data-theme="dark"] .optionToggle {
+  background: var(--card-bg, #2d2d44);
+  border-color: var(--border-default, var(--card-border, #3d3d5c));
+  color: var(--text-primary, #e0e0e0);
+}
+
+[data-theme="dark"] .actionButton {
+  background: var(--card-bg, #2d2d44);
+}
