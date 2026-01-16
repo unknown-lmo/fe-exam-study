@@ -1,0 +1,166 @@
+/* ============================================
+   Card Component Styles
+   ============================================ */
+
+.card {
+  background: var(--card-bg, var(--bg-surface, #ffffff));
+  border-radius: var(--radius-2xl, 1.5rem);
+  box-shadow: var(--shadow-lg, 0 10px 40px rgba(0, 0, 0, 0.1));
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+/* ----------------------------------------
+   Variants
+   ---------------------------------------- */
+
+.default {
+  background: var(--card-bg, var(--bg-surface, #ffffff));
+  box-shadow: var(--shadow-lg, 0 10px 40px rgba(0, 0, 0, 0.1));
+}
+
+.elevated {
+  background: var(--card-bg, var(--bg-surface, #ffffff));
+  box-shadow: var(--shadow-xl, 0 20px 50px rgba(0, 0, 0, 0.15));
+}
+
+.outlined {
+  background: var(--card-bg, var(--bg-surface, #ffffff));
+  border: 2px solid var(--border-default, var(--card-border, #e2e8f0));
+  box-shadow: none;
+}
+
+.flat {
+  background: var(--card-bg-secondary, var(--bg-muted, #f1f5f9));
+  box-shadow: none;
+  border-radius: var(--radius-lg, 0.75rem);
+}
+
+/* ----------------------------------------
+   Padding
+   ---------------------------------------- */
+
+.padding-none {
+  padding: 0;
+}
+
+.padding-sm {
+  padding: var(--space-4, 1rem);
+}
+
+.padding-md {
+  padding: var(--space-6, 1.5rem);
+}
+
+.padding-lg {
+  padding: var(--space-8, 2rem);
+}
+
+/* ----------------------------------------
+   States
+   ---------------------------------------- */
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl, 0 20px 50px rgba(0, 0, 0, 0.15));
+}
+
+.clickable:active {
+  transform: translateY(0);
+}
+
+.clickable:focus-visible {
+  outline: var(--focus-ring-width, 2px) solid var(--focus-ring-color, #6366f1);
+  outline-offset: var(--focus-ring-offset, 2px);
+}
+
+/* Full Width */
+.fullWidth {
+  width: 100%;
+}
+
+/* ----------------------------------------
+   Card Sections
+   ---------------------------------------- */
+
+.cardHeader {
+  margin-bottom: var(--space-4, 1rem);
+  padding-bottom: var(--space-3, 0.75rem);
+  border-bottom: 2px solid var(--border-default, var(--card-border, #e2e8f0));
+}
+
+.cardTitle {
+  font-size: var(--font-size-xl, 1.25rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--text-primary, #1e293b);
+  margin: 0;
+}
+
+.cardSubtitle {
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--text-secondary, #64748b);
+  margin: var(--space-1, 0.25rem) 0 0 0;
+}
+
+.cardBody {
+  color: var(--text-primary, #1e293b);
+}
+
+.cardFooter {
+  margin-top: var(--space-4, 1rem);
+  padding-top: var(--space-3, 0.75rem);
+  border-top: 1px solid var(--border-muted, var(--card-border, #e2e8f0));
+}
+
+/* ----------------------------------------
+   Responsive
+   ---------------------------------------- */
+
+@media (max-width: 575px) {
+  .padding-md {
+    padding: var(--space-4, 1rem);
+  }
+
+  .padding-lg {
+    padding: var(--space-6, 1.5rem);
+  }
+}
+
+/* ----------------------------------------
+   Dark Theme
+   ---------------------------------------- */
+
+[data-theme="dark"] .card {
+  background: var(--card-bg, var(--bg-surface, #2d2d44));
+}
+
+[data-theme="dark"] .outlined {
+  border-color: var(--border-default, var(--card-border, #3d3d5c));
+}
+
+[data-theme="dark"] .flat {
+  background: var(--card-bg-secondary, var(--bg-elevated, #252538));
+}
+
+[data-theme="dark"] .cardHeader {
+  border-bottom-color: var(--border-default, var(--card-border, #3d3d5c));
+}
+
+[data-theme="dark"] .cardTitle {
+  color: var(--text-primary, #e0e0e0);
+}
+
+[data-theme="dark"] .cardSubtitle {
+  color: var(--text-secondary, #a0a0a0);
+}
+
+[data-theme="dark"] .cardBody {
+  color: var(--text-primary, #e0e0e0);
+}
+
+[data-theme="dark"] .cardFooter {
+  border-top-color: var(--border-muted, var(--card-border, #3d3d5c));
+}
