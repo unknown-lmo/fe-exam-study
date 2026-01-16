@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { fetchProgress, resetProgress } from '../api';
 import { CATEGORY_NAMES } from '../constants';
 import type { CategoryId, CategoryStats, Progress as ProgressData } from '../types';
+import styles from './Progress.module.css';
 
 interface ProgressProps {
   onBack: () => void;
@@ -34,54 +35,54 @@ function Progress({ onBack }: ProgressProps) {
   }
 
   if (loading) {
-    return <div className="progress-loading">読み込み中...</div>;
+    return <div className={styles.loading}>読み込み中...</div>;
   }
 
   if (!progress) {
-    return <div className="progress-error">進捗データの取得に失敗しました</div>;
+    return <div className={styles.error}>進捗データの取得に失敗しました</div>;
   }
 
   return (
-    <div className="progress">
-      <h2>学習進捗</h2>
+    <div className={styles.container}>
+      <h2 className={styles.title}>学習進捗</h2>
 
-      <div className="progress-overview">
-        <div className="stat-card total">
+      <div className={styles.overview}>
+        <div className={`${styles.statCard} ${styles.total}`}>
           <h3>総合成績</h3>
-          <div className="stat-value">{progress.overallCorrectRate}%</div>
-          <div className="stat-detail">
+          <div className={styles.statValue}>{progress.overallCorrectRate}%</div>
+          <div className={styles.statDetail}>
             {progress.totalCorrect} / {progress.totalAttempts} 問正解
           </div>
         </div>
 
-        <div className="stat-card weak">
+        <div className={`${styles.statCard} ${styles.weak}`}>
           <h3>苦手問題</h3>
-          <div className="stat-value">{progress.weakQuestionsCount}</div>
-          <div className="stat-detail">問</div>
+          <div className={styles.statValue}>{progress.weakQuestionsCount}</div>
+          <div className={styles.statDetail}>問</div>
         </div>
       </div>
 
-      <h3>分野別成績</h3>
-      <div className="category-stats">
+      <h3 className={styles.sectionTitle}>分野別成績</h3>
+      <div className={styles.categoryStats}>
         {(Object.entries(progress.categoryStats) as [CategoryId, CategoryStats][]).map(([key, stats]) => {
           const rate = stats.totalAttempts > 0
             ? Math.round((stats.correctCount / stats.totalAttempts) * 100)
             : 0;
           return (
-            <div key={key} className="category-stat-card">
+            <div key={key} className={styles.categoryCard}>
               <h4>{CATEGORY_NAMES[key]}</h4>
-              <div className="progress-bar-container">
+              <div className={styles.progressBarContainer}>
                 <div
-                  className="progress-bar"
+                  className={styles.progressBar}
                   style={{ width: `${rate}%` }}
                 />
               </div>
-              <div className="category-stat-detail">
-                <span className="rate">{rate}%</span>
-                <span className="count">({stats.correctCount}/{stats.totalAttempts})</span>
+              <div className={styles.categoryDetail}>
+                <span className={styles.rate}>{rate}%</span>
+                <span className={styles.count}>({stats.correctCount}/{stats.totalAttempts})</span>
               </div>
               {stats.lastStudiedAt && (
-                <div className="last-studied">
+                <div className={styles.lastStudied}>
                   最終学習: {new Date(stats.lastStudiedAt).toLocaleDateString('ja-JP')}
                 </div>
               )}
@@ -90,9 +91,9 @@ function Progress({ onBack }: ProgressProps) {
         })}
       </div>
 
-      <div className="progress-actions">
-        <button onClick={onBack}>戻る</button>
-        <button onClick={handleReset} className="reset-button">
+      <div className={styles.actions}>
+        <button className={styles.backButton} onClick={onBack}>戻る</button>
+        <button className={styles.resetButton} onClick={handleReset}>
           進捗をリセット
         </button>
       </div>

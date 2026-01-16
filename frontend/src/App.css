@@ -835,12 +835,20 @@ body {
 }
 
 .quiz-empty button {
+  min-height: 44px;
   padding: 12px 25px;
-  background: #667eea;
-  color: white;
-  border: none;
-  border-radius: 10px;
+  border: 2px solid var(--border-default, var(--card-border, #e2e8f0));
+  border-radius: var(--radius-lg, 0.75rem);
+  background: var(--card-bg, #ffffff);
+  color: var(--text-primary, #1e293b);
+  font-size: var(--font-size-base, 1rem);
+  font-weight: var(--font-weight-medium, 500);
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.quiz-empty button:hover {
+  border-color: var(--color-primary-500, var(--accent-primary, #6366f1));
 }
 
 /* レスポンシブ */

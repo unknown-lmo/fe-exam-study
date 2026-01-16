@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { fetchHistory } from '../api';
 import type { HistoryEntry } from '../types';
+import styles from './History.module.css';
 
 interface HistoryProps {
   onBack: () => void;
@@ -26,39 +27,39 @@ function History({ onBack }: HistoryProps) {
   }
 
   if (loading) {
-    return <div className="history-loading">読み込み中...</div>;
+    return <div className={styles.loading}>読み込み中...</div>;
   }
 
   return (
-    <div className="history">
-      <h2>学習履歴</h2>
+    <div className={styles.container}>
+      <h2 className={styles.title}>学習履歴</h2>
 
       {history.length === 0 ? (
-        <p className="history-empty">まだ学習履歴がありません</p>
+        <p className={styles.empty}>まだ学習履歴がありません</p>
       ) : (
-        <div className="history-list">
+        <div className={styles.list}>
           {history.map((item, index) => (
             <div
               key={index}
-              className={`history-item ${item.isCorrect ? 'correct' : 'incorrect'}`}
+              className={`${styles.item} ${item.isCorrect ? styles.correct : styles.incorrect}`}
             >
-              <div className="history-result">
+              <div className={styles.result}>
                 {item.isCorrect ? '○' : '×'}
               </div>
-              <div className="history-content">
+              <div className={styles.content}>
                 {item.question ? (
                   <>
-                    <div className="history-category">
+                    <div className={styles.category}>
                       {item.question.categoryName} / {item.question.subcategory}
                     </div>
-                    <div className="history-question">
+                    <div className={styles.question}>
                       {item.question.questionText}
                     </div>
                   </>
                 ) : (
-                  <div className="history-question">問題ID: {item.questionId}</div>
+                  <div className={styles.question}>問題ID: {item.questionId}</div>
                 )}
-                <div className="history-time">
+                <div className={styles.time}>
                   {new Date(item.answeredAt).toLocaleString('ja-JP')}
                 </div>
               </div>
@@ -67,8 +68,8 @@ function History({ onBack }: HistoryProps) {
         </div>
       )}
 
-      <div className="history-actions">
-        <button onClick={onBack}>戻る</button>
+      <div className={styles.actions}>
+        <button className={styles.backButton} onClick={onBack}>戻る</button>
       </div>
     </div>
   );

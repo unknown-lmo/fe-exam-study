@@ -1,0 +1,252 @@
+/* ============================================
+   Progress Component Styles
+   ============================================ */
+
+.container {
+  background: var(--card-bg, #ffffff);
+  border-radius: var(--radius-2xl, 1.25rem);
+  padding: var(--space-6, 1.5rem);
+  box-shadow: var(--shadow-lg, 0 10px 40px rgba(0, 0, 0, 0.1));
+  transition: background 0.3s ease;
+}
+
+/* ----------------------------------------
+   Header
+   ---------------------------------------- */
+
+.title {
+  text-align: center;
+  font-size: var(--font-size-xl, 1.25rem);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--text-primary, #1e293b);
+  margin: 0 0 var(--space-6, 1.5rem) 0;
+}
+
+.sectionTitle {
+  font-size: var(--font-size-lg, 1.125rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--text-primary, #1e293b);
+  margin: var(--space-6, 1.5rem) 0 var(--space-4, 1rem) 0;
+}
+
+/* ----------------------------------------
+   Overview Cards
+   ---------------------------------------- */
+
+.overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-4, 1rem);
+  margin-bottom: var(--space-5, 1.25rem);
+}
+
+.statCard {
+  padding: var(--space-5, 1.25rem);
+  border-radius: var(--radius-xl, 1rem);
+  text-align: center;
+  color: var(--text-inverse, #ffffff);
+}
+
+.statCard.total {
+  background: var(--bg-gradient-primary, linear-gradient(135deg, #6366f1 0%, #4338ca 100%));
+}
+
+.statCard.weak {
+  background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+}
+
+.statCard h3 {
+  color: var(--text-inverse, #ffffff);
+  margin: 0 0 var(--space-2, 0.5rem) 0;
+  font-size: var(--font-size-sm, 0.875rem);
+  font-weight: var(--font-weight-medium, 500);
+  opacity: 0.9;
+}
+
+.statValue {
+  font-size: var(--font-size-4xl, 2.5rem);
+  font-weight: var(--font-weight-bold, 700);
+  line-height: 1;
+  margin-bottom: var(--space-1, 0.25rem);
+}
+
+.statDetail {
+  font-size: var(--font-size-sm, 0.875rem);
+  opacity: 0.85;
+}
+
+/* ----------------------------------------
+   Category Stats
+   ---------------------------------------- */
+
+.categoryStats {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3, 0.75rem);
+}
+
+.categoryCard {
+  padding: var(--space-4, 1rem);
+  background: var(--card-bg-secondary, #f8fafc);
+  border-radius: var(--radius-lg, 0.75rem);
+  border: 1px solid var(--border-muted, #e2e8f0);
+}
+
+.categoryCard h4 {
+  margin: 0 0 var(--space-3, 0.75rem) 0;
+  font-size: var(--font-size-base, 1rem);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--text-primary, #1e293b);
+}
+
+/* Progress Bar */
+.progressBarContainer {
+  height: 12px;
+  background: var(--bg-muted, #e2e8f0);
+  border-radius: var(--radius-full, 9999px);
+  overflow: hidden;
+  margin-bottom: var(--space-3, 0.75rem);
+}
+
+.progressBar {
+  height: 100%;
+  background: var(--bg-gradient-primary, linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%));
+  border-radius: var(--radius-full, 9999px);
+  transition: width 0.5s ease;
+}
+
+/* Category Detail */
+.categoryDetail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rate {
+  font-weight: var(--font-weight-bold, 700);
+  font-size: var(--font-size-lg, 1.125rem);
+  color: var(--color-primary-600, #4f46e5);
+}
+
+.count {
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--text-secondary, #64748b);
+}
+
+.lastStudied {
+  font-size: var(--font-size-xs, 0.75rem);
+  color: var(--text-tertiary, #94a3b8);
+  margin-top: var(--space-2, 0.5rem);
+}
+
+/* ----------------------------------------
+   Actions
+   ---------------------------------------- */
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3, 0.75rem);
+  margin-top: var(--space-6, 1.5rem);
+  padding-top: var(--space-4, 1rem);
+  border-top: 1px solid var(--border-muted, #e2e8f0);
+}
+
+.backButton {
+  min-height: 44px;
+  padding: var(--space-3, 0.75rem) var(--space-6, 1.5rem);
+  border: 2px solid var(--border-default, var(--card-border, #e2e8f0));
+  border-radius: var(--radius-lg, 0.75rem);
+  background: var(--card-bg, #ffffff);
+  color: var(--text-primary, #1e293b);
+  font-size: var(--font-size-base, 1rem);
+  font-weight: var(--font-weight-medium, 500);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  border-color: var(--color-primary-500, var(--accent-primary, #6366f1));
+}
+
+.resetButton {
+  min-height: 44px;
+  padding: var(--space-3, 0.75rem) var(--space-6, 1.5rem);
+  border: none;
+  border-radius: var(--radius-lg, 0.75rem);
+  background: var(--color-error, #ef4444);
+  color: var(--text-inverse, #ffffff);
+  font-size: var(--font-size-base, 1rem);
+  font-weight: var(--font-weight-medium, 500);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetButton:hover {
+  background: var(--color-error-dark, #dc2626);
+}
+
+/* ----------------------------------------
+   Loading & Error States
+   ---------------------------------------- */
+
+.loading,
+.error {
+  text-align: center;
+  padding: var(--space-12, 3rem);
+  background: var(--card-bg, #ffffff);
+  border-radius: var(--radius-2xl, 1.25rem);
+  color: var(--text-secondary, #64748b);
+  box-shadow: var(--shadow-lg, 0 10px 40px rgba(0, 0, 0, 0.1));
+}
+
+.error {
+  color: var(--color-error, #ef4444);
+}
+
+/* ----------------------------------------
+   Responsive - Tablet (768px+)
+   ---------------------------------------- */
+
+@media (min-width: 768px) {
+  .container {
+    padding: var(--space-8, 2rem);
+  }
+
+  .title {
+    font-size: var(--font-size-2xl, 1.5rem);
+  }
+
+  .overview {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .statValue {
+    font-size: var(--font-size-5xl, 3rem);
+  }
+}
+
+/* ----------------------------------------
+   Dark Theme
+   ---------------------------------------- */
+
+[data-theme="dark"] .container,
+[data-theme="dark"] .loading,
+[data-theme="dark"] .error {
+  background: var(--card-bg, #2d2d44);
+}
+
+[data-theme="dark"] .categoryCard {
+  background: var(--card-bg-secondary, #252538);
+  border-color: var(--border-default, var(--card-border, #3d3d5c));
+}
+
+[data-theme="dark"] .backButton {
+  background: var(--card-bg, #2d2d44);
+  border-color: var(--border-default, var(--card-border, #3d3d5c));
+  color: var(--text-primary, #e0e0e0);
+}
+
+[data-theme="dark"] .progressBarContainer {
+  background: var(--card-bg, #2d2d44);
+}
