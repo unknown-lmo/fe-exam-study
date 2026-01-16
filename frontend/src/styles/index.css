@@ -1,0 +1,30 @@
+/* ============================================
+   FE Study System - Style Entry Point
+   Import order matters for cascade
+   ============================================ */
+
+/* 1. Design Tokens & Variables */
+@import './variables.css';
+
+/* 2. Reset & Base Styles (Accessibility & Utilities only) */
+@import './reset.css';
+
+/* 3. Responsive Utilities */
+@import './responsive.css';
+
+/* ============================================
+   Component Styles (to be added as CSS Modules)
+   ============================================
+
+   Each component will have its own .module.css file:
+   - Menu.module.css
+   - Quiz.module.css
+   - QuestionList.module.css
+   - Glossary.module.css
+   - Progress.module.css
+   - History.module.css
+   - shared/Button.module.css
+   - shared/Card.module.css
+   - etc.
+
+   ============================================ */

@@ -1,0 +1,87 @@
+/* ============================================
+   FE Study System - Accessibility & Utility Styles
+   (既存App.cssと競合しないスタイルのみ)
+   ============================================ */
+
+/* ----------------------------------------
+   Focus Styles - Accessibility
+   ---------------------------------------- */
+
+/* Visible focus for keyboard navigation */
+:focus-visible {
+  outline: var(--focus-ring-width, 2px) solid var(--focus-ring-color, #6366f1);
+  outline-offset: var(--focus-ring-offset, 2px);
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--space-3, 0.75rem) var(--space-4, 1rem);
+  background: var(--bg-surface, #ffffff);
+  color: var(--text-primary, #333);
+  border-radius: var(--radius-md, 0.5rem);
+  z-index: 9999;
+  transition: top 0.15s ease-out;
+}
+
+.skip-link:focus {
+  top: var(--space-4, 1rem);
+}
+
+/* ----------------------------------------
+   Reduced Motion
+   ---------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ----------------------------------------
+   High Contrast Mode Support
+   ---------------------------------------- */
+
+@media (prefers-contrast: high) {
+  :root {
+    --focus-ring-width: 3px;
+  }
+}
+
+/* ----------------------------------------
+   Utility Classes
+   ---------------------------------------- */
+
+/* Visually hidden but accessible to screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Not visually hidden when focused */
+.sr-only-focusable:focus,
+.sr-only-focusable:active {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}

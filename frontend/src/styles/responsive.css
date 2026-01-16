@@ -1,0 +1,527 @@
+/* ============================================
+   FE Study System - Responsive Utilities
+   Mobile-First Breakpoint System
+   ============================================ */
+
+/* ----------------------------------------
+   Breakpoint Reference
+   ----------------------------------------
+
+   Default: 0 - 575px     (Mobile)
+   sm:      576px+        (Large Phone)
+   md:      768px+        (Tablet)
+   lg:      1024px+       (Desktop)
+   xl:      1280px+       (Large Desktop)
+
+   Usage in components:
+   .component { mobile styles }
+   @media (min-width: 576px) { .component { sm styles } }
+   @media (min-width: 768px) { .component { md styles } }
+   @media (min-width: 1024px) { .component { lg styles } }
+
+   ---------------------------------------- */
+
+/* ----------------------------------------
+   Container System
+   ---------------------------------------- */
+
+.container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+@media (min-width: 576px) {
+  .container {
+    padding-inline: var(--space-6);
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-inline: var(--space-8);
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+/* Fluid container - no max-width */
+.container-fluid {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+@media (min-width: 576px) {
+  .container-fluid {
+    padding-inline: var(--space-6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-fluid {
+    padding-inline: var(--space-8);
+  }
+}
+
+/* ----------------------------------------
+   Responsive Display Utilities
+   ---------------------------------------- */
+
+/* Hide on specific breakpoints */
+.hide-mobile {
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .hide-mobile {
+    display: initial;
+  }
+}
+
+.hide-sm {
+  display: initial;
+}
+
+@media (min-width: 576px) {
+  .hide-sm {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .hide-sm {
+    display: initial;
+  }
+}
+
+.hide-tablet {
+  display: initial;
+}
+
+@media (min-width: 768px) {
+  .hide-tablet {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hide-tablet {
+    display: initial;
+  }
+}
+
+.hide-desktop {
+  display: initial;
+}
+
+@media (min-width: 1024px) {
+  .hide-desktop {
+    display: none;
+  }
+}
+
+/* Show only on specific breakpoints */
+.show-mobile-only {
+  display: initial;
+}
+
+@media (min-width: 576px) {
+  .show-mobile-only {
+    display: none;
+  }
+}
+
+.show-tablet-only {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .show-tablet-only {
+    display: initial;
+  }
+}
+
+@media (min-width: 1024px) {
+  .show-tablet-only {
+    display: none;
+  }
+}
+
+.show-desktop-only {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .show-desktop-only {
+    display: initial;
+  }
+}
+
+/* ----------------------------------------
+   Responsive Grid System
+   ---------------------------------------- */
+
+.grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* Auto-fit columns */
+.grid-auto-fit {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+}
+
+.grid-auto-fill {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+}
+
+/* Fixed column counts */
+.grid-cols-1 {
+  grid-template-columns: repeat(1, 1fr);
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Responsive grid columns */
+@media (min-width: 576px) {
+  .sm\:grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+  .sm\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .sm\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .sm\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+  .md\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .md\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .md\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+  .lg\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .lg\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .lg\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .lg\:grid-cols-5 { grid-template-columns: repeat(5, 1fr); }
+  .lg\:grid-cols-6 { grid-template-columns: repeat(6, 1fr); }
+}
+
+/* ----------------------------------------
+   Responsive Flexbox Utilities
+   ---------------------------------------- */
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+/* Responsive direction */
+.flex-col-mobile {
+  flex-direction: column;
+}
+
+@media (min-width: 576px) {
+  .flex-col-mobile {
+    flex-direction: row;
+  }
+}
+
+.flex-col-tablet {
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .flex-col-tablet {
+    flex-direction: row;
+  }
+}
+
+/* ----------------------------------------
+   Responsive Gap Utilities
+   ---------------------------------------- */
+
+.gap-1 { gap: var(--space-1); }
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-5 { gap: var(--space-5); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+
+@media (min-width: 576px) {
+  .sm\:gap-4 { gap: var(--space-4); }
+  .sm\:gap-6 { gap: var(--space-6); }
+  .sm\:gap-8 { gap: var(--space-8); }
+}
+
+@media (min-width: 768px) {
+  .md\:gap-4 { gap: var(--space-4); }
+  .md\:gap-6 { gap: var(--space-6); }
+  .md\:gap-8 { gap: var(--space-8); }
+}
+
+@media (min-width: 1024px) {
+  .lg\:gap-6 { gap: var(--space-6); }
+  .lg\:gap-8 { gap: var(--space-8); }
+  .lg\:gap-10 { gap: var(--space-10); }
+}
+
+/* ----------------------------------------
+   Responsive Spacing Utilities
+   ---------------------------------------- */
+
+/* Padding */
+.p-0 { padding: 0; }
+.p-2 { padding: var(--space-2); }
+.p-3 { padding: var(--space-3); }
+.p-4 { padding: var(--space-4); }
+.p-5 { padding: var(--space-5); }
+.p-6 { padding: var(--space-6); }
+.p-8 { padding: var(--space-8); }
+
+.px-4 { padding-inline: var(--space-4); }
+.px-6 { padding-inline: var(--space-6); }
+.py-4 { padding-block: var(--space-4); }
+.py-6 { padding-block: var(--space-6); }
+
+@media (min-width: 576px) {
+  .sm\:p-4 { padding: var(--space-4); }
+  .sm\:p-6 { padding: var(--space-6); }
+  .sm\:px-6 { padding-inline: var(--space-6); }
+  .sm\:py-6 { padding-block: var(--space-6); }
+}
+
+@media (min-width: 768px) {
+  .md\:p-6 { padding: var(--space-6); }
+  .md\:p-8 { padding: var(--space-8); }
+  .md\:px-8 { padding-inline: var(--space-8); }
+  .md\:py-8 { padding-block: var(--space-8); }
+}
+
+@media (min-width: 1024px) {
+  .lg\:p-8 { padding: var(--space-8); }
+  .lg\:p-10 { padding: var(--space-10); }
+}
+
+/* Margin */
+.m-auto { margin: auto; }
+.mx-auto { margin-inline: auto; }
+.my-auto { margin-block: auto; }
+
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-3 { margin-bottom: var(--space-3); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-6 { margin-bottom: var(--space-6); }
+.mb-8 { margin-bottom: var(--space-8); }
+
+.mt-4 { margin-top: var(--space-4); }
+.mt-6 { margin-top: var(--space-6); }
+.mt-8 { margin-top: var(--space-8); }
+
+/* ----------------------------------------
+   Responsive Text Utilities
+   ---------------------------------------- */
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+@media (min-width: 576px) {
+  .sm\:text-left { text-align: left; }
+  .sm\:text-center { text-align: center; }
+}
+
+@media (min-width: 768px) {
+  .md\:text-left { text-align: left; }
+  .md\:text-center { text-align: center; }
+}
+
+/* Responsive font sizes */
+.text-sm { font-size: var(--font-size-sm); }
+.text-base { font-size: var(--font-size-base); }
+.text-lg { font-size: var(--font-size-lg); }
+.text-xl { font-size: var(--font-size-xl); }
+.text-2xl { font-size: var(--font-size-2xl); }
+.text-3xl { font-size: var(--font-size-3xl); }
+.text-4xl { font-size: var(--font-size-4xl); }
+
+/* ----------------------------------------
+   Responsive Width Utilities
+   ---------------------------------------- */
+
+.w-full { width: 100%; }
+.w-auto { width: auto; }
+.max-w-full { max-width: 100%; }
+
+@media (min-width: 576px) {
+  .sm\:w-auto { width: auto; }
+  .sm\:w-1\/2 { width: 50%; }
+}
+
+@media (min-width: 768px) {
+  .md\:w-auto { width: auto; }
+  .md\:w-1\/2 { width: 50%; }
+  .md\:w-1\/3 { width: 33.333333%; }
+}
+
+@media (min-width: 1024px) {
+  .lg\:w-auto { width: auto; }
+  .lg\:w-1\/3 { width: 33.333333%; }
+  .lg\:w-1\/4 { width: 25%; }
+}
+
+/* ----------------------------------------
+   Stack Layout (Vertical Rhythm)
+   ---------------------------------------- */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.stack > * + * {
+  margin-top: var(--stack-space, var(--space-4));
+}
+
+.stack-sm { --stack-space: var(--space-2); }
+.stack-md { --stack-space: var(--space-4); }
+.stack-lg { --stack-space: var(--space-6); }
+.stack-xl { --stack-space: var(--space-8); }
+
+/* ----------------------------------------
+   Cluster Layout (Horizontal Groups)
+   ---------------------------------------- */
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cluster-space, var(--space-4));
+  align-items: center;
+}
+
+.cluster-sm { --cluster-space: var(--space-2); }
+.cluster-md { --cluster-space: var(--space-4); }
+.cluster-lg { --cluster-space: var(--space-6); }
+
+/* ----------------------------------------
+   Card Layout Patterns
+   ---------------------------------------- */
+
+/* Full width on mobile, cards on larger screens */
+.card-layout {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 576px) {
+  .card-layout {
+    gap: var(--space-6);
+  }
+}
+
+@media (min-width: 768px) {
+  .card-layout {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-layout {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ----------------------------------------
+   Sticky Header Support
+   ---------------------------------------- */
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  background: var(--bg-surface);
+}
+
+/* Account for header height on scroll targets */
+.scroll-offset {
+  scroll-margin-top: calc(var(--header-height) + var(--space-4));
+}
+
+/* ----------------------------------------
+   Touch-friendly Adjustments
+   ---------------------------------------- */
+
+@media (pointer: coarse) {
+  /* Larger tap targets on touch devices - height only */
+  button,
+  [role="button"],
+  a[href] {
+    min-height: 48px;
+  }
+
+  /* More spacing between interactive elements */
+  .touch-spacing > * + * {
+    margin-top: var(--space-3);
+  }
+}
+
+/* ----------------------------------------
+   Safe Area Insets (Notched Devices)
+   ---------------------------------------- */
+
+.safe-area-inset {
+  padding-left: env(safe-area-inset-left, 0);
+  padding-right: env(safe-area-inset-right, 0);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.safe-bottom {
+  padding-bottom: max(var(--space-4), env(safe-area-inset-bottom, var(--space-4)));
+}
+
+/* ----------------------------------------
+   Landscape Orientation
+   ---------------------------------------- */
+
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Reduce vertical spacing in landscape mobile */
+  .landscape-compact {
+    --space-component-lg: var(--space-3);
+    --space-layout-md: var(--space-4);
+  }
+}
