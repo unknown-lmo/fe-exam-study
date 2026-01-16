@@ -283,27 +283,38 @@ frontend/src/
 
 ## 実装フェーズ
 
-### Phase 1: 基盤整備
-- [ ] CSS変数の整理・統一
-- [ ] ブレークポイントの定義
-- [ ] 共通コンポーネントのサイズ調整
+### Phase 1: 基盤整備 ✅ 完了
+- [x] CSS変数の整理・統一（`styles/variables.css` - 60個以上のCSS変数）
+- [x] ブレークポイントの定義（`styles/responsive.css` - 576px/768px/1024px）
+- [x] アクセシビリティ対応（`styles/reset.css` - フォーカスリング、reduced motion）
 
-### Phase 2: メニュー画面改善
-- [ ] レイアウト再設計
-- [ ] ボタンサイズ・間隔調整
-- [ ] ヘッダー統一
+### Phase 2: 共通コンポーネント ✅ 完了
+- [x] Buttonコンポーネント（variant/size/color/fullWidth/active/loading）
+- [x] Cardコンポーネント（variant/padding/clickable）
+- [x] CardHeader/CardBody/CardFooterサブコンポーネント
 
-### Phase 3: クイズ画面改善
-- [ ] 選択肢ボタン改善
-- [ ] 問題表示エリア最適化
-- [ ] フィードバック表示改善
+### Phase 3: メニュー画面改善 ✅ 完了
+- [x] Menuコンポーネント分離（`components/Menu.tsx`）
+- [x] CSS Modules化（`components/Menu.module.css`）
+- [x] レスポンシブ対応（タブレット2列、PC3列）
+- [x] アクションボタンにアイコン追加
 
-### Phase 4: その他画面
+### Phase 4: クイズ画面改善 ✅ 部分完了
+- [x] 選択肢ボタン改善（min-height: 56px）
+- [x] Quiz.module.css作成（将来の完全移行用）
+- [ ] Quiz.tsxのCSS Modules移行（複雑なため延期）
+
+### Phase 5: その他画面 🔲 未着手
 - [ ] 問題一覧
 - [ ] 用語集
 - [ ] 進捗・履歴
 
-### Phase 5: PWA対応（将来）
+### Phase 6: 最終調整・テスト 🔲 未着手
+- [ ] クロスブラウザテスト
+- [ ] アクセシビリティ監査
+- [ ] 古いApp.cssの段階的削除
+
+### Phase 7: PWA対応（将来）
 - [ ] Service Worker導入
 - [ ] マニフェスト設定
 - [ ] オフラインキャッシュ
@@ -323,3 +334,4 @@ frontend/src/
 | 日付 | 内容 |
 |------|------|
 | 2026/01/15 | 初版作成 |
+| 2026/01/16 | Phase 1-4実装進捗を更新 |
