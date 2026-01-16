@@ -3,6 +3,7 @@ import { fetchQuestionsList, fetchCategories } from '../api';
 import { DIFFICULTY_LABELS } from '../constants';
 import { useDebounce } from '../hooks/useDebounce';
 import type { Category, CategoryId, Difficulty, QuestionListItem, QuestionStatus } from '../types';
+import styles from './QuestionList.module.css';
 
 interface QuestionFilter {
   category: CategoryId | null;
@@ -97,29 +98,29 @@ function QuestionList({ onSelectQuestion, onBack }: QuestionListProps) {
   }), [filteredQuestions]);
 
   if (loading) {
-    return <div className="question-list-loading">読み込み中...</div>;
+    return <div className={styles.loading}>読み込み中...</div>;
   }
 
   return (
-    <div className="question-list">
-      <div className="question-list-header">
-        <h2>問題一覧</h2>
-        <div className="question-list-stats">
-          <span className="stat-item">全{stats.total}問</span>
-          <span className="stat-item correct">○{stats.correct}</span>
-          <span className="stat-item incorrect">×{stats.incorrect}</span>
-          <span className="stat-item unanswered">●{stats.unanswered}</span>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h2 className={styles.title}>問題一覧</h2>
+        <div className={styles.stats}>
+          <span className={styles.statItem}>全{stats.total}問</span>
+          <span className={`${styles.statItem} ${styles.statCorrect}`}>○{stats.correct}</span>
+          <span className={`${styles.statItem} ${styles.statIncorrect}`}>×{stats.incorrect}</span>
+          <span className={`${styles.statItem} ${styles.statUnanswered}`}>●{stats.unanswered}</span>
         </div>
       </div>
 
-      <div className="question-list-filters">
-        <div className="filter-row">
-          <span className="filter-label">カテゴリ:</span>
-          <div className="filter-buttons">
+      <div className={styles.filters}>
+        <div className={styles.filterRow}>
+          <span className={styles.filterLabel}>カテゴリ:</span>
+          <div className={styles.filterButtons}>
             {categories.map(cat => (
               <button
                 key={cat.id}
-                className={`filter-button ${filter.category === cat.id ? 'active' : ''}`}
+                className={`${styles.filterButton} ${filter.category === cat.id ? styles.active : ''}`}
                 onClick={() => handleFilterChange('category', cat.id)}
               >
                 {cat.name}
@@ -128,13 +129,13 @@ function QuestionList({ onSelectQuestion, onBack }: QuestionListProps) {
           </div>
         </div>
 
-        <div className="filter-row">
-          <span className="filter-label">難易度:</span>
-          <div className="filter-buttons">
+        <div className={styles.filterRow}>
+          <span className={styles.filterLabel}>難易度:</span>
+          <div className={styles.filterButtons}>
             {(['easy', 'medium', 'hard'] as Difficulty[]).map(diff => (
               <button
                 key={diff}
-                className={`filter-button difficulty-${diff} ${filter.difficulty === diff ? 'active' : ''}`}
+                className={`${styles.filterButton} ${styles[`difficulty${diff.charAt(0).toUpperCase() + diff.slice(1)}`]} ${filter.difficulty === diff ? styles.active : ''}`}
                 onClick={() => handleFilterChange('difficulty', diff)}
               >
                 {DIFFICULTY_LABELS[diff]}
@@ -143,28 +144,29 @@ function QuestionList({ onSelectQuestion, onBack }: QuestionListProps) {
           </div>
         </div>
 
-        <form className="search-form" onSubmit={handleSearch}>
+        <form className={styles.searchForm} onSubmit={handleSearch}>
           <input
             type="text"
+            className={styles.searchInput}
             placeholder="キーワードで検索..."
             value={filter.search}
             onChange={e => setFilter(prev => ({ ...prev, search: e.target.value }))}
             aria-label="問題をキーワードで検索"
           />
-          <button type="submit">検索</button>
+          <button type="submit" className={styles.searchButton}>検索</button>
         </form>
       </div>
 
-      <div className="question-list-items">
+      <div className={styles.list}>
         {filteredQuestions.length === 0 ? (
-          <div className="question-list-empty">
+          <div className={styles.empty}>
             該当する問題がありません
           </div>
         ) : (
           filteredQuestions.map(q => (
             <div
               key={q.id}
-              className={`question-list-item status-${q.status}`}
+              className={`${styles.item} ${styles[`status${q.status.charAt(0).toUpperCase() + q.status.slice(1)}`]}`}
               role="button"
               tabIndex={0}
               onClick={() => onSelectQuestion(q.id)}
@@ -175,24 +177,26 @@ function QuestionList({ onSelectQuestion, onBack }: QuestionListProps) {
                 }
               }}
             >
-              <span className={`status-icon ${q.status}`}>
+              <span className={`${styles.statusIcon} ${styles[q.status]}`}>
                 {STATUS_ICONS[q.status]}
               </span>
-              <span className={`difficulty-badge ${q.difficulty}`}>
+              <span className={`${styles.difficultyBadge} ${styles[q.difficulty]}`}>
                 {DIFFICULTY_LABELS[q.difficulty]}
               </span>
-              <div className="question-info">
-                <span className="question-id">{q.id}</span>
-                <span className="question-category">{q.subcategory}</span>
+              <div className={styles.itemContent}>
+                <p className={styles.itemQuestion}>{q.question}</p>
+                <div className={styles.itemMeta}>
+                  <span>{q.id}</span>
+                  <span>{q.subcategory}</span>
+                </div>
               </div>
-              <p className="question-text">{q.question}</p>
             </div>
           ))
         )}
       </div>
 
-      <div className="question-list-actions">
-        <button onClick={onBack}>メニューに戻る</button>
+      <div className={styles.actions}>
+        <button className={styles.backButton} onClick={onBack}>メニューに戻る</button>
       </div>
     </div>
   );
