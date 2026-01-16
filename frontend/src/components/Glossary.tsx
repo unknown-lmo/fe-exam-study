@@ -3,6 +3,7 @@ import { fetchGlossary } from '../api';
 import { CATEGORY_NAMES } from '../constants';
 import { useDebounce } from '../hooks/useDebounce';
 import type { GlossaryTerm, CategoryId, Character, PresenterMode } from '../types';
+import styles from './Glossary.module.css';
 
 interface GlossaryProps {
   onBack: () => void;
@@ -62,17 +63,17 @@ function Glossary({
   }, [terms, debouncedSearchText]);
 
   if (loading) {
-    return <div className="glossary-loading">読み込み中...</div>;
+    return <div className={styles.loading}>読み込み中...</div>;
   }
 
   return (
-    <div className="glossary">
-      <h2>用語集</h2>
+    <div className={styles.container}>
+      <h2 className={styles.title}>用語集</h2>
 
-      <div className="glossary-filters">
-        <div className="category-filter">
+      <div className={styles.filters}>
+        <div className={styles.categoryFilter}>
           <button
-            className={selectedCategory === null ? 'active' : ''}
+            className={`${styles.categoryButton} ${selectedCategory === null ? styles.active : ''}`}
             onClick={() => setSelectedCategory(null)}
           >
             すべて
@@ -80,7 +81,7 @@ function Glossary({
           {(Object.entries(CATEGORY_NAMES) as [CategoryId, string][]).map(([key, name]) => (
             <button
               key={key}
-              className={selectedCategory === key ? 'active' : ''}
+              className={`${styles.categoryButton} ${selectedCategory === key ? styles.active : ''}`}
               onClick={() => setSelectedCategory(key)}
             >
               {name}
@@ -88,9 +89,10 @@ function Glossary({
           ))}
         </div>
 
-        <div className="search-box">
+        <div className={styles.searchBox}>
           <input
             type="text"
+            className={styles.searchInput}
             placeholder="用語を検索..."
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
@@ -99,17 +101,17 @@ function Glossary({
         </div>
       </div>
 
-      <div className="glossary-list">
+      <div className={styles.list}>
         {filteredTerms.length === 0 ? (
-          <p className="glossary-empty">該当する用語がありません</p>
+          <p className={styles.empty}>該当する用語がありません</p>
         ) : (
           filteredTerms.map(term => (
             <div
               key={term.id}
-              className={`glossary-item ${expandedTerm === term.id ? 'expanded' : ''}`}
+              className={`${styles.item} ${expandedTerm === term.id ? styles.expanded : ''}`}
             >
               <div
-                className="glossary-header"
+                className={styles.itemHeader}
                 role="button"
                 tabIndex={0}
                 onClick={() => setExpandedTerm(expandedTerm === term.id ? null : term.id)}
@@ -121,25 +123,25 @@ function Glossary({
                 }}
                 aria-expanded={expandedTerm === term.id}
               >
-                <div className="term-main">
-                  <span className="term-name">{term.term}</span>
+                <div className={styles.termMain}>
+                  <span className={styles.termName}>{term.term}</span>
                   {term.fullName && (
-                    <span className="term-fullname">({term.fullName})</span>
+                    <span className={styles.termFullname}>({term.fullName})</span>
                   )}
                 </div>
-                <div className="term-meaning">{term.meaning}</div>
-                <span className="expand-icon">{expandedTerm === term.id ? '▼' : '▶'}</span>
+                <div className={styles.termMeaning}>{term.meaning}</div>
+                <span className={styles.expandIcon}>{expandedTerm === term.id ? '▼' : '▶'}</span>
               </div>
 
               {expandedTerm === term.id && (
-                <div className="glossary-detail">
-                  <div className="detail-section">
+                <div className={styles.detail}>
+                  <div className={styles.detailSection}>
                     <h4>説明</h4>
                     <p>{transformExplanation(term.description)}</p>
                   </div>
 
                   {term.examples && term.examples.length > 0 && (
-                    <div className="detail-section">
+                    <div className={styles.detailSection}>
                       <h4>具体例</h4>
                       <ul>
                         {term.examples.map((ex, i) => (
@@ -150,24 +152,24 @@ function Glossary({
                   )}
 
                   {term.tips && (
-                    <div className="detail-section tips">
+                    <div className={`${styles.detailSection} ${styles.tips}`}>
                       <h4>覚え方のコツ</h4>
                       <p>{transformExplanation(term.tips)}</p>
                     </div>
                   )}
 
                   {term.relatedTerms && term.relatedTerms.length > 0 && (
-                    <div className="detail-section">
+                    <div className={styles.detailSection}>
                       <h4>関連用語</h4>
-                      <div className="related-terms">
+                      <div className={styles.relatedTerms}>
                         {term.relatedTerms.map((rt, i) => (
-                          <span key={i} className="related-tag">{rt}</span>
+                          <span key={i} className={styles.relatedTag}>{rt}</span>
                         ))}
                       </div>
                     </div>
                   )}
 
-                  <div className="term-category-badge">
+                  <div className={styles.categoryBadge}>
                     {CATEGORY_NAMES[term.category]} / {term.subcategory}
                   </div>
                 </div>
@@ -177,8 +179,8 @@ function Glossary({
         )}
       </div>
 
-      <div className="glossary-actions">
-        <button onClick={onBack}>{backLabel}</button>
+      <div className={styles.actions}>
+        <button className={styles.backButton} onClick={onBack}>{backLabel}</button>
       </div>
     </div>
   );
